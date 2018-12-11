@@ -28,7 +28,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MethodHandles.lookup().lookupClass().getResource(path));
-            Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+            Scene scene = new Scene(fxmlLoader.load());
             Main.getPrimaryStage().setTitle(title);
             Main.getPrimaryStage().setScene(scene);
         } catch (IOException e) {
@@ -42,9 +42,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/LoginWindow/Login.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 400, 500));
+        primaryStage.setTitle("Witaj!");
+        primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 

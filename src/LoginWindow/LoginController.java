@@ -16,11 +16,13 @@ public class LoginController {
 
 
     @FXML
-    private Button LogIn;
+    private Button exitButton;
     @FXML
     private PasswordField PasswordField;
     @FXML
     private TextField LoginField;
+    @FXML
+    private Button LogInButton;
 
     @FXML
     void logIn(ActionEvent event) {
@@ -43,10 +45,12 @@ public class LoginController {
         } else {
             System.out.println("Error!");
         }
-
-
     }
 
+    @FXML
+    void exitApp(ActionEvent event){
+        System.exit(0);
+    }
 }
 
 
