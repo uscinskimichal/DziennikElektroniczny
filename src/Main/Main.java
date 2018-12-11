@@ -24,7 +24,7 @@ public class Main extends Application {
     }
 
 
-    public static void changeScene(String path, String title){
+    public static void changeScene(String path, String title) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MethodHandles.lookup().lookupClass().getResource(path));
@@ -37,6 +37,7 @@ public class Main extends Application {
 
 
     }
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
