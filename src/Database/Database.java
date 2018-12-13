@@ -6,12 +6,9 @@ import java.util.ArrayList;
 public class Database implements Runnable {
 
     private static Connection connection ;
-
     private static Statement statement;
-
     private static ResultSet resultSet;
-
-    public static boolean isConnected=false;
+    public static boolean isConnected;
 
     @Override
     public void run() {

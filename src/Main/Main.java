@@ -7,8 +7,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -42,6 +40,7 @@ public class Main extends Application implements Runnable{
 
     private static void connectingThread(){
         Database.connectToTheDatabase();
+        if(LoginController.newWindow!=null)
         Platform.runLater(
                 () -> LoginController.newWindow.close()
         );

@@ -4,18 +4,20 @@ package LoginWindow;
 import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.util.ArrayList;
 
 
 public class LoginController {
 
+    public static Stage newWindow;
     @FXML
     private Button exitButton;
     @FXML
@@ -24,7 +26,11 @@ public class LoginController {
     private TextField LoginField;
     @FXML
     private Button LogInButton;
-    public static Stage newWindow = new Stage();
+
+    @FXML
+    void exitApp(ActionEvent event) {
+        System.exit(0);
+    }
 
     private void popAlert(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -38,17 +44,19 @@ public class LoginController {
     @FXML
     void logIn(ActionEvent event) {
 
-
-        if (!Database.isConnected) {
-            newWindow.initStyle(StageStyle.UNDECORATED);
-            newWindow.initModality(Modality.APPLICATION_MODAL);
-            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", newWindow);
-            newWindow.showAndWait();
-        }
-
         if (LoginField.getText().isEmpty()) {
             popAlert("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
             return;
+        }
+
+        if (!Database.isConnected) {
+            newWindow = new Stage();
+            newWindow.initStyle(StageStyle.UNDECORATED);
+            newWindow.initModality(Modality.APPLICATION_MODAL);
+            Platform.setImplicitExit(false);
+            newWindow.setOnCloseRequest(Event::consume);
+            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", newWindow);
+            newWindow.showAndWait();
         }
 
         ArrayList<String> userInfo = Database.getUserInfo(LoginField.getText());
@@ -61,19 +69,14 @@ public class LoginController {
                 UserLoggedIn.Plec = userInfo.get(4);
                 UserLoggedIn.Uprawnienia = userInfo.get(5);
                 UserLoggedIn.Status = userInfo.get(6);
-                Main.changeScene("/LoginWindow/Login.fxml", "Witaj!", Main.getPrimaryStage());
+                Main.changeScene("/LoginWindow/Login.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0))) {
                 popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
             }
-        }  else {
+        } else {
             popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
         }
-    }
-
-    @FXML
-    void exitApp(ActionEvent event) {
-        System.exit(0);
     }
 
 }
