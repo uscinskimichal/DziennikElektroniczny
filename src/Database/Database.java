@@ -11,7 +11,7 @@ public class Database implements Runnable {
 
     private static ResultSet resultSet;
 
-
+    public static boolean isConnected=false;
 
     @Override
     public void run() {
@@ -25,6 +25,7 @@ public class Database implements Runnable {
             connection = DriverManager.getConnection(
                     "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", "databaseuser", "prz_wat1");
             System.out.println("Connected!");
+            Database.isConnected=true;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -38,6 +39,7 @@ public class Database implements Runnable {
                 resultSet.close();
             if (connection != null)
                 connection.close();
+                isConnected=false;
             System.out.println("Disconnected!");
 
         } catch (SQLException e) {
