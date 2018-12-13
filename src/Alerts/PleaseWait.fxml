@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="184.0" prefWidth="372.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" >
+<AnchorPane prefHeight="184.0" prefWidth="372.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.172-ea">
    <children>
       <Label layoutX="30.0" layoutY="26.0" prefHeight="73.0" prefWidth="178.0" text="Proszę czekać ..." textFill="#9e9c95">
          <font>
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="30.0" layoutY="92.0" prefHeight="73.0" prefWidth="310.0" text="Trwa łączenie z baza danych" textFill="#9e9c95">
+      <Label layoutX="30.0" layoutY="92.0" prefHeight="73.0" prefWidth="310.0" text="Trwa łączenie z bazą danych" textFill="#9e9c95">
          <font>
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="73.0" fitWidth="76.0" layoutX="228.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="113.0" fitWidth="139.0" layoutX="208.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="file:./resources/images/Wait.gif" />
+            <Image url="file:./resources/images/Loading.gif" />
          </image>
       </ImageView>
    </children>

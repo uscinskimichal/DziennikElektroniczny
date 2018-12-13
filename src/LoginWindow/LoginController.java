@@ -32,7 +32,7 @@ public class LoginController {
         System.exit(0);
     }
 
-    private void popAlert(String title, String headerText, String contentText) {
+    private void popAlertError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
@@ -40,24 +40,26 @@ public class LoginController {
         alert.showAndWait();
     }
 
+    private void popPleaseWait(){
+        pleaseWaitWindow = new Stage();
+        pleaseWaitWindow.initStyle(StageStyle.UNDECORATED);
+        pleaseWaitWindow.initModality(Modality.APPLICATION_MODAL);
+        pleaseWaitWindow.setOnCloseRequest(Event::consume);
+        Platform.setImplicitExit(false);
+        Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
+        pleaseWaitWindow.showAndWait();
+    }
 
     @FXML
     void logIn(ActionEvent event) {
 
         if (LoginField.getText().isEmpty()) {
-            popAlert("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
+            popAlertError("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
             return;
         }
 
-        if (!Database.isConnected) {
-            pleaseWaitWindow = new Stage();
-            pleaseWaitWindow.initStyle(StageStyle.UNDECORATED);
-            pleaseWaitWindow.initModality(Modality.APPLICATION_MODAL);
-            Platform.setImplicitExit(false);
-            pleaseWaitWindow.setOnCloseRequest(Event::consume);
-            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
-            pleaseWaitWindow.showAndWait();
-        }
+        if (!Database.isConnected)
+            popPleaseWait();
 
         ArrayList<String> userInfo = Database.getUserInfo(LoginField.getText());
         if (userInfo.size() != 0) {
@@ -71,14 +73,10 @@ public class LoginController {
                 UserLoggedIn.Status = userInfo.get(6);
                 Main.changeScene("/LoginWindow/Login.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
-            } else if (LoginField.getText().equals(userInfo.get(0))) {
-                popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
-            }
-        } else {
-            popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
-        }
+            } else if (LoginField.getText().equals(userInfo.get(0)))
+                popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
+        } else popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
     }
-
 }
 
 
