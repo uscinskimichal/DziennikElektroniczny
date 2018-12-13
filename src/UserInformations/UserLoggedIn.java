@@ -2,11 +2,11 @@ package UserInformations;
 
 public class UserLoggedIn {
     public static String Login;
-    public static String Haslo;
-    public static String Imie;
-    public static String Nazwisko;
-    public static String Plec;
-    public static String Uprawnienia;
+    public static String Password;
+    public static String Name;
+    public static String Surname;
+    public static String Sex;
+    public static String Permission;
     public static String Status;
 
 }

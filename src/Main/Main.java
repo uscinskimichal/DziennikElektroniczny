@@ -40,12 +40,11 @@ public class Main extends Application implements Runnable{
 
     private static void connectingThread(){
         Database.connectToTheDatabase();
-        if(LoginController.newWindow!=null)
+        if(LoginController.pleaseWaitWindow!=null)
         Platform.runLater(
-                () -> LoginController.newWindow.close()
+                () -> LoginController.pleaseWaitWindow.close()
         );
     }
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -58,12 +57,10 @@ public class Main extends Application implements Runnable{
         primaryStage.show();
     }
 
-
     public static void main(String[] args) {
         new Thread(Main::connectingThread).start();
         launch();
     }
-
 
     @Override
     public void run() {

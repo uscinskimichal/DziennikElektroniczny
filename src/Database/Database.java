@@ -14,7 +14,6 @@ public class Database implements Runnable {
     public void run() {
     }
 
-
     static public void connectToTheDatabase() {
 
         try {
@@ -44,17 +43,16 @@ public class Database implements Runnable {
         }
     }
 
-    public static void addPerson(String login, String password, String name, String surname, String sex, String access, String status) {
+    public static void addPerson(String login, String password, String name, String surname, String sex, String permission, String status) {
         try {
             statement = connection.createStatement();
             statement.executeUpdate("INSERT INTO Osoba VALUES ('" + login + "','"
-                    + password + "','" + name + "','" + surname + "','" + sex + "','" + access + "','" + status + "')");
+                    + password + "','" + name + "','" + surname + "','" + sex + "','" + permission + "','" + status + "')");
             System.out.println("Person added!");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-
 
     public static ArrayList<String> getUserInfo(String login) {
         ArrayList<String> userInfo = new ArrayList<>();

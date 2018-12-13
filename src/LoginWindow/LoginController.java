@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class LoginController {
 
-    public static Stage newWindow;
+    public static Stage pleaseWaitWindow;
     @FXML
     private Button exitButton;
     @FXML
@@ -50,24 +50,24 @@ public class LoginController {
         }
 
         if (!Database.isConnected) {
-            newWindow = new Stage();
-            newWindow.initStyle(StageStyle.UNDECORATED);
-            newWindow.initModality(Modality.APPLICATION_MODAL);
+            pleaseWaitWindow = new Stage();
+            pleaseWaitWindow.initStyle(StageStyle.UNDECORATED);
+            pleaseWaitWindow.initModality(Modality.APPLICATION_MODAL);
             Platform.setImplicitExit(false);
-            newWindow.setOnCloseRequest(Event::consume);
-            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", newWindow);
-            newWindow.showAndWait();
+            pleaseWaitWindow.setOnCloseRequest(Event::consume);
+            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
+            pleaseWaitWindow.showAndWait();
         }
 
         ArrayList<String> userInfo = Database.getUserInfo(LoginField.getText());
         if (userInfo.size() != 0) {
             if (userInfo.get(1).equals(PasswordField.getText())) {
                 UserLoggedIn.Login = userInfo.get(0);
-                UserLoggedIn.Haslo = userInfo.get(1);
-                UserLoggedIn.Imie = userInfo.get(2);
-                UserLoggedIn.Nazwisko = userInfo.get(3);
-                UserLoggedIn.Plec = userInfo.get(4);
-                UserLoggedIn.Uprawnienia = userInfo.get(5);
+                UserLoggedIn.Password = userInfo.get(1);
+                UserLoggedIn.Name = userInfo.get(2);
+                UserLoggedIn.Surname = userInfo.get(3);
+                UserLoggedIn.Sex = userInfo.get(4);
+                UserLoggedIn.Permission = userInfo.get(5);
                 UserLoggedIn.Status = userInfo.get(6);
                 Main.changeScene("/LoginWindow/Login.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
