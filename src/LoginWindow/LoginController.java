@@ -14,8 +14,7 @@ import javafx.stage.StageStyle;
 import java.util.ArrayList;
 
 
-
-public class LoginController{
+public class LoginController {
 
     @FXML
     private Button exitButton;
@@ -27,6 +26,14 @@ public class LoginController{
     private Button LogInButton;
     public static Stage newWindow = new Stage();
 
+    private void popAlert(String title, String headerText, String contentText) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.showAndWait();
+    }
+
 
     @FXML
     void logIn(ActionEvent event) {
@@ -35,8 +42,13 @@ public class LoginController{
         if (!Database.isConnected) {
             newWindow.initStyle(StageStyle.UNDECORATED);
             newWindow.initModality(Modality.APPLICATION_MODAL);
-            Main.changeScene("/Alerts/PleaseWait.fxml","Please wait...",newWindow);
+            Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", newWindow);
             newWindow.showAndWait();
+        }
+
+        if (LoginField.getText().isEmpty()) {
+            popAlert("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
+            return;
         }
 
         ArrayList<String> userInfo = Database.getUserInfo(LoginField.getText());
@@ -51,11 +63,12 @@ public class LoginController{
                 UserLoggedIn.Status = userInfo.get(6);
                 Main.changeScene("/LoginWindow/Login.fxml", "Witaj!", Main.getPrimaryStage());
                 System.out.println("Success");
-            } else if (LoginField.getText().equals(userInfo.get(0)))
-                System.out.println("Error: Password or login is incorrect");
-        } else if (LoginField.getText().isEmpty()) {
-            System.out.println("Error: Login can't be null");
-        } else System.out.println("Error: Password or login is incorrect");
+            } else if (LoginField.getText().equals(userInfo.get(0))) {
+                popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
+            }
+        }  else {
+            popAlert("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
+        }
     }
 
     @FXML

@@ -40,21 +40,6 @@ public class Main extends Application implements Runnable{
 
     }
 
-    public static Stage popAWindow(String title, String message){
-        Label secondLabel = new Label(message);
-        StackPane secondaryLayout = new StackPane();
-        secondaryLayout.getChildren().add(secondLabel);
-        Scene secondScene = new Scene(secondaryLayout, 300, 180);
-        Stage newWindow = new Stage();
-        newWindow.setTitle(title);
-        newWindow.setScene(secondScene);
-        newWindow.setX(primaryStage.getX() + 200);
-        newWindow.setY(primaryStage.getY() + 100);
-        //newWindow.showAndWait();
-        return newWindow;
-    }
-
-
     private static void connectingThread(){
         Database.connectToTheDatabase();
         Platform.runLater(
@@ -63,12 +48,11 @@ public class Main extends Application implements Runnable{
     }
 
 
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/LoginWindow/Login.fxml"));
-        primaryStage.setTitle("Witaj!");
+        primaryStage.setTitle("Dziennik Elektroniczny");
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setResizable(false);
@@ -77,11 +61,8 @@ public class Main extends Application implements Runnable{
 
 
     public static void main(String[] args) {
-
-
         new Thread(Main::connectingThread).start();
         launch();
-
     }
 
 
