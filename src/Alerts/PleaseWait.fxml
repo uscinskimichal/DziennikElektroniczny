@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="184.0" prefWidth="372.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8.0.172-ea">
+<AnchorPane prefHeight="184.0" prefWidth="372.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="30.0" layoutY="26.0" prefHeight="73.0" prefWidth="178.0" text="Proszę czekać ..." textFill="#9e9c95">
          <font>
@@ -18,10 +17,7 @@
             <Font name="Book Antiqua" size="24.0" />
          </font>
       </Label>
-      <ImageView fitHeight="113.0" fitWidth="139.0" layoutX="208.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="file:./resources/images/Loading.gif" />
-         </image>
-      </ImageView>
+      <JFXSpinner layoutX="246.0" layoutY="29.0" radius="30.0" />
+      <JFXDrawer layoutX="186.0" layoutY="14.0" prefHeight="48.0" prefWidth="60.0" />
    </children>
 </AnchorPane>

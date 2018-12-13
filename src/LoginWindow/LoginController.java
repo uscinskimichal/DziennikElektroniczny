@@ -17,7 +17,11 @@ import java.util.ArrayList;
 
 public class LoginController {
 
-    public static Stage pleaseWaitWindow;
+    private static Stage pleaseWaitWindow;
+    public static Stage getPleaseWaitWindow() {
+        return LoginController.pleaseWaitWindow;
+    }
+
     @FXML
     private Button exitButton;
     @FXML
@@ -71,7 +75,7 @@ public class LoginController {
                 UserLoggedIn.Sex = userInfo.get(4);
                 UserLoggedIn.Permission = userInfo.get(5);
                 UserLoggedIn.Status = userInfo.get(6);
-                Main.changeScene("/LoginWindow/Login.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+                Main.changeScene("/MainWindow/MainWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0)))
                 popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");

@@ -40,9 +40,9 @@ public class Main extends Application implements Runnable{
 
     private static void connectingThread(){
         Database.connectToTheDatabase();
-        if(LoginController.pleaseWaitWindow!=null)
+        if(LoginController.getPleaseWaitWindow()!=null)
         Platform.runLater(
-                () -> LoginController.pleaseWaitWindow.close()
+                () -> LoginController.getPleaseWaitWindow().close()
         );
     }
 
