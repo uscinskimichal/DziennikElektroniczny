@@ -11,9 +11,9 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" style="-fx-background-color: #112472;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="LoginWindow.LoginController">
    <children>
          <ImageView fitHeight="165.0" fitWidth="201.0" layoutX="217.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-                  <Image url="file:./resources/images/computer.png" />
-            </image>
+         <image>
+             <Image url="file:./resources/images/computer.png" />
+         </image>
          </ImageView>
          <Label layoutX="127.0" layoutY="193.0" prefHeight="52.0" prefWidth="347.0" text="Dziennik elektroniczny" textAlignment="CENTER" textFill="#9e9c95">
             <font>
