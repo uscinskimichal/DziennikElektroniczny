@@ -14,21 +14,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class MessageWindowController implements Initializable {
 
-
     public ObservableList<Message> messagesReceived = Database.returnReceivedMessages();
     public ObservableList<Message> messagesSent = Database.returnSentMessages();
     public Message selectedItem = null;
-
 
     @FXML
     private Label header;
@@ -104,18 +100,17 @@ public class MessageWindowController implements Initializable {
                 if (event.getClickCount() == 2) {
                     selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
                     if (selectedItem == null) return;
-                    else
+                    else {
                         try {
                             createMessageWindow(selectedItem);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
                 }
             });
         }
     }
-
-
 
     private boolean popAlertConfirmation(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -129,7 +124,6 @@ public class MessageWindowController implements Initializable {
             return true;
         }
     }
-
 
     @FXML
     private void deleteMessage() {
@@ -157,7 +151,6 @@ public class MessageWindowController implements Initializable {
 
     }
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -171,9 +164,7 @@ public class MessageWindowController implements Initializable {
         dateColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
         tableViewSent.setItems(messagesSent);
 
-        header.setText(UserLoggedIn.Name + " , " + UserLoggedIn.Surname + " <" + Database.getUserClass() + ">");
-
-
+        header.setText(UserLoggedIn.Name + " , " + UserLoggedIn.Surname + " <" + UserLoggedIn.Class + ">");
     }
 
 }

@@ -1,6 +1,5 @@
 package LoginWindow;
 
-
 import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
@@ -13,8 +12,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import java.util.ArrayList;
-import java.util.Optional;
-
 
 public class LoginController {
 
@@ -36,10 +33,6 @@ public class LoginController {
     void exitApp(ActionEvent event) {
         System.exit(0);
     }
-
-
-
-
 
     private void popAlertError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -80,6 +73,7 @@ public class LoginController {
                 UserLoggedIn.Sex = userInfo.get(4);
                 UserLoggedIn.Permission = userInfo.get(5);
                 UserLoggedIn.Status = userInfo.get(6);
+                UserLoggedIn.Class=Database.getUserClass();
                 Main.changeScene("/MessageWindow/MessageWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0)))

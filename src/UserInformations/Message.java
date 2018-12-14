@@ -55,7 +55,6 @@ public class Message {
         return data;
     }
 
-
     public void setId(int id) {
         this.id = id;
     }

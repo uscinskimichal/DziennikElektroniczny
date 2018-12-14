@@ -1,7 +1,5 @@
 package UserInformations;
 
-import java.util.ArrayList;
-
 public class UserLoggedIn {
     public static String Login;
     public static String Password;
@@ -10,6 +8,7 @@ public class UserLoggedIn {
     public static String Sex;
     public static String Permission;
     public static String Status;
+    public static String Class;
 
     public ArrayList<Message> messages;
 }
