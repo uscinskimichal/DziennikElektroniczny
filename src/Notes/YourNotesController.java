@@ -3,6 +3,7 @@ package Notes;
 import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -20,8 +21,11 @@ public class YourNotesController implements Initializable {
 
     private String selectedItem;
     private final ObservableList<String> subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_Klasy));
-    private ObservableList<Note> notes = Database.getNotes(subjects.get(0));
+    private ObservableList<Note> notes = FXCollections.observableArrayList();
 
+
+    @FXML
+    private Label finalNote;
 
     @FXML
     private Label averageNoteLabel;
@@ -69,10 +73,12 @@ public class YourNotesController implements Initializable {
         if (notes.isEmpty()) {
             tableView.setPlaceholder(new Label("Brak ocen!"));
             averageNoteLabel.setText(null);
+            finalNote.setText(null);
         } else {
             for (int i = 0; i < notes.size(); i++)
                 averageNote = averageNote + columnValue.getCellData(i);
             averageNoteLabel.setText(new DecimalFormat("##.##").format(averageNote / notes.size()));
+            finalNote.setText(Database.getFinalNote(selectedItem));
         }
     }
 
@@ -84,8 +90,13 @@ public class YourNotesController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         double averageNote = 0;
-        listSubjects.setItems(subjects);
 
+        if (!subjects.isEmpty())
+            notes = Database.getNotes(subjects.get(0));
+        else
+            subjects.add("Brak przedmiotów!");
+
+        listSubjects.setItems(subjects);
 
         columnData.setCellValueFactory(new PropertyValueFactory<>("date"));
         columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
