@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Menu.MenuWindowController">
+   <children>
+      <JFXButton fx:id="messagesButton" layoutX="175.0" layoutY="342.0" onAction="#showMessages" text="Wiadomości" />
+      <JFXButton fx:id="exitButton" layoutX="14.0" layoutY="323.0" onAction="#exitApplication" prefHeight="54.0" prefWidth="109.0" text="Wyjście" />
+      <JFXButton fx:id="changePasswordButton" layoutX="363.0" layoutY="338.0" onAction="#changePassword" text="Zmień hasło" />
+      <JFXButton fx:id="logoutButton" layoutX="490.0" layoutY="331.0" onAction="#logout" prefHeight="46.0" prefWidth="98.0" text="Wyloguj się" />
+      <Button fx:id="checkListButton" layoutX="461.0" layoutY="243.0" mnemonicParsing="false" onAction="#dosmth" prefWidth="120.0" text="Sprawdź obecność" wrapText="true" />
+      <Button fx:id="yourNotesButton" layoutX="461.0" layoutY="14.0" mnemonicParsing="false" onAction="#showMyNotes" prefHeight="25.0" prefWidth="120.0" text="Twoje oceny" wrapText="true" />
+      <Button fx:id="addNoteButton" layoutX="461.0" layoutY="210.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Dodaj ocenę" wrapText="true" />
+      <Button fx:id="yourAbsencesButton" layoutX="461.0" layoutY="49.0" mnemonicParsing="false" onAction="#showAbsences" prefHeight="25.0" prefWidth="120.0" text="Twoje nieobecności" wrapText="true" />
+      <Button fx:id="checkNotesTeacherButton" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="461.0" layoutY="154.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Podgląd wystawionych ocen" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="justifyStudentAbsence" layoutX="461.0" layoutY="277.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Usprawiedliw nieobecność" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="scheduleButton" layoutX="461.0" layoutY="117.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="120.0" text="Plan zajęć" wrapText="true" />
+   </children>
+</AnchorPane>

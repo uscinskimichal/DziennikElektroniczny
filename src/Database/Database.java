@@ -1,16 +1,18 @@
 package Database;
 
-import UserInformations.Message;
+import Absences.Absence;
+import Notes.Note;
+import MessageWindow.Message;
 import UserInformations.UserLoggedIn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class Database implements Runnable {
 
-    private static Connection connection ;
+    private static Connection connection;
     private static Statement statement;
     private static ResultSet resultSet;
     public static boolean isConnected;
@@ -23,37 +25,12 @@ public class Database implements Runnable {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            String user = "databaseuser";
+            String password = "prz_wat1";
             connection = DriverManager.getConnection(
-                    "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", "databaseuser", "prz_wat1");
+                    "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", user, password);
             System.out.println("Connected!");
-            Database.isConnected=true;
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-    public static void disconnectFromTheDatabase() {
-        try {
-            if (resultSet != null)
-                resultSet.close();
-            if (resultSet != null)
-                resultSet.close();
-            if (connection != null)
-                connection.close();
-                isConnected=false;
-            System.out.println("Disconnected!");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void addPerson(String login, String password, String name, String surname, String sex, String permission, String status) {
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO Osoba VALUES ('" + login + "','"
-                    + password + "','" + name + "','" + surname + "','" + sex + "','" + permission + "','" + status + "')");
-            System.out.println("Person added!");
+            Database.isConnected = true;
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -96,7 +73,7 @@ public class Database implements Runnable {
                 message.add(resultSet.getString("StatusOdbiorcy"));
                 message.add(resultSet.getString("StatusNadawcy"));
                 message.add(resultSet.getString("Data"));
-                messages.add(new Message(Integer.parseInt(message.get(0)),message.get(1),message.get(2),message.get(3),message.get(4),message.get(5),message.get(6),message.get(7)));
+                messages.add(new Message(Integer.parseInt(message.get(0)), message.get(1), message.get(2), message.get(3), message.get(4), message.get(5), message.get(6), message.get(7)));
                 message.clear();
             }
 

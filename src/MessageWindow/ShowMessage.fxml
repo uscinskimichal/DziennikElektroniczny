@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="anchorPane" prefHeight="451.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessageWindow.ShowMessageController">
+
+<AnchorPane fx:id="anchorPane" prefHeight="451.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessageWindow.ShowMessageController">
    <children>
-      <Label fx:id="from" layoutX="14.0" layoutY="36.0" prefHeight="43.0" prefWidth="316.0" text="From">
+      <Label fx:id="from" layoutX="14.0" layoutY="36.0" prefHeight="43.0" prefWidth="316.0">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label fx:id="to" layoutX="359.0" layoutY="40.0" prefHeight="36.0" prefWidth="338.0" text="To">
+      <Label fx:id="to" layoutX="359.0" layoutY="40.0" prefHeight="36.0" prefWidth="338.0">
          <font>
             <Font size="14.0" />
          </font></Label>
-      <Label fx:id="topic" alignment="TOP_LEFT" layoutX="14.0" layoutY="126.0" prefHeight="43.0" prefWidth="685.0" text="Topic">
-         <font>
-            <Font size="14.0" />
-         </font></Label>
-      <Label fx:id="messageDisplay" alignment="TOP_LEFT" layoutX="14.0" layoutY="188.0" prefHeight="198.0" prefWidth="685.0" text="Message" wrapText="true">
+      <Label fx:id="topic" alignment="TOP_LEFT" layoutX="14.0" layoutY="126.0" prefHeight="43.0" prefWidth="685.0">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -41,5 +37,7 @@
             <Font name="System Bold Italic" size="17.0" />
          </font>
       </Label>
+      <TextArea fx:id="messageDisplay" editable="false" layoutX="14.0" layoutY="188.0" prefHeight="200.0" prefWidth="685.0" wrapText="true" />
+      <Button fx:id="replyMessage" layoutX="583.0" layoutY="395.0" mnemonicParsing="false" onAction="#replyMessage" prefHeight="43.0" prefWidth="113.0" text="Odpowiedz" />
    </children>
 </AnchorPane>

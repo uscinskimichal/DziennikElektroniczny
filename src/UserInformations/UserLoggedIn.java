@@ -9,6 +9,18 @@ public class UserLoggedIn {
     public static String Permission;
     public static String Status;
     public static String Class;
+    public static String ID_Klasy;
 
-    public ArrayList<Message> messages;
+
+    public static void eraseData(){
+        Login=null;
+        Password=null;
+        Name=null;
+        Surname=null;
+        Sex=null;
+        Permission=null;
+        Status=null;
+        Class=null;
+        ID_Klasy=null;
+    }
 }

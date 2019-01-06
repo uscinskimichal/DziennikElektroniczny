@@ -1,4 +1,4 @@
-package UserInformations;
+package MessageWindow;
 
 public class Message {
 
@@ -23,23 +23,23 @@ public class Message {
         this.data=data;
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public String getSender() {
+    String getSender() {
         return sender;
     }
 
-    public String getReceiver() {
+    String getReceiver() {
         return receiver;
     }
 
-    public String getTopic() {
+    String getTopic() {
         return topic;
     }
 
-    public String getMessage() {
+    String getMessage() {
         return message;
     }
 

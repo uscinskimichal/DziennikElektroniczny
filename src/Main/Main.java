@@ -60,6 +60,7 @@ public class Main extends Application implements Runnable{
     public static void main(String[] args) {
         new Thread(Main::connectingThread).start();
         launch();
+
     }
 
     @Override

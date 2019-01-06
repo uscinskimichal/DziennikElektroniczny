@@ -1,8 +1,9 @@
 package MessageWindow;
 
+import Alerts.PopUpAlerts;
 import Database.Database;
+import Main.Main;
 import UserInformations.*;
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,23 +15,20 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 
 public class MessageWindowController implements Initializable {
 
-    public ObservableList<Message> messagesReceived = Database.returnReceivedMessages();
-    public ObservableList<Message> messagesSent = Database.returnSentMessages();
-    public Message selectedItem = null;
+    private ObservableList<Message> messagesReceived = Database.returnReceivedMessages();
+    private ObservableList<Message> messagesSent = Database.returnSentMessages();
+    private Message selectedItem = null;
 
     @FXML
     private Label header;
-
-    @FXML
-    private JFXButton deleteMessageButton;
 
     @FXML
     private Tab ReceivedMessages;
@@ -40,12 +38,6 @@ public class MessageWindowController implements Initializable {
 
     @FXML
     private TabPane tabPane;
-
-    @FXML
-    private JFXButton newMessageButton;
-
-    @FXML
-    private JFXButton returnButton;
 
     @FXML
     private TableView<Message> tableViewReceived, tableViewSent;
@@ -61,22 +53,27 @@ public class MessageWindowController implements Initializable {
 
     @FXML
     private void newMessage() {
+        Stage newMessageStage = new Stage();
+        newMessageStage.initModality(Modality.APPLICATION_MODAL);
+        Platform.setImplicitExit(false);
+        Main.changeScene("/MessageWindow/NewMessageWindow.fxml", "Nowa wiadomość", newMessageStage);
+        newMessageStage.show();
     }
 
-    private Stage createMessageWindow(Message message) throws IOException {
+    private void createMessageWindow(Message message) throws IOException {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MessageWindow/ShowMessage.fxml"));
-        Parent root = (Parent) fxmlLoader.load();
-        ShowMessageController controller = fxmlLoader.<ShowMessageController>getController();
+        Parent root = fxmlLoader.load();
+        ShowMessageController controller = fxmlLoader.getController();
         controller.setMessage(message);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Wiadomość");
+        stage.setResizable(false);
         stage.show();
-        return stage;
     }
 
     @FXML
@@ -86,21 +83,20 @@ public class MessageWindowController implements Initializable {
             tableViewSent.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     selectedItem = tableViewSent.getSelectionModel().getSelectedItem();
-                    if (selectedItem == null) return;
-                    else
+                    if (selectedItem != null) {
                         try {
                             createMessageWindow(selectedItem);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
+                    }
                 }
             });
         } else {
             tableViewReceived.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
-                    if (selectedItem == null) return;
-                    else {
+                    if (selectedItem != null) {
                         try {
                             createMessageWindow(selectedItem);
                         } catch (IOException e) {
@@ -112,26 +108,13 @@ public class MessageWindowController implements Initializable {
         }
     }
 
-    private boolean popAlertConfirmation(String title, String headerText, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-        Optional<ButtonType> option = alert.showAndWait();
-        if (option.get() == ButtonType.CANCEL) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     @FXML
     private void deleteMessage() {
 
         if (SentMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewSent.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
+                if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
                     Database.deleteMessageSent(selectedItem.getId());
                     tableViewSent.getItems().remove(selectedItem);
                 }
@@ -141,7 +124,7 @@ public class MessageWindowController implements Initializable {
         } else if (ReceivedMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
+                if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
                     Database.deleteMessageReceived(selectedItem.getId());
                     tableViewReceived.getItems().remove(selectedItem);
                 }
@@ -151,20 +134,34 @@ public class MessageWindowController implements Initializable {
 
     }
 
+    @FXML
+    private void refreshMessages() {
+        messagesReceived = Database.returnReceivedMessages();
+        messagesSent = Database.returnSentMessages();
+        tableViewReceived.setItems(messagesReceived);
+        tableViewSent.setItems(messagesSent);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        senderColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("sender"));
-        topicColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
-        dateColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
+        senderColumnReceived.setCellValueFactory(new PropertyValueFactory<>("sender"));
+        topicColumnReceived.setCellValueFactory(new PropertyValueFactory<>("topic"));
+        dateColumnReceived.setCellValueFactory(new PropertyValueFactory<>("data"));
         tableViewReceived.setItems(messagesReceived);
 
-        senderColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("receiver"));
-        topicColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
-        dateColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
+        senderColumnSent.setCellValueFactory(new PropertyValueFactory<>("receiver"));
+        topicColumnSent.setCellValueFactory(new PropertyValueFactory<>("topic"));
+        dateColumnSent.setCellValueFactory(new PropertyValueFactory<>("data"));
         tableViewSent.setItems(messagesSent);
 
         header.setText(UserLoggedIn.Name + " , " + UserLoggedIn.Surname + " <" + UserLoggedIn.Class + ">");
     }
+
+    @FXML
+    private void goToMenu() {
+        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package LoginWindow;
 
+import Alerts.PopUpAlerts;
 import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
@@ -11,11 +12,13 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.util.ArrayList;
 
 public class LoginController {
 
     private static Stage pleaseWaitWindow;
+
     public static Stage getPleaseWaitWindow() {
         return LoginController.pleaseWaitWindow;
     }
@@ -34,15 +37,8 @@ public class LoginController {
         System.exit(0);
     }
 
-    private void popAlertError(String title, String headerText, String contentText) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-        alert.showAndWait();
-    }
 
-    private void popPleaseWait(){
+    private void popPleaseWait() {
         pleaseWaitWindow = new Stage();
         pleaseWaitWindow.initStyle(StageStyle.UNDECORATED);
         pleaseWaitWindow.initModality(Modality.APPLICATION_MODAL);
@@ -56,7 +52,7 @@ public class LoginController {
     void logIn(ActionEvent event) {
 
         if (LoginField.getText().isEmpty()) {
-            popAlertError("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
+            PopUpAlerts.popAlertError("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
             return;
         }
 
@@ -73,12 +69,18 @@ public class LoginController {
                 UserLoggedIn.Sex = userInfo.get(4);
                 UserLoggedIn.Permission = userInfo.get(5);
                 UserLoggedIn.Status = userInfo.get(6);
-                UserLoggedIn.Class=Database.getUserClass();
-                Main.changeScene("/MessageWindow/MessageWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+                ArrayList<String> classInfo = Database.getUserClass();
+                if (!classInfo.isEmpty()) {
+                    UserLoggedIn.Class = classInfo.get(0);
+                    UserLoggedIn.ID_Klasy = classInfo.get(1);
+                } else
+                    UserLoggedIn.Class = "Nauczyciel";
+
+                Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0)))
-                popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
-        } else popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
+                PopUpAlerts.popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
+        } else PopUpAlerts.popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
     }
 }
 

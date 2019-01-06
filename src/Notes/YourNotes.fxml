@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="587.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.YourNotesController">
+   <children>
+      <TableView fx:id="tableView" layoutX="270.0" layoutY="23.0" prefHeight="308.0" prefWidth="670.0">
+        <columns>
+          <TableColumn fx:id="columnData" text="Data" />
+          <TableColumn fx:id="columnValue" text="Wartość" />
+            <TableColumn fx:id="columnType" prefWidth="113.0" text="Typ" />
+            <TableColumn fx:id="columnComment" prefWidth="365.0" text="Uwagi" />
+        </columns>
+      </TableView>
+      <TextArea editable="false" layoutX="14.0" layoutY="14.0" prefHeight="44.0" prefWidth="240.0" text="Twoje przedmioty:">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </TextArea>
+      <ListView fx:id="listSubjects" layoutX="14.0" layoutY="68.0" onMouseClicked="#showNotes" prefHeight="501.0" prefWidth="240.0" />
+      <Button layoutX="262.0" layoutY="525.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="44.0" prefWidth="130.0" text="Powrót" />
+      <Label layoutX="270.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" text="Średnia ocen wynosi:" />
+      <Label fx:id="averageNoteLabel" layoutX="392.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" />
+   </children>
+</AnchorPane>
