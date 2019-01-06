@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -136,12 +137,13 @@ public class MessageWindowController implements Initializable {
     }
 
     @FXML
-    private void refreshMessages(){
+    private void refreshMessages() {
         messagesReceived = Database.returnReceivedMessages();
         messagesSent = Database.returnSentMessages();
         tableViewReceived.setItems(messagesReceived);
         tableViewSent.setItems(messagesSent);
     }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -156,11 +158,15 @@ public class MessageWindowController implements Initializable {
         tableViewSent.setItems(messagesSent);
 
         header.setText(UserLoggedIn.Name + " , " + UserLoggedIn.Surname + " <" + UserLoggedIn.Class + ">");
+
+        if (messagesReceived.isEmpty())
+            tableViewReceived.setPlaceholder(new Label("Brak wiadomości"));
+        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label("Brak wiadomości"));
     }
 
     @FXML
-    private void goToMenu(){
-        Main.changeScene("/Menu/MenuWindow.fxml","Dziennik Elektroniczny",Main.getPrimaryStage());
+    private void goToMenu() {
+        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
     }
 
 

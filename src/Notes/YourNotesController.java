@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 public class YourNotesController implements Initializable {
 
     private String selectedItem;
-    private final ObservableList<String> subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_Klasy));
+    private ObservableList<String> subjects = FXCollections.observableArrayList();
     private ObservableList<Note> notes = FXCollections.observableArrayList();
 
 
@@ -51,14 +51,9 @@ public class YourNotesController implements Initializable {
 
     @FXML
     private void showNotes() {
-        listSubjects.setOnMouseClicked(event -> {
-            if (event.getClickCount() == 2) {
                 selectedItem = listSubjects.getSelectionModel().getSelectedItem();
                 if (selectedItem != null)
                     fillTable(selectedItem);
-            }
-        });
-
     }
 
     private void fillTable(String subject) {
@@ -91,10 +86,14 @@ public class YourNotesController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         double averageNote = 0;
 
+        if (UserLoggedIn.ID_Klasy != null)
+            subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_Klasy));
         if (!subjects.isEmpty())
             notes = Database.getNotes(subjects.get(0));
         else
             subjects.add("Brak przedmiotów!");
+
+
 
         listSubjects.setItems(subjects);
 
