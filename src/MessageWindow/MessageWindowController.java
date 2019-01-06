@@ -15,7 +15,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,9 +22,9 @@ import java.util.ResourceBundle;
 
 public class MessageWindowController implements Initializable {
 
-    private ObservableList<Message> messagesReceived = Database.returnReceivedMessages();
-    private ObservableList<Message> messagesSent = Database.returnSentMessages();
-    private Message selectedItem = null;
+    public ObservableList<Message> messagesReceived = Database.returnReceivedMessages();
+    public ObservableList<Message> messagesSent = Database.returnSentMessages();
+    public Message selectedItem = null;
 
     @FXML
     private Label header;
@@ -60,13 +59,13 @@ public class MessageWindowController implements Initializable {
         newMessageStage.show();
     }
 
-    private void createMessageWindow(Message message) throws IOException {
+    private Stage createMessageWindow(Message message) throws IOException {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MessageWindow/ShowMessage.fxml"));
-        Parent root = fxmlLoader.load();
-        ShowMessageController controller = fxmlLoader.getController();
+        Parent root = (Parent) fxmlLoader.load();
+        ShowMessageController controller = fxmlLoader.<ShowMessageController>getController();
         controller.setMessage(message);
 
         Scene scene = new Scene(root);
@@ -74,6 +73,7 @@ public class MessageWindowController implements Initializable {
         stage.setTitle("Wiadomość");
         stage.setResizable(false);
         stage.show();
+        return stage;
     }
 
     @FXML
@@ -83,20 +83,21 @@ public class MessageWindowController implements Initializable {
             tableViewSent.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     selectedItem = tableViewSent.getSelectionModel().getSelectedItem();
-                    if (selectedItem != null) {
+                    if (selectedItem == null) return;
+                    else
                         try {
                             createMessageWindow(selectedItem);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
-                    }
                 }
             });
         } else {
             tableViewReceived.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2) {
                     selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
-                    if (selectedItem != null) {
+                    if (selectedItem == null) return;
+                    else {
                         try {
                             createMessageWindow(selectedItem);
                         } catch (IOException e) {
@@ -135,32 +136,31 @@ public class MessageWindowController implements Initializable {
     }
 
     @FXML
-    private void refreshMessages() {
+    private void refreshMessages(){
         messagesReceived = Database.returnReceivedMessages();
         messagesSent = Database.returnSentMessages();
         tableViewReceived.setItems(messagesReceived);
         tableViewSent.setItems(messagesSent);
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        senderColumnReceived.setCellValueFactory(new PropertyValueFactory<>("sender"));
-        topicColumnReceived.setCellValueFactory(new PropertyValueFactory<>("topic"));
-        dateColumnReceived.setCellValueFactory(new PropertyValueFactory<>("data"));
+        senderColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("sender"));
+        topicColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
+        dateColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
         tableViewReceived.setItems(messagesReceived);
 
-        senderColumnSent.setCellValueFactory(new PropertyValueFactory<>("receiver"));
-        topicColumnSent.setCellValueFactory(new PropertyValueFactory<>("topic"));
-        dateColumnSent.setCellValueFactory(new PropertyValueFactory<>("data"));
+        senderColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("receiver"));
+        topicColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
+        dateColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
         tableViewSent.setItems(messagesSent);
 
         header.setText(UserLoggedIn.Name + " , " + UserLoggedIn.Surname + " <" + UserLoggedIn.Class + ">");
     }
 
     @FXML
-    private void goToMenu() {
-        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+    private void goToMenu(){
+        Main.changeScene("/Menu/MenuWindow.fxml","Dziennik Elektroniczny",Main.getPrimaryStage());
     }
 
 

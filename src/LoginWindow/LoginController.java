@@ -24,19 +24,14 @@ public class LoginController {
     }
 
     @FXML
-    private Button exitButton;
-    @FXML
     private PasswordField PasswordField;
     @FXML
     private TextField LoginField;
-    @FXML
-    private Button LogInButton;
 
     @FXML
     void exitApp(ActionEvent event) {
         System.exit(0);
     }
-
 
     private void popPleaseWait() {
         pleaseWaitWindow = new Stage();

@@ -27,19 +27,19 @@ public class Message {
         return id;
     }
 
-    String getSender() {
+    public String getSender() {
         return sender;
     }
 
-    String getReceiver() {
+    public String getReceiver() {
         return receiver;
     }
 
-    String getTopic() {
+    public String getTopic() {
         return topic;
     }
 
-    String getMessage() {
+    public String getMessage() {
         return message;
     }
 
