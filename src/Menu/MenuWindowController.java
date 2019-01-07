@@ -1,9 +1,9 @@
 package Menu;
 
 import Alerts.PopUpAlerts;
+import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
-import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 
 import javafx.fxml.FXML;
@@ -18,7 +18,6 @@ import java.util.ResourceBundle;
 
 public class MenuWindowController implements Initializable {
 
-
     @FXML
     private Button addNoteButton;
 
@@ -29,16 +28,7 @@ public class MenuWindowController implements Initializable {
     private Button yourNotesButton;
 
     @FXML
-    private JFXButton changePasswordButton;
-
-    @FXML
-    private JFXButton exitButton;
-
-    @FXML
-    private JFXButton logoutButton;
-
-    @FXML
-    private JFXButton messagesButton;
+    private Button scheduleButton;
 
     @FXML
     private Button yourAbsencesButton;
@@ -50,7 +40,13 @@ public class MenuWindowController implements Initializable {
     private Button justifyStudentAbsence;
 
     @FXML
-    private Button scheduleButton;
+    private void goToSchedule() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Schedule/ScheduleWindow.fxml", "Plan zajęć", Main.getPrimaryStage());
+        else if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Schedule/ScheduleWindowParent.fxml", "Plan zajęć", Main.getPrimaryStage());
+    }
+
     @FXML
     private void exitApplication() {
         if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz wyjść?", "Wyjście"))
@@ -61,15 +57,13 @@ public class MenuWindowController implements Initializable {
     private void logout() {
 
         if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz się wylogować?", "Wyloguj")) {
-            Main.changeScene("/LoginWindow/Login.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+            Main.changeScene("/Login/LoginWindowController.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
             UserLoggedIn.eraseData();
-            System.out.println(UserLoggedIn.Sex);
         }
     }
 
     @FXML
     private void changePassword() {
-        System.out.println(UserLoggedIn.Login + " "+ UserLoggedIn.Password);
         Stage changePassword = new Stage();
         changePassword.initModality(Modality.APPLICATION_MODAL);
         Platform.setImplicitExit(false);
@@ -78,26 +72,35 @@ public class MenuWindowController implements Initializable {
     }
 
     @FXML
-    private void showMyNotes(){
-        Main.changeScene("/Notes/YourNotes.fxml","Twoje oceny",Main.getPrimaryStage());
+    private void showMyNotes() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Notes/NotesWindow.fxml", "Twoje oceny", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Notes/NotesWindowParent.fxml", "Oceny", Main.getPrimaryStage());
     }
 
     @FXML
-    private void showAbsences(){
-        Main.changeScene("/Absences/AbsenceWindow.fxml","Nieobecności",Main.getPrimaryStage());
+    private void showAbsences() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Absences/AbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Absences/AbsenceWindowParent.fxml", "Nieobecności", Main.getPrimaryStage());
     }
 
+    @FXML
+    private void checkPresence() {
+        Main.changeScene("/Absences/CheckAbsenceWindow.fxml", "Sprawdź obecnosć", Main.getPrimaryStage());
+    }
 
     @FXML
     private void showMessages() {
-        Main.changeScene("/MessageWindow/MessageWindow.fxml", "Wiadomości", Main.getPrimaryStage());
+        Main.changeScene("/Message/MessageWindow.fxml", "Wiadomości", Main.getPrimaryStage());
     }
 
     @FXML
-    private void dosmth(){
-        System.out.println("aa");
+    private void addNote() {
+        Main.changeScene("/Notes/AddNoteWindow.fxml", "Dodaj ocenę", Main.getPrimaryStage());
     }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -111,6 +114,7 @@ public class MenuWindowController implements Initializable {
                 break;
             case "Nauczyciel":
                 yourAbsencesButton.setVisible(false);
+                scheduleButton.setVisible(false);
                 yourNotesButton.setVisible(false);
                 break;
             case "Rodzic":
@@ -118,15 +122,9 @@ public class MenuWindowController implements Initializable {
                 addNoteButton.setVisible(false);
                 checkNotesTeacherButton.setVisible(false);
                 justifyStudentAbsence.setVisible(false);
-
                 yourAbsencesButton.setText("Nieobecności");
                 yourNotesButton.setText("Oceny");
-
-                //yourNotesButton.setOnAction(m-> System.out.println("s")); TO:DO
-
                 break;
         }
-
-
     }
 }

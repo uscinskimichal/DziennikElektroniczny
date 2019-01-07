@@ -5,7 +5,7 @@
 <?import javafx.scene.text.*?>
 
 
-<AnchorPane fx:id="anchorPane" prefHeight="451.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MessageWindow.ShowMessageController">
+<AnchorPane fx:id="anchorPane" prefHeight="451.0" prefWidth="710.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Message.ShowMessageWindowController">
    <children>
       <Label fx:id="from" layoutX="14.0" layoutY="36.0" prefHeight="43.0" prefWidth="316.0">
          <font>

@@ -10,15 +10,14 @@ public class Note {
     private String comment;
 
 
-
-    public Note(int noteId, int subjectId,String login, double value, String type, String date, String comment){
-        this.noteId=noteId;
-        this.subjectId=subjectId;
-        this.login=login;
-        this.value=value;
-        this.type=type;
-        this.date=date;
-        this.comment=comment;
+    public Note(int noteId, int subjectId, String login, double value, String type, String date, String comment) {
+        this.noteId = noteId;
+        this.subjectId = subjectId;
+        this.login = login;
+        this.value = value;
+        this.type = type;
+        this.date = date;
+        this.comment = comment;
     }
 
     public int getNoteId() {

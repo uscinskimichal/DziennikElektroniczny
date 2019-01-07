@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="675.0" prefWidth="1125.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Schedule.ScheduleWindowController">
+   <children>
+      <TableView fx:id="tableView" layoutX="61.0" layoutY="26.0" prefHeight="453.0" prefWidth="941.0">
+        <columns>
+            <TableColumn fx:id="hours" prefWidth="92.0" text="Godzina" />
+          <TableColumn fx:id="mondayCol" prefWidth="133.0" text="Poniedziałek" />
+          <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="149.0" text="Wtorek" />
+            <TableColumn fx:id="wednesdayCol" prefWidth="194.0" text="Środa" />
+            <TableColumn fx:id="thursdayCol" prefWidth="151.0" text="Czwartek" />
+            <TableColumn fx:id="fridayCol" prefWidth="206.0" text="Piątek" />
+        </columns>
+      </TableView>
+      <Button fx:id="menuButton" layoutX="61.0" layoutY="549.0" mnemonicParsing="false" onAction="#backToMenu" text="Powrót" />
+   </children>
+</AnchorPane>

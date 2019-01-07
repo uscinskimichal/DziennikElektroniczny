@@ -1,4 +1,4 @@
-package MessageWindow;
+package Message;
 
 public class Message {
 
@@ -12,15 +12,15 @@ public class Message {
     private String data;
 
 
-    public Message(int id, String sender, String receiver, String topic, String message, String senderStatus, String receiverStatus, String data){
-        this.id=id;
-        this.sender=sender;
-        this.receiver=receiver;
-        this.topic=topic;
-        this.message=message;
-        this.senderStatus=senderStatus;
-        this.receiverStatus=receiverStatus;
-        this.data=data;
+    public Message(int id, String sender, String receiver, String topic, String message, String senderStatus, String receiverStatus, String data) {
+        this.id = id;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.topic = topic;
+        this.message = message;
+        this.senderStatus = senderStatus;
+        this.receiverStatus = receiverStatus;
+        this.data = data;
     }
 
     int getId() {

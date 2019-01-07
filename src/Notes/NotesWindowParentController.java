@@ -7,25 +7,26 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class YourNotesController implements Initializable {
+public class NotesWindowParentController implements Initializable {
 
     private String selectedItem;
     private ObservableList<String> subjects = FXCollections.observableArrayList();
     private ObservableList<Note> notes = FXCollections.observableArrayList();
+    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.Login);
+    private String login;
+    private String idClass;
 
 
     @FXML
-    private Label finalNote;
+    private ComboBox<String> comboBox;
 
     @FXML
     private Label averageNoteLabel;
@@ -51,51 +52,58 @@ public class YourNotesController implements Initializable {
 
     @FXML
     private void showNotes() {
-                selectedItem = listSubjects.getSelectionModel().getSelectedItem();
-                if (selectedItem != null)
-                    fillTable(selectedItem);
+        selectedItem = listSubjects.getSelectionModel().getSelectedItem();
+        if (selectedItem != null)
+            fillTable(selectedItem);
     }
 
     private void fillTable(String subject) {
-        notes = Database.getNotes(subject);
+        notes = Database.getNotes(subject, login);
         tableView.setItems(notes);
-        double averageNote = 0;
-        ifEmptyNotes(averageNote);
-    }
-
-
-    private void ifEmptyNotes(double averageNote) {
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label("Brak ocen!"));
+            tableView.setPlaceholder(new Label("Brak ocen z przedmiotu!"));
             averageNoteLabel.setText(null);
-            finalNote.setText(null);
         } else {
+            double averageNote = 0;
             for (int i = 0; i < notes.size(); i++)
                 averageNote = averageNote + columnValue.getCellData(i);
             averageNoteLabel.setText(new DecimalFormat("##.##").format(averageNote / notes.size()));
-            finalNote.setText(Database.getFinalNote(selectedItem));
         }
+
     }
+
 
     @FXML
     private void backToMenu() {
         Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        double averageNote = 0;
+    @FXML
+    private void setDataToDisplay() {
+        login = children.get(comboBox.getSelectionModel().getSelectedIndex()).get(0);
+        idClass = children.get(comboBox.getSelectionModel().getSelectedIndex()).get(3);
 
-        if (UserLoggedIn.ID_Klasy != null)
-            subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_Klasy));
+        subjects = Database.getSubjects(Integer.parseInt(idClass));
+
+
         if (!subjects.isEmpty())
-            notes = Database.getNotes(subjects.get(0));
-        else
+            fillTable(subjects.get(0));
+        else {
             subjects.add("Brak przedmiotów!");
-
-
+            tableView.getItems().clear();
+            tableView.setPlaceholder(new Label("Brak ocen!"));
+            averageNoteLabel.setText(null);
+        }
 
         listSubjects.setItems(subjects);
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+
+        for (int i = 0; i < children.size(); i++)
+            comboBox.getItems().add(i, children.get(i).get(1) + " " + children.get(i).get(2) + " , " + children.get(i).get(4));
 
         columnData.setCellValueFactory(new PropertyValueFactory<>("date"));
         columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
@@ -104,7 +112,7 @@ public class YourNotesController implements Initializable {
         tableView.setItems(notes);
 
 
-        ifEmptyNotes(averageNote);
+        tableView.setPlaceholder(new Label("Wybierz osobę dla której chcesz wyświetlic oceny."));
 
     }
 }

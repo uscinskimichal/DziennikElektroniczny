@@ -1,7 +1,7 @@
 package Main;
 
 import Database.Database;
-import LoginWindow.LoginController;
+import Login.LoginController;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 
-public class Main extends Application implements Runnable{
+public class Main extends Application {
 
     private static Stage primaryStage;
 
@@ -34,22 +34,20 @@ public class Main extends Application implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
-    private static void connectingThread(){
+    private static void connectingThread() {
         Database.connectToTheDatabase();
-        if(LoginController.getPleaseWaitWindow()!=null)
-        Platform.runLater(
-                () -> LoginController.getPleaseWaitWindow().close()
-        );
+        if (LoginController.pleaseWaitWindow != null)
+            Platform.runLater(
+                    () -> LoginController.pleaseWaitWindow.close()
+            );
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
-        Parent root = FXMLLoader.load(getClass().getResource("/LoginWindow/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Login/LoginWindowController.fxml"));
         primaryStage.setTitle("Dziennik Elektroniczny");
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
@@ -60,11 +58,5 @@ public class Main extends Application implements Runnable{
     public static void main(String[] args) {
         new Thread(Main::connectingThread).start();
         launch();
-
-    }
-
-    @Override
-    public void run() {
-
     }
 }

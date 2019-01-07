@@ -1,4 +1,4 @@
-package MessageWindow;
+package Message;
 
 import Database.Database;
 import javafx.application.Platform;
@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ShowMessageController implements Initializable {
+public class ShowMessageWindowController implements Initializable {
 
     private Message message;
 
@@ -69,7 +69,7 @@ public class ShowMessageController implements Initializable {
         newMessage.initModality(Modality.APPLICATION_MODAL);
         Platform.setImplicitExit(false);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/MessageWindow/NewMessageWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Message/NewMessageWindow.fxml"));
         Parent root = fxmlLoader.load();
         NewMessageWindowController controller = fxmlLoader.getController();
         controller.setReceiver(message.getSender());

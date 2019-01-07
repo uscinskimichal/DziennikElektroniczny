@@ -6,12 +6,10 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="587.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.YourNotesController">
+<AnchorPane prefHeight="587.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.NotesWindowController">
    <children>
       <TableView fx:id="tableView" layoutX="270.0" layoutY="23.0" prefHeight="308.0" prefWidth="670.0">
         <columns>
@@ -30,7 +28,6 @@
       <Button layoutX="262.0" layoutY="525.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="44.0" prefWidth="130.0" text="Powrót" />
       <Label layoutX="270.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" text="Średnia ocen wynosi:" />
       <Label fx:id="averageNoteLabel" layoutX="392.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" />
-      <Label layoutX="580.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" text="Ocena końcowa:" />
       <Label fx:id="finalNote" layoutX="670.0" layoutY="351.0" prefHeight="36.0" prefWidth="202.0" />
    </children>
 </AnchorPane>

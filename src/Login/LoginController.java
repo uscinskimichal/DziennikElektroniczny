@@ -1,4 +1,4 @@
-package LoginWindow;
+package Login;
 
 import Alerts.PopUpAlerts;
 import Database.Database;
@@ -17,11 +17,7 @@ import java.util.ArrayList;
 
 public class LoginController {
 
-    private static Stage pleaseWaitWindow;
-
-    public static Stage getPleaseWaitWindow() {
-        return LoginController.pleaseWaitWindow;
-    }
+    public static Stage pleaseWaitWindow;
 
     @FXML
     private PasswordField PasswordField;
@@ -68,9 +64,7 @@ public class LoginController {
                 if (!classInfo.isEmpty()) {
                     UserLoggedIn.Class = classInfo.get(0);
                     UserLoggedIn.ID_Klasy = classInfo.get(1);
-                } else
-                    UserLoggedIn.Class = "Nauczyciel";
-
+                }
                 Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0)))

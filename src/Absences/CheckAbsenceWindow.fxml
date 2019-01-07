@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="583.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Absences.CheckAbsenceWindowController">
+   <children>
+      <ListView fx:id="listView" layoutX="341.0" layoutY="157.0" prefHeight="200.0" prefWidth="200.0" />
+      <Button layoutX="35.0" layoutY="517.0" mnemonicParsing="false" onAction="#goToMenu" text="Powrót" />
+      <ComboBox fx:id="classesBox" layoutX="62.0" layoutY="92.0" onAction="#getMembers" prefWidth="150.0" promptText="Wybierz klasę" />
+      <Button layoutX="447.0" layoutY="517.0" mnemonicParsing="false" onAction="#setAbsences" text="Wstaw nieobecności" />
+   </children>
+</AnchorPane>

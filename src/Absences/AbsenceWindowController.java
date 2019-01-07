@@ -2,6 +2,7 @@ package Absences;
 
 import Database.Database;
 import Main.Main;
+import UserInformations.UserLoggedIn;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,7 +16,7 @@ import java.util.ResourceBundle;
 
 public class AbsenceWindowController implements Initializable {
 
-    private final ObservableList<Absence> absences = Database.getAbsences();
+    private final ObservableList<Absence> absences = Database.getAbsences(UserLoggedIn.Login);
 
     @FXML
     private TableColumn<Absence, String> dataColumn;
@@ -27,11 +28,9 @@ public class AbsenceWindowController implements Initializable {
     private TableView<Absence> tableView;
 
     @FXML
-    private void backToMenu(){
-        Main.changeScene("/Menu/MenuWindow.fxml","Dziennik Elektroniczny",Main.getPrimaryStage());
+    private void backToMenu() {
+        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,9 +38,7 @@ public class AbsenceWindowController implements Initializable {
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("absenceStatus"));
         tableView.setItems(absences);
 
-        if(absences.isEmpty())
+        if (absences.isEmpty())
             tableView.setPlaceholder(new Label("Brak nieobecności, oby tak dalej!"));
-
-
     }
 }

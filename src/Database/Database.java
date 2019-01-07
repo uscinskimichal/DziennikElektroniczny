@@ -2,12 +2,17 @@ package Database;
 
 import Absences.Absence;
 import Notes.Note;
-import MessageWindow.Message;
+import Message.Message;
+import Schedule.Schedule;
 import UserInformations.UserLoggedIn;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 
 public class Database implements Runnable {
@@ -57,7 +62,7 @@ public class Database implements Runnable {
         return userInfo;
     }
 
-    public static ObservableList<Message> returnReceivedMessages() {
+    public static ObservableList<Message> getReceivedMessages() {
         ObservableList<Message> messages = FXCollections.observableArrayList();
         ArrayList<String> message = new ArrayList<>();
         try {
@@ -84,7 +89,7 @@ public class Database implements Runnable {
         return messages;
     }
 
-    public static ObservableList<Message> returnSentMessages() {
+    public static ObservableList<Message> getSentMessages() {
         ObservableList<Message> messages = FXCollections.observableArrayList();
         ArrayList<String> message = new ArrayList<>();
         try {
@@ -111,7 +116,7 @@ public class Database implements Runnable {
         return messages;
     }
 
-    public static void deleteMessageReceived(int messageID) {
+    public static void deleteReceivedMessage(int messageID) {
         try {
             statement.executeUpdate("UPDATE Wiadomosc SET StatusOdbiorcy ='N' where ID_Wiadomosci='" + messageID + "'");
         } catch (Exception ex) {
@@ -120,7 +125,7 @@ public class Database implements Runnable {
 
     }
 
-    public static void deleteMessageSent(int messageID) {
+    public static void deletesSentMessage(int messageID) {
         try {
             statement.executeUpdate("UPDATE Wiadomosc SET StatusNadawcy ='N' where ID_Wiadomosci='" + messageID + "'");
         } catch (Exception ex) {
@@ -150,7 +155,7 @@ public class Database implements Runnable {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select k.Skrot, k.ID_Klasy from Klasa k inner join Osoba_Klasa ok on k.ID_Klasy=ok.ID_Klasy where ok.Login='" + UserLoggedIn.Login + "'");
-            if (resultSet.next()){
+            if (resultSet.next()) {
                 userClass.add(resultSet.getString("Skrot"));
                 userClass.add(resultSet.getString("ID_Klasy"));
             }
@@ -196,22 +201,19 @@ public class Database implements Runnable {
     }
 
     public static void addMessage(String receiver, String topic, String message) {
-        {
-            try {
-                statement.executeUpdate("INSERT INTO Wiadomosc VALUES (" + countMessages() + ",'" + UserLoggedIn.Login + "','" + receiver + "','" + topic + "','" + message + "','T','T'" + ",(select CURRENT_TIMESTAMP)  )");
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
+        try {
+            statement.executeUpdate("INSERT INTO Wiadomosc VALUES (" + countMessages() + ",'" + UserLoggedIn.Login + "','" + receiver + "','" + topic + "','" + message + "','T','T'" + ",(select CURRENT_TIMESTAMP)  )");
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
     }
 
-    public static ObservableList<String> getSubjects(int IdKlasy){
+    public static ObservableList<String> getSubjects(int IdKlasy) {
         ObservableList<String> subjects = FXCollections.observableArrayList();
 
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select P.Nazwa from Przedmiot P inner join Przedmiot_Klasy pk on P.ID_Przedmiotu=pk.ID_Przedmiotu inner join Klasa k on k.ID_Klasy=pk.ID_Klasy where k.ID_Klasy='" + IdKlasy +"'");
+            resultSet = statement.executeQuery("select P.Nazwa from Przedmiot P inner join Przedmiot_Klasy pk on P.ID_Przedmiotu=pk.ID_Przedmiotu inner join Klasa k on k.ID_Klasy=pk.ID_Klasy where k.ID_Klasy='" + IdKlasy + "'");
             while (resultSet.next())
                 subjects.add(resultSet.getString("Nazwa"));
 
@@ -222,12 +224,12 @@ public class Database implements Runnable {
         return subjects;
     }
 
-    public static ObservableList<Note> getNotes(String subject){
+    public static ObservableList<Note> getNotes(String subject, String login) {
         ObservableList<Note> notes = FXCollections.observableArrayList();
         ArrayList<String> note = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select o.ID_Oceny, o.ID_Przedmiotu, o.Login, o.Wartosc, o.Typ, o.Data, o.Uwagi from Ocena o inner join Przedmiot p on o.ID_Przedmiotu=p.ID_Przedmiotu where o.Login='" + UserLoggedIn.Login + "' and " + "p.Nazwa='" +subject +"' and o.Typ!='Końcowa'");
+            resultSet = statement.executeQuery("select o.ID_Oceny, o.ID_Przedmiotu, o.Login, o.Wartosc, o.Typ, o.Data, o.Uwagi from Ocena o inner join Przedmiot p on o.ID_Przedmiotu=p.ID_Przedmiotu where o.Login='" + login + "' and " + "p.Nazwa='" + subject + "'");
             while (resultSet.next()) {
 
                 note.add(resultSet.getString("ID_Oceny"));
@@ -248,12 +250,12 @@ public class Database implements Runnable {
         return notes;
     }
 
-    public static ObservableList<Absence> getAbsences(){
+    public static ObservableList<Absence> getAbsences(String login) {
         ObservableList<Absence> absences = FXCollections.observableArrayList();
         ArrayList<String> absence = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select ID_Nieobecnosci, DataNB, Usprawiedliwienie from Nieobecnosc where Login='" + UserLoggedIn.Login + "'");
+            resultSet = statement.executeQuery("select ID_Nieobecnosci, DataNB, Usprawiedliwienie from Nieobecnosc where Login='" + login + "'");
             while (resultSet.next()) {
                 absence.add(resultSet.getString("ID_Nieobecnosci"));
                 absence.add(resultSet.getString("DataNB"));
@@ -270,18 +272,163 @@ public class Database implements Runnable {
 
     }
 
-    public static String getFinalNote(String subject){
-        String note=null;
+    public static int getMaxLessonNumber(int classID) {
+        int number = 0;
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select o.Wartosc from Ocena o inner join Przedmiot p on o.ID_Przedmiotu=p.ID_Przedmiotu where o.Login='" + UserLoggedIn.Login + "' and " + "p.Nazwa='" +subject +"' and o.Typ='Końcowa'");
+            resultSet = statement.executeQuery("select max(Numer_godziny) from Plan_Zajec where ID_Przedmiotu is not NULL and ID_Klasy='" + classID + "'");
             if (resultSet.next())
-            note=resultSet.getString("Wartosc");
+                number = resultSet.getInt("max(Numer_godziny)");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return number;
+    }
+
+    public static ObservableList<Schedule> getSchedule(int classID) {
+        ObservableList<Schedule> schedule = FXCollections.observableArrayList();
+        ArrayList<String> hours = new ArrayList<>(Arrays.asList("8:00 - 8:45", "8:55 - 9:40", "9:50 - 10:35", "10:45 - 11:30", "11:45 - 12:30", "12:40 - 13:25", "13:35 - 14:20", "14:30 - 15:15"));
+        int maxHours = getMaxLessonNumber(classID);
+        ArrayList<String> singlehour = new ArrayList<>();
+        for (int i = 0; i < maxHours; i++) {
+            try {
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery("select P.Nazwa from Przedmiot P right join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "' and PZ.Numer_godziny='" + (i + 1) + "' order by PZ.Dzien_tygodnia ASC");
+                while (resultSet.next())
+                    singlehour.add(resultSet.getString("Nazwa"));
+                if (singlehour.size() == 0)
+                    return schedule;
+                schedule.add((new Schedule(singlehour.get(0), singlehour.get(1), singlehour.get(2), singlehour.get(3), singlehour.get(4), hours.get(i))));
+                singlehour.clear();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return schedule;
+
+    }
+
+    public static ArrayList<ArrayList<String>> getChildren(String login) {
+        ArrayList<ArrayList<String>> children = new ArrayList<>();
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko, OK.ID_Klasy, K.Skrot from Osoba O inner join RodzicOsoby RO on O.Login=RO.Oso_Login inner join Osoba_Klasa OK on O.Login=OK.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy where RO.Login='" + login + "'");
+            while (resultSet.next()) {
+                ArrayList<String> child = new ArrayList<>();
+                child.add(resultSet.getString("Login"));
+                child.add(resultSet.getString("Imie"));
+                child.add(resultSet.getString("Nazwisko"));
+                child.add(resultSet.getString("ID_Klasy"));
+                child.add(resultSet.getString("Skrot"));
+                children.add(child);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return children;
+
+    }
+
+    public static Map<Integer, String> getTeacherClasses(String login) {
+        Map<Integer, String> classes = new LinkedHashMap<>();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("Select K.ID_Klasy, K.Skrot from Klasa K inner join Przedmiot_Klasy PK on PK.ID_Klasy=K.ID_Klasy where PK.ID_Nauczyciela='" + login + "' group by K.ID_Klasy, K.Skrot");
+            while (resultSet.next()) {
+                classes.put(resultSet.getInt("ID_Klasy"), resultSet.getString("Skrot"));
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return note;
+        return classes;
+    }
+
+    public static Map<Integer, String> getTeachesSubjects(int classId, String login) {
+        Map<Integer, String> subjects = new LinkedHashMap<>();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select P.ID_Przedmiotu, P.Nazwa from Przedmiot P inner join Przedmiot_Klasy PK on P.ID_Przedmiotu=PK.ID_Przedmiotu where PK.ID_Klasy='" + classId + "' and PK.ID_Nauczyciela='" + login + "' group by P.ID_Przedmiotu, P.Nazwa");
+            while (resultSet.next()) {
+                subjects.put(resultSet.getInt("ID_Przedmiotu"), resultSet.getString("Nazwa"));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return subjects;
+
+    }
+
+    public static ArrayList<ArrayList<String>> getClassMembers(int classId) {
+        ArrayList<ArrayList<String>> members = new ArrayList<>();
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login where OK.ID_Klasy='" + classId + "'");
+            while (resultSet.next()) {
+                ArrayList<String> member = new ArrayList<>();
+                member.add(resultSet.getString("Login"));
+                member.add(resultSet.getString("Imie"));
+                member.add(resultSet.getString("Nazwisko"));
+                members.add(member);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return members;
+
+    }
+
+    public static int countNotes() {
+        int number = 0;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select count( DISTINCT ID_Oceny) + 1 from Ocena");
+            if (resultSet.next())
+                number = resultSet.getInt("count( DISTINCT ID_Oceny) + 1");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return number;
+
+    }
+
+    public static void addNote(int subjectId, String login, double value, String type, String comment) {
+        try {
+            statement.executeUpdate("INSERT INTO Ocena VALUES (" + countNotes() + "," + subjectId + ",'" + login + "'," + value + ",'" + type + "'," + "(select CURRENT_TIMESTAMP)" + ",'" + comment + "')");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static int countAbsences() {
+        int number = 0;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select count( DISTINCT ID_Nieobecnosci) + 1 from Nieobecnosc");
+            if (resultSet.next())
+                number = resultSet.getInt("count( DISTINCT ID_Nieobecnosci) + 1");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return number;
+
+    }
+
+    public static void addAbsence(String login, String teacherLogin) {
+        try {
+            statement.executeUpdate("INSERT INTO Nieobecnosc VALUES (" + countAbsences() + ",'" + login + "','" + teacherLogin + "'," + "(select CURRENT_TIMESTAMP)" + ",'Nie')");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }

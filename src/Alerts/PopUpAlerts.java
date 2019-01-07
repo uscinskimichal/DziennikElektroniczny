@@ -27,7 +27,7 @@ public class PopUpAlerts {
         alert.showAndWait();
     }
 
-    public static void popAlertInformation(String title, String headerText, String contentText){
+    public static void popAlertInformation(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
         alert.setHeaderText(headerText);

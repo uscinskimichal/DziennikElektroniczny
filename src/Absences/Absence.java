@@ -5,10 +5,10 @@ public class Absence {
     private String absenceDate;
     private String absenceStatus;
 
-    public Absence(int absenceId, String absenceDate, String absenceStatus){
-        this.absenceId=absenceId;
-        this.absenceDate=absenceDate;
-        this.absenceStatus=absenceStatus;
+    public Absence(int absenceId, String absenceDate, String absenceStatus) {
+        this.absenceId = absenceId;
+        this.absenceDate = absenceDate;
+        this.absenceStatus = absenceStatus;
     }
 
     public int getAbsenceId() {
