@@ -66,7 +66,12 @@ public class ScheduleWindowController implements Initializable {
 
         tableView.setPlaceholder(new Label("Brak zajęć!"));
 
-        schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_Klasy));
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_Klasy));
+        else
+            schedule = Database.getTeacherSchedule(UserLoggedIn.Login);
+
+
         mondayCol.setCellValueFactory(new PropertyValueFactory<>("day1"));
         tuesdayCol.setCellValueFactory(new PropertyValueFactory<>("day2"));
         wednesdayCol.setCellValueFactory(new PropertyValueFactory<>("day3"));

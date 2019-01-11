@@ -294,11 +294,19 @@ public class Database implements Runnable {
         for (int i = 0; i < maxHours; i++) {
             try {
                 statement = connection.createStatement();
-                resultSet = statement.executeQuery("select P.Nazwa from Przedmiot P right join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "' and PZ.Numer_godziny='" + (i + 1) + "' order by PZ.Dzien_tygodnia ASC");
-                while (resultSet.next())
-                    singlehour.add(resultSet.getString("Nazwa"));
-                if (singlehour.size() == 0)
-                    return schedule;
+                resultSet = statement.executeQuery("select " +
+                        "(select ifnull((select P.Nazwa from Przedmiot P inner join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "' and PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='1'), null)) as d1,\n" +
+                        "(select ifnull((select P.Nazwa from Przedmiot P inner join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "'  and PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='2'), null)) as d2,\n" +
+                        "(select ifnull((select P.Nazwa from Przedmiot P inner join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "'  and PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='3'), null)) as d3,\n" +
+                        "(select ifnull((select P.Nazwa from Przedmiot P inner join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "' and PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='4'), null)) as d4,\n" +
+                        "(select ifnull((select P.Nazwa from Przedmiot P inner join Plan_Zajec PZ on P.ID_Przedmiotu=PZ.ID_Przedmiotu where PZ.ID_Klasy='" + classID + "' and PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='5'), null)) as d5");
+                while (resultSet.next()){
+                    singlehour.add(resultSet.getString("d1"));
+                    singlehour.add(resultSet.getString("d2"));
+                    singlehour.add(resultSet.getString("d3"));
+                    singlehour.add(resultSet.getString("d4"));
+                    singlehour.add(resultSet.getString("d5"));
+                }
                 schedule.add((new Schedule(singlehour.get(0), singlehour.get(1), singlehour.get(2), singlehour.get(3), singlehour.get(4), hours.get(i))));
                 singlehour.clear();
             } catch (Exception ex) {
@@ -307,6 +315,36 @@ public class Database implements Runnable {
         }
         return schedule;
 
+    }
+
+    public static ObservableList<Schedule> getTeacherSchedule(String login){
+        ObservableList<Schedule> schedule = FXCollections.observableArrayList();
+        ArrayList<String> hours = new ArrayList<>(Arrays.asList("8:00 - 8:45", "8:55 - 9:40", "9:50 - 10:35", "10:45 - 11:30", "11:45 - 12:30", "12:40 - 13:25", "13:35 - 14:20", "14:30 - 15:15"));
+        int maxHours = 8;
+        ArrayList<String> singlehour = new ArrayList<>();
+        for (int i = 0; i < maxHours; i++) {
+            try {
+                statement = connection.createStatement();
+                resultSet = statement.executeQuery("select " +
+                        "(select ifnull((select concat(P.Nazwa,' ',K.Skrot) from Przedmiot P inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu inner join Klasa K on K.ID_Klasy=PK.ID_Klasy where PK.ID_Nauczyciela='" + login +"' and K.ID_Klasy=(select PZ.ID_Klasy from Plan_Zajec PZ where PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='1' and PK.ID_Klasy=PZ.ID_Klasy and PK.ID_Przedmiotu=PZ.ID_Przedmiotu)), null)) as d1," +
+                        "(select ifnull((select concat(P.Nazwa,' ',K.Skrot) from Przedmiot P inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu inner join Klasa K on K.ID_Klasy=PK.ID_Klasy where PK.ID_Nauczyciela='" + login +"' and K.ID_Klasy=(select PZ.ID_Klasy from Plan_Zajec PZ where PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='2' and PK.ID_Klasy=PZ.ID_Klasy and PK.ID_Przedmiotu=PZ.ID_Przedmiotu)), null)) as d2," +
+                        "(select ifnull((select concat(P.Nazwa,' ',K.Skrot) from Przedmiot P inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu inner join Klasa K on K.ID_Klasy=PK.ID_Klasy where PK.ID_Nauczyciela='" + login +"' and K.ID_Klasy=(select PZ.ID_Klasy from Plan_Zajec PZ where PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='3' and PK.ID_Klasy=PZ.ID_Klasy and PK.ID_Przedmiotu=PZ.ID_Przedmiotu)), null)) as d3," +
+                        "(select ifnull((select concat(P.Nazwa,' ',K.Skrot) from Przedmiot P inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu inner join Klasa K on K.ID_Klasy=PK.ID_Klasy where PK.ID_Nauczyciela='" + login +"' and K.ID_Klasy=(select PZ.ID_Klasy from Plan_Zajec PZ where PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='4' and PK.ID_Klasy=PZ.ID_Klasy and PK.ID_Przedmiotu=PZ.ID_Przedmiotu)), null)) as d4," +
+                        "(select ifnull((select concat(P.Nazwa,' ',K.Skrot) from Przedmiot P inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu inner join Klasa K on K.ID_Klasy=PK.ID_Klasy where PK.ID_Nauczyciela='" + login +"' and K.ID_Klasy=(select PZ.ID_Klasy from Plan_Zajec PZ where PZ.Numer_godziny='" + (i+1) +"' and PZ.Dzien_tygodnia='5' and PK.ID_Klasy=PZ.ID_Klasy and PK.ID_Przedmiotu=PZ.ID_Przedmiotu)), null)) as d5");
+                while (resultSet.next()){
+                    singlehour.add(resultSet.getString("d1"));
+                    singlehour.add(resultSet.getString("d2"));
+                    singlehour.add(resultSet.getString("d3"));
+                    singlehour.add(resultSet.getString("d4"));
+                    singlehour.add(resultSet.getString("d5"));
+                }
+                schedule.add((new Schedule(singlehour.get(0), singlehour.get(1), singlehour.get(2), singlehour.get(3), singlehour.get(4), hours.get(i))));
+                singlehour.clear();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        return schedule;
     }
 
     public static ArrayList<ArrayList<String>> getChildren(String login) {
@@ -430,5 +468,91 @@ public class Database implements Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static Map<Integer, String> getTeacherClassesILead(String login) {
+        Map<Integer, String> classes = new LinkedHashMap<>();
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("Select ID_Klasy, Skrot from Klasa  where ID_Wychowawcy='" + login + "' group by ID_Klasy, Skrot");
+            while (resultSet.next()) {
+                classes.put(resultSet.getInt("ID_Klasy"), resultSet.getString("Skrot"));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return classes;
+    }
+
+    public static void justifyAbsence(int absenceID){
+        try {
+            statement.executeUpdate("UPDATE Nieobecnosc SET Usprawiedliwienie = 'Tak' where ID_Nieobecnosci=" + absenceID);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    public static ObservableList<Note> getNotesIPut(String studentId, String teacherId) {
+        ObservableList<Note> notes = FXCollections.observableArrayList();
+        ArrayList<String> note = new ArrayList<>();
+        try {
+            statement = connection.createStatement();
+
+            //                                                                                 where PK.ID_Nauczyciela='bogdan.szmyks' and o.Login='astz'
+
+            resultSet = statement.executeQuery("Select o.ID_Oceny, o.ID_Przedmiotu, o.Login, o.Wartosc, o.Typ, o.Data, o.Uwagi from Ocena o inner join Przedmiot P on P.ID_Przedmiotu=o.ID_Przedmiotu inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu  where o.Login='" + studentId + "' and " + "PK.ID_Nauczyciela='" + teacherId + "'");
+            while (resultSet.next()) {
+
+                note.add(resultSet.getString("ID_Oceny"));
+                note.add(resultSet.getString("ID_Przedmiotu"));
+                note.add(resultSet.getString("Login"));
+                note.add(resultSet.getString("Wartosc"));
+                note.add(resultSet.getString("Typ"));
+                note.add(resultSet.getString("Data"));
+                note.add(resultSet.getString("Uwagi"));
+                notes.add(new Note(Integer.parseInt(note.get(0)), Integer.parseInt(note.get(1)), note.get(2), Double.parseDouble(note.get(3)), note.get(4), note.get(5), note.get(6)));
+                note.clear();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return notes;
+    }
+
+    public static void editNote(double value, String comment,int noteId){
+        try {
+            statement.executeUpdate("UPDATE Ocena SET Data=(select CURRENT_TIMESTAMP),Wartosc="+value+", Uwagi='"+comment+" - EDYTOWANA' where ID_Oceny="+noteId);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    //select O.Login, O.Imie, O.Nazwisko, K.ID_Klasy, K.Skrot from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy WHERE K.ID_Wychowawcy='bogdan.szmyks'
+
+    public static ArrayList<ArrayList<String>> getChildrenILead(String login) {
+        ArrayList<ArrayList<String>> children = new ArrayList<>();
+
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko, K.ID_Klasy, K.Skrot from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy WHERE K.ID_Wychowawcy='"+login+"'");
+            while (resultSet.next()) {
+                ArrayList<String> child = new ArrayList<>();
+                child.add(resultSet.getString("Login"));
+                child.add(resultSet.getString("Imie"));
+                child.add(resultSet.getString("Nazwisko"));
+                child.add(resultSet.getString("ID_Klasy"));
+                child.add(resultSet.getString("Skrot"));
+                children.add(child);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return children;
+
     }
 }

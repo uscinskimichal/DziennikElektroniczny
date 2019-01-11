@@ -13,8 +13,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.util.Callback;
-
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,9 +20,9 @@ import java.util.ResourceBundle;
 
 public class CheckAbsenceWindowController implements Initializable {
 
-    Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
-    ArrayList<ArrayList<String>> members;
-    ArrayList<String> list = new ArrayList<>();
+    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
+    private ArrayList<ArrayList<String>> members;
+    private ArrayList<String> list = new ArrayList<>();
 
 
     private int getKeyFromValue(Map map, Object value) {

@@ -69,6 +69,7 @@ public class NotesWindowController implements Initializable {
             for (int i = 0; i < notes.size(); i++)
                 averageNote = averageNote + columnValue.getCellData(i);
             averageNoteLabel.setText(new DecimalFormat("##.##").format(averageNote / notes.size()));
+
         }
     }
 

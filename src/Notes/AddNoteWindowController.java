@@ -18,9 +18,9 @@ import java.util.ResourceBundle;
 
 public class AddNoteWindowController implements Initializable {
 
-    Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
-    Map<Integer, String> subjects;
-    ArrayList<ArrayList<String>> members;
+    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
+    private Map<Integer, String> subjects;
+    private ArrayList<ArrayList<String>> members;
 
     @FXML
     private ComboBox<String> classesBox;
@@ -95,7 +95,6 @@ public class AddNoteWindowController implements Initializable {
 
     @FXML
     private void getSubjectsOfClass() {
-
         subjectsBox.setVisible(true);
         subjectsBox.getItems().clear();
         subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.Login);
@@ -110,10 +109,8 @@ public class AddNoteWindowController implements Initializable {
         for (double note = 1.0; note <= 6.0; note = note + 0.5)
             noteValueBox.getItems().add(note);
 
-
         for (Map.Entry<Integer, String> map : classes.entrySet())
             classesBox.getItems().add(map.getValue());
-
 
     }
 }

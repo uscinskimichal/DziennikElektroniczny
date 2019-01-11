@@ -28,7 +28,7 @@ public class MenuWindowController implements Initializable {
     private Button yourNotesButton;
 
     @FXML
-    private Button scheduleButton;
+    private Button myClassNotes;
 
     @FXML
     private Button yourAbsencesButton;
@@ -41,10 +41,10 @@ public class MenuWindowController implements Initializable {
 
     @FXML
     private void goToSchedule() {
-        if (UserLoggedIn.Permission.equals("Uczen"))
-            Main.changeScene("/Schedule/ScheduleWindow.fxml", "Plan zajęć", Main.getPrimaryStage());
-        else if (UserLoggedIn.Permission.equals("Rodzic"))
+        if (UserLoggedIn.Permission.equals("Rodzic"))
             Main.changeScene("/Schedule/ScheduleWindowParent.fxml", "Plan zajęć", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Schedule/ScheduleWindow.fxml", "Plan zajęć", Main.getPrimaryStage());
     }
 
     @FXML
@@ -88,8 +88,23 @@ public class MenuWindowController implements Initializable {
     }
 
     @FXML
+    private void showMyClassNotes(){
+        Main.changeScene("/Notes/NotesWindowEducator.fxml","Oceny uczniów",Main.getPrimaryStage());
+    }
+
+    @FXML
     private void checkPresence() {
         Main.changeScene("/Absences/CheckAbsenceWindow.fxml", "Sprawdź obecnosć", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void justifyAbsence(){
+        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml","Dziennik elektroniczny", Main.getPrimaryStage());
+    } //bogdan.szmyks
+
+    @FXML
+    private void checkNotesIPut(){
+        Main.changeScene("/Notes/CheckNotesIPutWindow.fxml","aaa",Main.getPrimaryStage());
     }
 
     @FXML
@@ -111,10 +126,11 @@ public class MenuWindowController implements Initializable {
                 addNoteButton.setVisible(false);
                 checkNotesTeacherButton.setVisible(false);
                 justifyStudentAbsence.setVisible(false);
+                myClassNotes.setVisible(false);
                 break;
             case "Nauczyciel":
                 yourAbsencesButton.setVisible(false);
-                scheduleButton.setVisible(false);
+                //scheduleButton.setVisible(false);
                 yourNotesButton.setVisible(false);
                 break;
             case "Rodzic":
@@ -124,6 +140,7 @@ public class MenuWindowController implements Initializable {
                 justifyStudentAbsence.setVisible(false);
                 yourAbsencesButton.setText("Nieobecności");
                 yourNotesButton.setText("Oceny");
+                myClassNotes.setVisible(false);
                 break;
         }
     }

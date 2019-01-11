@@ -13,8 +13,9 @@
       <Button fx:id="yourNotesButton" layoutX="461.0" layoutY="14.0" mnemonicParsing="false" onAction="#showMyNotes" prefHeight="25.0" prefWidth="120.0" text="Twoje oceny" wrapText="true" />
       <Button fx:id="addNoteButton" layoutX="461.0" layoutY="210.0" mnemonicParsing="false" onAction="#addNote" prefHeight="25.0" prefWidth="120.0" text="Dodaj ocenę" wrapText="true" />
       <Button fx:id="yourAbsencesButton" layoutX="461.0" layoutY="49.0" mnemonicParsing="false" onAction="#showAbsences" prefHeight="25.0" prefWidth="120.0" text="Twoje nieobecności" wrapText="true" />
-      <Button fx:id="checkNotesTeacherButton" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="461.0" layoutY="154.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Podgląd wystawionych ocen" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="justifyStudentAbsence" layoutX="461.0" layoutY="277.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" text="Usprawiedliw nieobecność" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="checkNotesTeacherButton" alignment="TOP_CENTER" contentDisplay="TOP" layoutX="461.0" layoutY="154.0" mnemonicParsing="false" onAction="#checkNotesIPut" prefHeight="46.0" prefWidth="120.0" text="Podgląd wystawionych ocen" textAlignment="CENTER" wrapText="true" />
+      <Button fx:id="justifyStudentAbsence" layoutX="461.0" layoutY="277.0" mnemonicParsing="false" onAction="#justifyAbsence" prefHeight="46.0" prefWidth="120.0" text="Usprawiedliw nieobecność" textAlignment="CENTER" wrapText="true" />
       <Button fx:id="scheduleButton" layoutX="461.0" layoutY="117.0" mnemonicParsing="false" onAction="#goToSchedule" prefHeight="25.0" prefWidth="120.0" text="Plan zajęć" wrapText="true" />
+      <Button fx:id="myClassNotes" layoutX="123.0" layoutY="177.0" mnemonicParsing="false" onAction="#showMyClassNotes" text="Przeglądaj oceny mojej klasy" />
    </children>
 </AnchorPane>

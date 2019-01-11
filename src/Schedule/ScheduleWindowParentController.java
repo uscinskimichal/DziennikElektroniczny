@@ -70,9 +70,11 @@ public class ScheduleWindowParentController implements Initializable {
 
     @FXML
     private void setDataToDisplay() {
+        tableView.getItems().clear();
         idClass = children.get(comboBox.getSelectionModel().getSelectedIndex()).get(3);
         schedule = Database.getSchedule(Integer.parseInt(idClass));
         tableView.setItems(schedule);
+
         if (schedule.isEmpty())
             tableView.setPlaceholder(new Label("Brak zajęć."));
     }
