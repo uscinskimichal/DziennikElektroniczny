@@ -1,11 +1,9 @@
 package Menu;
 
 import Alerts.PopUpAlerts;
-import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
 import javafx.application.Platform;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -100,7 +98,7 @@ public class MenuWindowController implements Initializable {
     @FXML
     private void justifyAbsence(){
         Main.changeScene("/Absences/JustifyAbsenceWindow.fxml","Dziennik elektroniczny", Main.getPrimaryStage());
-    } //bogdan.szmyks
+    }
 
     @FXML
     private void checkNotesIPut(){

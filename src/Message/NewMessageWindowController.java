@@ -3,18 +3,29 @@ package Message;
 import Alerts.PopUpAlerts;
 import Database.Database;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class NewMessageWindowController {
+
+    MessageWindowController controller;
+
+    public void setController(MessageWindowController controller){
+        this.controller=controller;
+    }
 
     void setReceiver(String receiver) {
         toPerson.setText(receiver);
         toPerson.setEditable(false);
     }
+
 
     @FXML
     private TextField toPerson;
@@ -36,13 +47,14 @@ public class NewMessageWindowController {
     }
 
     @FXML
-    private void sendMessage() {
+    private void sendMessage() throws IOException {
         String receiver = toPerson.getText();
         String messageInterior = message.getText();
         String title = topic.getText();
 
         if (Database.checkIfLoginExist(receiver)) {
             Database.addMessage(receiver, title, messageInterior);
+            controller.refreshMessages();
             PopUpAlerts.popAlertInformation("Sukces!", "Twoja wiadomość została pomyślnie wysłana!", "Wyślij wiadomość");
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();

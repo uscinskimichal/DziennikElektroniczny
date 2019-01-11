@@ -52,18 +52,27 @@ public class MessageWindowController implements Initializable {
     private TableColumn<Message, String> dateColumnReceived, dateColumnSent;
 
     @FXML
-    private void newMessage() {
-        Stage newMessageStage = new Stage();
-        newMessageStage.initModality(Modality.APPLICATION_MODAL);
-        Platform.setImplicitExit(false);
-        Main.changeScene("/Message/NewMessageWindow.fxml", "Nowa wiadomość", newMessageStage);
-        newMessageStage.show();
+    private void newMessage() throws IOException {
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Message/NewMessageWindow.fxml"));
+        Parent root = (Parent) fxmlLoader.load();
+        NewMessageWindowController controller = fxmlLoader.<NewMessageWindowController>getController();
+        controller.setController(this);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.setTitle("Nowa Wiadomość");
+        stage.setResizable(false);
+        stage.show();
     }
 
     private Stage createMessageWindow(Message message) throws IOException {
 
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
+
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Message/ShowMessageWindow.fxml"));
         Parent root = (Parent) fxmlLoader.load();
         ShowMessageWindowController controller = fxmlLoader.<ShowMessageWindowController>getController();
@@ -136,8 +145,7 @@ public class MessageWindowController implements Initializable {
 
     }
 
-    @FXML
-    private void refreshMessages() {
+    public void refreshMessages() {
         messagesReceived = Database.getReceivedMessages();
         messagesSent = Database.getSentMessages();
         tableViewReceived.setItems(messagesReceived);

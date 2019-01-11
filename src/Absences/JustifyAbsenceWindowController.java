@@ -32,6 +32,9 @@ public class JustifyAbsenceWindowController implements Initializable {
     }
 
     @FXML
+    private Button justifyButton;
+
+    @FXML
     private TableView<Absence> tableView;
 
     @FXML
@@ -45,6 +48,14 @@ public class JustifyAbsenceWindowController implements Initializable {
 
     @FXML
     private ComboBox<String> classMembers;
+
+    @FXML
+    private void setButtonEnabled(){
+        if(tableView.getSelectionModel().getSelectedItem()!=null)
+            justifyButton.setDisable(false);
+
+    }
+
 
     @FXML
     private void getAbsences() {

@@ -505,7 +505,6 @@ public class Database implements Runnable {
 
             resultSet = statement.executeQuery("Select o.ID_Oceny, o.ID_Przedmiotu, o.Login, o.Wartosc, o.Typ, o.Data, o.Uwagi from Ocena o inner join Przedmiot P on P.ID_Przedmiotu=o.ID_Przedmiotu inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu  where o.Login='" + studentId + "' and " + "PK.ID_Nauczyciela='" + teacherId + "'");
             while (resultSet.next()) {
-
                 note.add(resultSet.getString("ID_Oceny"));
                 note.add(resultSet.getString("ID_Przedmiotu"));
                 note.add(resultSet.getString("Login"));
@@ -531,7 +530,6 @@ public class Database implements Runnable {
             ex.printStackTrace();
         }
     }
-    //select O.Login, O.Imie, O.Nazwisko, K.ID_Klasy, K.Skrot from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy WHERE K.ID_Wychowawcy='bogdan.szmyks'
 
     public static ArrayList<ArrayList<String>> getChildrenILead(String login) {
         ArrayList<ArrayList<String>> children = new ArrayList<>();

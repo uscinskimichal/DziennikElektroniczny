@@ -59,7 +59,11 @@ public class AddNoteWindowController implements Initializable {
 
     @FXML
     private void getMembersOfClass() {
-        membersBox.setVisible(true);
+        noteTypeBox.setDisable(true);
+        noteValueBox.setDisable(true);
+        noteCommentBox.setDisable(true);
+        addNoteButton.setDisable(true);
+
         membersBox.getItems().clear();
         members = Database.getClassMembers(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()));
         for (int i = 0; i < members.size(); i++) {
@@ -76,26 +80,27 @@ public class AddNoteWindowController implements Initializable {
 
     @FXML
     private void showCommentAndButton() {
-        noteCommentBox.setVisible(true);
-        addNoteButton.setVisible(true);
+        noteCommentBox.setDisable(false);
+        addNoteButton.setDisable(false);
 
     }
 
     @FXML
     private void showNoteValue() {
-        noteValueBox.setVisible(true);
+        noteValueBox.setDisable(false);
 
     }
 
     @FXML
     private void showNoteType() {
-        noteTypeBox.setVisible(true);
-
+        if (membersBox.getSelectionModel().getSelectedItem() != null)
+            noteTypeBox.setDisable(false);
+        else
+            noteTypeBox.setDisable(true);
     }
 
     @FXML
     private void getSubjectsOfClass() {
-        subjectsBox.setVisible(true);
         subjectsBox.getItems().clear();
         subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.Login);
         for (Map.Entry<Integer, String> map : subjects.entrySet())

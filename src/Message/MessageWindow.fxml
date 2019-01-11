@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="479.0" prefWidth="638.0" style="-fx-background-color: #112472;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Message.MessageWindowController">
    <children>
-      <TabPane fx:id="tabPane" layoutX="14.0" layoutY="138.0" onDragDetected="#newMessage" prefHeight="327.0" prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
+      <TabPane fx:id="tabPane" layoutX="14.0" layoutY="138.0" prefHeight="327.0" prefWidth="490.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
           <Tab fx:id="ReceivedMessages" text="Skrzynka odbiorcza">
                <content>

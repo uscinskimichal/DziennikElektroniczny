@@ -56,8 +56,6 @@ public class ShowMessageWindowController implements Initializable {
             topic.setText(message.getTopic());
             to.setText(message.getReceiver() + " , <" + nameAndSurnameReceiver.get(0) + " " + nameAndSurnameReceiver.get(1) + ">");
             from.setText(message.getSender() + " , <" + nameAndSurnameSender.get(0) + " " + nameAndSurnameSender.get(1) + ">");
-            //to.setText(message.getReceiver());
-            //from.setText(message.getSender());
             messageDisplay.setText(message.getMessage());
         });
 

@@ -10,13 +10,13 @@
 <AnchorPane prefHeight="508.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Absences.JustifyAbsenceWindowController">
    <children>
       <Label layoutX="67.0" layoutY="98.0" prefHeight="17.0" prefWidth="125.0" text="Klasy" />
-      <TableView fx:id="tableView" layoutX="337.0" layoutY="126.0" prefHeight="299.0" prefWidth="204.0">
+      <TableView fx:id="tableView" layoutX="337.0" layoutY="126.0" onMouseClicked="#setButtonEnabled" prefHeight="299.0" prefWidth="204.0">
         <columns>
           <TableColumn fx:id="dataColumn" prefWidth="75.0" text="Data" />
           <TableColumn fx:id="statusColumn" prefWidth="75.0" text="Status" />
         </columns>
       </TableView>
-      <Button layoutX="354.0" layoutY="452.0" mnemonicParsing="false" onAction="#justify" prefHeight="25.0" prefWidth="125.0" text="Usprawiedliw" />
+      <Button fx:id="justifyButton" disable="true" layoutX="354.0" layoutY="452.0" mnemonicParsing="false" onAction="#justify" prefHeight="25.0" prefWidth="125.0" text="Usprawiedliw" />
       <ComboBox fx:id="classesBox" layoutX="42.0" layoutY="140.0" onAction="#getMembers" prefWidth="150.0" promptText="Wybierz klasę" />
       <ComboBox fx:id="classMembers" layoutX="55.0" layoutY="254.0" onAction="#getAbsences" prefWidth="150.0" promptText="Wybierz ucznia" />
       <Button layoutX="67.0" layoutY="413.0" mnemonicParsing="false" onAction="#goToMenu" text="back" />

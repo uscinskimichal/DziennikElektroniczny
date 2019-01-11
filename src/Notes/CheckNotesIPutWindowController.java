@@ -10,10 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,7 +26,7 @@ public class CheckNotesIPutWindowController implements Initializable {
     private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
     private Map<Integer, String> subjects;
     private ArrayList<ArrayList<String>> members;
-    private ObservableList<Note> notes;
+    public ObservableList<Note> notes;
 
     private int getKeyFromValue(Map map, Object value) {
         for (Object o : map.keySet()) {
@@ -46,8 +43,7 @@ public class CheckNotesIPutWindowController implements Initializable {
     @FXML
     private TableColumn<Note, String> columnComment;
 
-    @FXML
-    private TableView<Note> tableView;
+    public TableView<Note> tableView;
 
     @FXML
     private TableColumn<Note, String> columnData;
@@ -64,21 +60,26 @@ public class CheckNotesIPutWindowController implements Initializable {
     @FXML
     private ComboBox<String> membersBox;
 
+    @FXML
+    private Button editNoteButton;
 
     @FXML
     private void showNotesIPut() {
         tableView.getItems().clear();
+        editNoteButton.setDisable(true);
         if (membersBox.getItems().size() > 0) {
             notes = Database.getNotesIPut(members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0), UserLoggedIn.Login);
 
-            columnData.setCellValueFactory(new PropertyValueFactory<>("date"));
-            columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
-            columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
-            columnComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
             tableView.setItems(notes);
         }
     }
 
+    @FXML
+    private void tableListener() {
+        if(tableView.getSelectionModel().getSelectedItem()!=null)
+        editNoteButton.setDisable(false);
+    }
 
     @FXML
     private void getSubjectsOfClass() {
@@ -93,15 +94,14 @@ public class CheckNotesIPutWindowController implements Initializable {
 
     }
 
-    @FXML
-    private void refreshNotes(){
-        showNotesIPut();
+    public void refreshNotes() {
+        tableView.setItems(notes);
     }
 
     @FXML
     private void editNote() throws IOException {
 
-        Stage editNote= new Stage();
+        Stage editNote = new Stage();
         editNote.initModality(Modality.APPLICATION_MODAL);
         Platform.setImplicitExit(false);
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Notes/EditNoteWindow.fxml"));
@@ -109,6 +109,7 @@ public class CheckNotesIPutWindowController implements Initializable {
 
         EditNoteWindowController controller = fxmlLoader.<EditNoteWindowController>getController();
         controller.setNote(tableView.getSelectionModel().getSelectedItem());
+        controller.setController(this);
 
         Scene scene = new Scene(root);
         editNote.setScene(scene);
@@ -117,8 +118,6 @@ public class CheckNotesIPutWindowController implements Initializable {
         editNote.show();
     }
 
-
-    //bogdan.szmyks
     @FXML
     private void backToMenu() {
         Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik elektroniczny", Main.getPrimaryStage());
@@ -136,9 +135,15 @@ public class CheckNotesIPutWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        columnData.setCellValueFactory(new PropertyValueFactory<>("date"));
+        columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
+        columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
+        columnComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
+
+
+
         tableView.setPlaceholder(new Label("Brak ocen."));
         for (Map.Entry<Integer, String> map : classes.entrySet())
             classesBox.getItems().add(map.getValue());
     }
 }
-// bogdan.szmyks

@@ -12,13 +12,13 @@
       <Label layoutX="251.0" layoutY="38.0" text="przedmioty" />
       <Label layoutX="480.0" layoutY="38.0" prefHeight="17.0" prefWidth="49.0" text="osoby" />
       <ComboBox fx:id="classesBox" layoutX="21.0" layoutY="68.0" onAction="#getSubjectsOfClass" prefWidth="150.0" promptText="Wybierz klasę" />
-      <ComboBox fx:id="subjectsBox" layoutX="207.0" layoutY="68.0" onAction="#getMembersOfClass" prefWidth="150.0" promptText="Wybierz przedmiot" visible="false" />
-      <ComboBox fx:id="membersBox" layoutX="413.0" layoutY="68.0" onAction="#showNoteType" prefWidth="150.0" promptText="Wybierz osobę" visible="false" />
+      <ComboBox fx:id="subjectsBox" layoutX="207.0" layoutY="68.0" onAction="#getMembersOfClass" prefWidth="150.0" promptText="Wybierz przedmiot" />
+      <ComboBox fx:id="membersBox" layoutX="413.0" layoutY="68.0" onAction="#showNoteType" prefWidth="150.0" promptText="Wybierz osobę" />
       <Label layoutX="41.0" layoutY="165.0" prefHeight="48.0" prefWidth="456.0" text="Ocena" />
-      <TextArea fx:id="noteCommentBox" layoutX="44.0" layoutY="295.0" prefHeight="72.0" prefWidth="226.0" promptText="Uwagi do oceny" visible="false" />
-      <ComboBox fx:id="noteValueBox" layoutX="213.0" layoutY="235.0" onAction="#showCommentAndButton" prefHeight="25.0" prefWidth="113.0" promptText="Wybierz ocenę" visible="false" />
-      <ComboBox fx:id="noteTypeBox" layoutX="21.0" layoutY="235.0" onAction="#showNoteValue" prefWidth="150.0" promptText="Wybierz typ oceny" visible="false" />
-      <Button fx:id="addNoteButton" layoutX="445.0" layoutY="342.0" mnemonicParsing="false" onAction="#addNote" text="Dodaj ocenę" visible="false" />
+      <TextArea fx:id="noteCommentBox" disable="true" layoutX="44.0" layoutY="295.0" prefHeight="72.0" prefWidth="226.0" promptText="Uwagi do oceny" />
+      <ComboBox fx:id="noteValueBox" disable="true" layoutX="213.0" layoutY="235.0" onAction="#showCommentAndButton" prefHeight="25.0" prefWidth="141.0" promptText="Wybierz ocenę" />
+      <ComboBox fx:id="noteTypeBox" disable="true" layoutX="21.0" layoutY="235.0" onAction="#showNoteValue" prefWidth="150.0" promptText="Wybierz typ oceny" />
+      <Button fx:id="addNoteButton" disable="true" layoutX="445.0" layoutY="342.0" mnemonicParsing="false" onAction="#addNote" text="Dodaj ocenę" />
       <Button layoutX="31.0" layoutY="387.0" mnemonicParsing="false" onAction="#goToMenu" text="Powrót" />
    </children>
 </AnchorPane>

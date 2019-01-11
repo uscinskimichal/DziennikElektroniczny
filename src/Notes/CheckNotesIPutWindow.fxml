@@ -11,7 +11,7 @@
       <ComboBox fx:id="classesBox" layoutX="22.0" layoutY="46.0" onAction="#getSubjectsOfClass" prefHeight="43.0" prefWidth="170.0" promptText="Wybierz klasę" />
       <ComboBox fx:id="subjectsBox" layoutX="213.0" layoutY="46.0" onAction="#getMembersOfClass" prefHeight="43.0" prefWidth="189.0" promptText="Wybierz przedmiot" />
       <ComboBox fx:id="membersBox" layoutX="409.0" layoutY="46.0" onAction="#showNotesIPut" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz ucznia" />
-      <TableView fx:id="tableView" layoutX="33.0" layoutY="164.0" prefHeight="233.0" prefWidth="531.0">
+      <TableView fx:id="tableView" layoutX="33.0" layoutY="164.0" onMouseClicked="#tableListener" prefHeight="233.0" prefWidth="531.0">
         <columns>
           <TableColumn fx:id="columnData" prefWidth="135.0" text="Data" />
           <TableColumn fx:id="columnValue" prefWidth="54.0" text="Wartość" />
@@ -20,7 +20,6 @@
         </columns>
       </TableView>
       <Button layoutX="44.0" layoutY="462.0" mnemonicParsing="false" onAction="#backToMenu" text="back" />
-      <Button layoutX="733.0" layoutY="345.0" mnemonicParsing="false" onAction="#editNote" text="Edytuj ocenę" />
-      <Button layoutX="506.0" layoutY="132.0" mnemonicParsing="false" onAction="#refreshNotes" text="reresh" />
+      <Button fx:id="editNoteButton" disable="true" layoutX="733.0" layoutY="345.0" mnemonicParsing="false" onAction="#editNote" text="Edytuj ocenę" />
    </children>
 </AnchorPane>
