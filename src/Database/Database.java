@@ -500,9 +500,6 @@ public class Database implements Runnable {
         ArrayList<String> note = new ArrayList<>();
         try {
             statement = connection.createStatement();
-
-            //                                                                                 where PK.ID_Nauczyciela='bogdan.szmyks' and o.Login='astz'
-
             resultSet = statement.executeQuery("Select o.ID_Oceny, o.ID_Przedmiotu, o.Login, o.Wartosc, o.Typ, o.Data, o.Uwagi from Ocena o inner join Przedmiot P on P.ID_Przedmiotu=o.ID_Przedmiotu inner join Przedmiot_Klasy PK on PK.ID_Przedmiotu=P.ID_Przedmiotu  where o.Login='" + studentId + "' and " + "PK.ID_Nauczyciela='" + teacherId + "'");
             while (resultSet.next()) {
                 note.add(resultSet.getString("ID_Oceny"));

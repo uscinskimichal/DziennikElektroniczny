@@ -21,11 +21,12 @@ public class LoginController {
 
     @FXML
     private PasswordField PasswordField;
+
     @FXML
     private TextField LoginField;
 
     @FXML
-    void exitApp(ActionEvent event) {
+    void exitApp() {
         System.exit(0);
     }
 
@@ -40,7 +41,7 @@ public class LoginController {
     }
 
     @FXML
-    void logIn(ActionEvent event) {
+    void logIn() {
 
         if (LoginField.getText().isEmpty()) {
             PopUpAlerts.popAlertError("Błąd!", "Pole login nie może być puste!", "Błąd logowania");

@@ -74,8 +74,13 @@ public class AddNoteWindowController implements Initializable {
 
     @FXML
     private void addNote() {
-        Database.addNote(getKeyFromValue(subjects, subjectsBox.getSelectionModel().getSelectedItem()), members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0), noteValueBox.getSelectionModel().getSelectedItem(), noteTypeBox.getSelectionModel().getSelectedItem(), noteCommentBox.getText());
+        Database.addNote(getKeyFromValue(subjects, subjectsBox.getSelectionModel().getSelectedItem()),
+                members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0),
+                noteValueBox.getSelectionModel().getSelectedItem(),
+                noteTypeBox.getSelectionModel().getSelectedItem(),
+                noteCommentBox.getText());
         PopUpAlerts.popAlertInformation("Suckes!", "Ocena została dodana.", "Dodaj ocenę");
+        //new Thread(() -> Database.addNote(getKeyFromValue(subjects, subjectsBox.getSelectionModel().getSelectedItem()), members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0), noteValueBox.getSelectionModel().getSelectedItem(), noteTypeBox.getSelectionModel().getSelectedItem(), noteCommentBox.getText()) ).start();
     }
 
     @FXML

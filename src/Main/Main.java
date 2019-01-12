@@ -53,10 +53,13 @@ public class Main extends Application {
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setResizable(false);
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {
-        new Thread(Main::connectingThread).start();
+        //new Thread(Main::connectingThread).start();
+        new Thread(() -> Main.connectingThread()).start();
+        //new Thread(() -> // your code here).start();
         launch();
     }
 }
