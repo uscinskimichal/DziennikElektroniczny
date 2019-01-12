@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.NotesWindowEducatorController">
+<AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.NotesWindowEducatorController">
    <children>
       <ImageView fitHeight="32.0" fitWidth="46.0" layoutX="25.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -97,8 +97,8 @@
       <TableView fx:id="tableView" layoutX="441.0" layoutY="413.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="298.0" prefWidth="667.0" style="-fx-border-color: #58972e;">
          <columns>
             <TableColumn fx:id="columnData" prefWidth="185.0" text="Data" />
-            <TableColumn fx:id="columnValue" prefWidth="105.0"  text="Wartość" />
-            <TableColumn fx:id="columnType" minWidth="9.0" prefWidth="175.0"  text="Typ" />
+            <TableColumn fx:id="columnValue" prefWidth="105.0" text="Wartość" />
+            <TableColumn fx:id="columnType" minWidth="9.0" prefWidth="175.0" text="Typ" />
             <TableColumn fx:id="columnComment" prefWidth="197.0" text="Uwagi" />
          </columns>
       </TableView>
@@ -112,21 +112,26 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ComboBox fx:id="comboBox" layoutX="87.0" layoutY="261.0" onAction="#setDataToDisplay" prefHeight="36.0" prefWidth="240.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+      <ComboBox fx:id="comboBox" layoutX="76.0" layoutY="326.0" onAction="#setDataToDisplay" prefHeight="36.0" prefWidth="240.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e;" />
       <Label layoutX="298.0" layoutY="53.0" prefHeight="58.0" prefWidth="649.0" text="Dziennik elektroniczny dla szkół " textFill="WHITE" textOverrun="WORD_ELLIPSIS">
          <font>
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="441.0" layoutY="259.0" mnemonicParsing="false" onAction="#goToCheckNotes" style="-fx-background-color: #58972e;" text="Sprawdź wystawione oceny" textFill="WHITE">
+      <Button layoutX="968.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" style="-fx-background-color: #998e8e;" text="Sprawdź wystawione oceny" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="694.0" layoutY="259.0" mnemonicParsing="false" onAction="#goToAddNote" style="-fx-background-color: #58972e;" text="Wystaw ocenę" textFill="WHITE">
+      <Button layoutX="967.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="32.0" prefWidth="201.0" style="-fx-background-color: #998e8e;" text="Wystaw ocenę" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
+      <Text fill="#58972e" layoutX="84.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oceny ucznia">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

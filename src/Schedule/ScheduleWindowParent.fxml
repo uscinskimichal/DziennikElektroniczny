@@ -94,12 +94,12 @@
             </ImageView>
             <TableView fx:id="tableView" layoutX="116.0" layoutY="324.0" prefHeight="453.0" prefWidth="942.0" style="-fx-background-color: white; -fx-border-color: #58972e;">
                <columns>
-                  <TableColumn fx:id="hours" prefWidth="92.0" style="-fx-background-color: #white;" text="Godzina" />
-                  <TableColumn fx:id="mondayCol" prefWidth="176.800048828125" style="-fx-background-color: #white;" text="Poniedziałek" />
-                  <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="155.199951171875" style="-fx-background-color: #white;" text="Wtorek" />
-                  <TableColumn fx:id="wednesdayCol" prefWidth="170.4000244140625" style="-fx-background-color: #white;" text="Środa" />
-                  <TableColumn fx:id="thursdayCol" prefWidth="160.79998779296875" style="-fx-background-color: #white;" text="Czwartek" />
-                  <TableColumn fx:id="fridayCol" prefWidth="184.00002441406252" style="-fx-background-color: #white;" text="Piątek" />
+                  <TableColumn fx:id="hours" prefWidth="142.0" style="-fx-background-color: #white;" text="Godzina" />
+                  <TableColumn fx:id="mondayCol" prefWidth="152.0" style="-fx-background-color: #white;" text="Poniedziałek" />
+                  <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="150.0" style="-fx-background-color: #white;" text="Wtorek" />
+                  <TableColumn fx:id="wednesdayCol" prefWidth="162.0" style="-fx-background-color: #white;" text="Środa" />
+                  <TableColumn fx:id="thursdayCol" prefWidth="160.0" style="-fx-background-color: #white;" text="Czwartek" />
+                  <TableColumn fx:id="fridayCol" prefWidth="176.0" style="-fx-background-color: #white;" text="Piątek" />
                </columns>
             </TableView>
             <ComboBox fx:id="comboBox" layoutX="87.0" layoutY="261.0" onAction="#setDataToDisplay" prefHeight="36.0" prefWidth="240.0" promptText="Wybierz dziecko" style="-fx-background-color: white; -fx-border-color: #58972e;" />
