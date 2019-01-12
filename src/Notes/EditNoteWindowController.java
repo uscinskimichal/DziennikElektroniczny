@@ -1,6 +1,8 @@
 package Notes;
 
+import Alerts.PopUpAlerts;
 import Database.Database;
+import Main.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -40,15 +42,17 @@ public class EditNoteWindowController implements Initializable {
 
     @FXML
     void editNote() {
-        Database.editNote(valueBox.getSelectionModel().getSelectedItem(), commentText.getText(), note.getNoteId());
+        new Thread(() -> Database.editNote(valueBox.getSelectionModel().getSelectedItem(), commentText.getText(), note.getNoteId())).start();
         controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setComment(commentText.getText() + " - EDYTOWANA");
         controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setValue(valueBox.getSelectionModel().getSelectedItem());
         controller.notes.set(controller.tableView.getSelectionModel().getSelectedIndex(),controller.tableView.getSelectionModel().getSelectedItem());
         controller.refreshNotes();
+        PopUpAlerts.popAlertInformation("Sukces!","Ocena została edytowana.","Edycja oceny");
+        returnToMenu();
     }
 
     @FXML
-    void exitWindow() {
+    void returnToMenu() {
         Stage stage = (Stage) valueBox.getScene().getWindow();
         stage.close();
 
@@ -57,7 +61,6 @@ public class EditNoteWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         for (double note = 1.0; note <= 6.0; note = note + 0.5)
             valueBox.getItems().add(note);
 

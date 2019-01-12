@@ -10,6 +10,9 @@ public class UserLoggedIn {
     public static String Status;
     public static String Class;
     public static String ID_Klasy;
+    public static String IP;
+    public static String City;
+    public static String Country;
 
 
     public static void eraseData(){
@@ -22,5 +25,8 @@ public class UserLoggedIn {
         Status=null;
         Class=null;
         ID_Klasy=null;
+        IP=null;
+        City=null;
+        Country=null;
     }
 }

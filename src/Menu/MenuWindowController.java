@@ -6,36 +6,127 @@ import UserInformations.UserLoggedIn;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.URL;
-
 import java.util.ResourceBundle;
 
 public class MenuWindowController implements Initializable {
 
-    @FXML
-    private Button addNoteButton;
+    private void printNetwork() {
+        userIp.setText(UserLoggedIn.IP);
+        userCity.setText(UserLoggedIn.City);
+        userCountry.setText(UserLoggedIn.Country);
+    }
+
+    private void threadStart() {
+        new Thread(() -> {
+            try {
+                UserLoggedIn.IP = getIp();
+                UserLoggedIn.City = getData(UserLoggedIn.IP, "city");
+                UserLoggedIn.Country = getData(UserLoggedIn.IP, "country_name");
+                Platform.runLater(() -> {
+                    userIp.setText(UserLoggedIn.IP);
+                    userCity.setText(UserLoggedIn.City);
+                    userCountry.setText(UserLoggedIn.Country);
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
+    private void printUser() {
+        if (UserLoggedIn.Permission.equals("Uczen")) {
+            clsLabel.setVisible(true);
+            classLabel.setVisible(true);
+            classLabel.setText(UserLoggedIn.Class);
+        }
+        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+    }
+
+    private String getData(String myIp, String data) throws IOException {
+
+        String output;
+        URL city = new URL("https://ipapi.co/" + myIp + "/" + data + "/");
+        BufferedReader cityBuffer = new BufferedReader(new InputStreamReader(city.openStream()));
+        output = cityBuffer.readLine();
+        System.out.println(output);
+        return output;
+    }
+
+    private String getIp() throws IOException {
+        String myIp = null;
+        URL url = new URL("https://ipapi.co/ip");
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+        myIp = br.readLine();
+        System.out.println(myIp);
+        return myIp;
+    }
 
     @FXML
-    private Button checkListButton;
+    private Label userCountry;
 
     @FXML
-    private Button yourNotesButton;
+    private Label userCity;
 
     @FXML
-    private Button myClassNotes;
+    private Label userIp;
 
     @FXML
-    private Button yourAbsencesButton;
+    private Label userLabel;
 
     @FXML
-    private Button checkNotesTeacherButton;
+    private Label classLabel;
 
     @FXML
-    private Button justifyStudentAbsence;
+    private Text clsLabel;
+
+    @FXML
+    private void backToMenu() {
+        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToAbsences() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Absences/AbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+        else if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Absences/AbsenceWindowParent.fxml", "Nieobecności", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Absences/CheckAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToChangePassword() {
+        Stage changePassword = new Stage();
+        changePassword.initModality(Modality.APPLICATION_MODAL);
+        changePassword.getIcons().add(new Image("file:./resources/images/password_icon.png"));
+        Platform.setImplicitExit(false);
+        Main.changeScene("/Menu/ChangePasswordWindow.fxml", "Zmień hasło", changePassword);
+        changePassword.show();
+    }
+
+    @FXML
+    private void goToMessages() {
+        Main.changeScene("/Message/MessageWindow.fxml", "Wiadomości", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToNotes() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Notes/NotesWindow.fxml", "Twoje oceny", Main.getPrimaryStage());
+        else if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Notes/NotesWindowParent.fxml", "Oceny", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
+    }
 
     @FXML
     private void goToSchedule() {
@@ -43,12 +134,6 @@ public class MenuWindowController implements Initializable {
             Main.changeScene("/Schedule/ScheduleWindowParent.fxml", "Plan zajęć", Main.getPrimaryStage());
         else
             Main.changeScene("/Schedule/ScheduleWindow.fxml", "Plan zajęć", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void exitApplication() {
-        if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz wyjść?", "Wyjście"))
-            System.exit(0);
     }
 
     @FXML
@@ -64,82 +149,18 @@ public class MenuWindowController implements Initializable {
     private void changePassword() {
         Stage changePassword = new Stage();
         changePassword.initModality(Modality.APPLICATION_MODAL);
+        changePassword.getIcons().add(new Image("file:./resources/images/password_icon.png"));
         Platform.setImplicitExit(false);
         Main.changeScene("/Menu/ChangePasswordWindow.fxml", "Zmień hasło", changePassword);
         changePassword.show();
     }
 
-    @FXML
-    private void showMyNotes() {
-        if (UserLoggedIn.Permission.equals("Uczen"))
-            Main.changeScene("/Notes/NotesWindow.fxml", "Twoje oceny", Main.getPrimaryStage());
-        else
-            Main.changeScene("/Notes/NotesWindowParent.fxml", "Oceny", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void showAbsences() {
-        if (UserLoggedIn.Permission.equals("Uczen"))
-            Main.changeScene("/Absences/AbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
-        else
-            Main.changeScene("/Absences/AbsenceWindowParent.fxml", "Nieobecności", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void showMyClassNotes(){
-        Main.changeScene("/Notes/NotesWindowEducator.fxml","Oceny uczniów",Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void checkPresence() {
-        Main.changeScene("/Absences/CheckAbsenceWindow.fxml", "Sprawdź obecnosć", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void justifyAbsence(){
-        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml","Dziennik elektroniczny", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void checkNotesIPut(){
-        Main.changeScene("/Notes/CheckNotesIPutWindow.fxml","aaa",Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void showMessages() {
-        Main.changeScene("/Message/MessageWindow.fxml", "Wiadomości", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void addNote() {
-        Main.changeScene("/Notes/AddNoteWindow.fxml", "Dodaj ocenę", Main.getPrimaryStage());
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        switch (UserLoggedIn.Permission) {
-            case "Uczen":
-                checkListButton.setVisible(false);
-                addNoteButton.setVisible(false);
-                checkNotesTeacherButton.setVisible(false);
-                justifyStudentAbsence.setVisible(false);
-                myClassNotes.setVisible(false);
-                break;
-            case "Nauczyciel":
-                yourAbsencesButton.setVisible(false);
-                //scheduleButton.setVisible(false);
-                yourNotesButton.setVisible(false);
-                break;
-            case "Rodzic":
-                checkListButton.setVisible(false);
-                addNoteButton.setVisible(false);
-                checkNotesTeacherButton.setVisible(false);
-                justifyStudentAbsence.setVisible(false);
-                yourAbsencesButton.setText("Nieobecności");
-                yourNotesButton.setText("Oceny");
-                myClassNotes.setVisible(false);
-                break;
-        }
+        if (UserLoggedIn.IP == null)
+            threadStart();
+        else
+            printNetwork();
+        printUser();
     }
 }

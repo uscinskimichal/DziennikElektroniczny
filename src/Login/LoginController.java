@@ -5,14 +5,12 @@ import Database.Database;
 import Main.Main;
 import UserInformations.UserLoggedIn;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.util.ArrayList;
 
 public class LoginController {
@@ -25,11 +23,6 @@ public class LoginController {
     @FXML
     private TextField LoginField;
 
-    @FXML
-    void exitApp() {
-        System.exit(0);
-    }
-
     private void popPleaseWait() {
         pleaseWaitWindow = new Stage();
         pleaseWaitWindow.initStyle(StageStyle.UNDECORATED);
@@ -38,6 +31,11 @@ public class LoginController {
         Platform.setImplicitExit(false);
         Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
         pleaseWaitWindow.showAndWait();
+    }
+
+    @FXML
+    void exitApp() {
+        System.exit(0);
     }
 
     @FXML

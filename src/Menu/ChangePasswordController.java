@@ -23,7 +23,6 @@ public class ChangePasswordController {
     @FXML
     private AnchorPane anchorPane;
 
-
     @FXML
     private void returnToMenu() {
         Stage stage = (Stage) anchorPane.getScene().getWindow();

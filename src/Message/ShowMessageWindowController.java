@@ -9,7 +9,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Border;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -21,19 +23,21 @@ import java.util.ResourceBundle;
 public class ShowMessageWindowController implements Initializable {
 
     private Message message;
+    private MessageWindowController messageWindowController;
+
+    void setController(MessageWindowController messageWindowController) {
+        this.messageWindowController = messageWindowController;
+    }
 
     void setMessage(Message message) {
         this.message = message;
     }
 
     @FXML
-    private Label topic;
+    private TextField topic;
 
     @FXML
-    private Label from;
-
-    @FXML
-    private Label to;
+    private TextField from;
 
     @FXML
     private TextArea messageDisplay;
@@ -52,9 +56,7 @@ public class ShowMessageWindowController implements Initializable {
 
         Platform.runLater(() -> {
             ArrayList<String> nameAndSurnameSender = Database.getNameAndSurname(message.getSender());
-            ArrayList<String> nameAndSurnameReceiver = Database.getNameAndSurname(message.getReceiver());
             topic.setText(message.getTopic());
-            to.setText(message.getReceiver() + " , <" + nameAndSurnameReceiver.get(0) + " " + nameAndSurnameReceiver.get(1) + ">");
             from.setText(message.getSender() + " , <" + nameAndSurnameSender.get(0) + " " + nameAndSurnameSender.get(1) + ">");
             messageDisplay.setText(message.getMessage());
         });
@@ -71,6 +73,7 @@ public class ShowMessageWindowController implements Initializable {
         Parent root = fxmlLoader.load();
         NewMessageWindowController controller = fxmlLoader.getController();
         controller.setReceiver(message.getSender());
+        controller.setController(messageWindowController);
 
         Scene scene = new Scene(root);
         newMessage.setScene(scene);

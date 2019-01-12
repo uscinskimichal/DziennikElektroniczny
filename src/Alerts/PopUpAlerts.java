@@ -3,6 +3,8 @@ package Alerts;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 import java.util.Optional;
 
@@ -10,6 +12,8 @@ public class PopUpAlerts {
 
     public static boolean popAlertConfirmation(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:./resources/images/confirm_icon.png"));
         ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nie");
         ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Tak");
         alert.setTitle(title);
@@ -21,6 +25,8 @@ public class PopUpAlerts {
 
     public static void popAlertError(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:./resources/images/error_icon.png"));
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
@@ -29,6 +35,8 @@ public class PopUpAlerts {
 
     public static void popAlertInformation(String title, String headerText, String contentText) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("file:./resources/images/info_icon.png"));
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
