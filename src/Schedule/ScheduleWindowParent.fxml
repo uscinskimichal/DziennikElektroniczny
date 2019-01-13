@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Schedule.ScheduleWindowParentController">
+<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Schedule.ScheduleWindowParentController">
    <children>
       <AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;">
          <children>
@@ -94,10 +94,10 @@
             </ImageView>
             <TableView fx:id="tableView" layoutX="116.0" layoutY="324.0" prefHeight="453.0" prefWidth="942.0" style="-fx-background-color: white; -fx-border-color: #58972e;">
                <columns>
-                  <TableColumn fx:id="hours" prefWidth="142.0" style="-fx-background-color: #white;" text="Godzina" />
-                  <TableColumn fx:id="mondayCol" prefWidth="152.0" style="-fx-background-color: #white;" text="Poniedziałek" />
-                  <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="150.0" style="-fx-background-color: #white;" text="Wtorek" />
-                  <TableColumn fx:id="wednesdayCol" prefWidth="162.0" style="-fx-background-color: #white;" text="Środa" />
+                  <TableColumn fx:id="hours" prefWidth="155.0" style="-fx-background-color: #white;" text="Godzina" />
+                  <TableColumn fx:id="mondayCol" prefWidth="158.0" style="-fx-background-color: #white;" text="Poniedziałek" />
+                  <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="149.0" style="-fx-background-color: #white;" text="Wtorek" />
+                  <TableColumn fx:id="wednesdayCol" prefWidth="144.0" style="-fx-background-color: #white;" text="Środa" />
                   <TableColumn fx:id="thursdayCol" prefWidth="160.0" style="-fx-background-color: #white;" text="Czwartek" />
                   <TableColumn fx:id="fridayCol" prefWidth="176.0" style="-fx-background-color: #white;" text="Piątek" />
                </columns>
