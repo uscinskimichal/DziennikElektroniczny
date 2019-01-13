@@ -120,7 +120,7 @@
       </TextArea>
       <Button fx:id="addNoteButton" disable="true" layoutX="1039.0" layoutY="716.0" mnemonicParsing="false" onAction="#addNote" style="-fx-background-color: #58972e;" text="Dodaj ocenę" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="129.0" layoutY="456.0" prefHeight="32.0" prefWidth="98.0" style="-fx-background-color: #58972e;" text="Osoba" textFill="WHITE">
@@ -128,12 +128,12 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="820.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #998e8e #998e8e;" text="Oceny uczniów" textFill="WHITE">
+      <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e #998e8e;" text="Oceny uczniów" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="820.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #998e8e #998e8e;" text="Oceny osób z klasy, których jestem wychowawcą" textFill="WHITE">
+      <Button layoutX="946.0" layoutY="353.0" mnemonicParsing="false" onAction="#goToNoteHead" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e #998e8e;" text="Oceny mojej klasy" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

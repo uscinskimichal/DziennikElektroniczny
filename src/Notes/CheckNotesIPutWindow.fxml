@@ -54,7 +54,7 @@
          </font>
       </Label>
       <BorderPane layoutX="320.0" layoutY="215.0" />
-      <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sprawdź wystawione oceny">
+      <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Oceny uczniów">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -110,12 +110,12 @@
          </font>
       </Button>
       <ComboBox fx:id="classesBox" layoutX="84.0" layoutY="335.0" onAction="#getSubjectsOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz klasę" style="-fx-background-color: white; -fx-border-color: #58972e;" />
-      <Button layoutX="1043.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #998e8e #998e8e;" text="Wystaw ocenę" textFill="WHITE">
+      <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e #998e8e;" text="Dodawanie ocen" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="1043.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #998e8e;" text="Oceny uczniów" textFill="WHITE">
+      <Button layoutX="946.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToNoteHead" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e;" text="Oceny mojej klasy" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

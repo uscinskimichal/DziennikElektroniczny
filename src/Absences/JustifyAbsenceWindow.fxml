@@ -50,7 +50,7 @@
                   <Font name="System Bold Italic" size="20.0" />
                </font>
             </Label>
-            <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usprawiedliwienie nieobecności">
+            <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usprawiedliwianie nieobecności">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
                </font>
@@ -90,7 +90,7 @@
                   <Image url="file:./resources/images/wiadomości..png" />
                </image>
             </ImageView>
-            <Button layoutX="988.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToAbsences" style="-fx-background-color: #998e8e;" text="Wstawianie nieobecności" textFill="WHITE">
+            <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToAbsences" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e;" text="Sprawdzanie obecności" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
@@ -109,12 +109,15 @@
        </Button>
       <ComboBox fx:id="classesBox" layoutX="97.0" layoutY="351.0" onAction="#getMembers" prefWidth="220.0" promptText="Wybierz klasę" style="-fx-background-color: white; -fx-border-color: #58972e;" />
       <ComboBox fx:id="classMembers" layoutX="97.0" layoutY="400.0" onAction="#getAbsences" prefHeight="26.0" prefWidth="220.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e;" />
-      <TableView fx:id="tableView" layoutX="381.0" layoutY="355.0" onMouseClicked="#setButtonEnabled" prefHeight="406.0" prefWidth="395.0" style="-fx-background-color: white; -fx-border-color: #58972e;">
+      <TableView fx:id="tableView" layoutX="381.0" layoutY="355.0" onMouseClicked="#setButtonEnabled" prefHeight="389.0" prefWidth="395.0" style="-fx-background-color: white; -fx-border-color: #58972e;">
          <columns>
             <TableColumn fx:id="dataColumn" prefWidth="215.199951171875" text="Data" />
             <TableColumn fx:id="statusColumn" prefWidth="173.60003662109375" text="Status" />
          </columns>
       </TableView>
-      <Button fx:id="justifyButton" disable="true" layoutX="811.0" layoutY="726.0" mnemonicParsing="false" onAction="#justify" prefHeight="34.0" prefWidth="159.0" style="-fx-border-color: #58972e;" text="Usprawiedliw" />
+      <Button fx:id="justifyButton" disable="true" layoutX="1001.0" layoutY="711.0" mnemonicParsing="false" onAction="#justify" prefHeight="34.0" prefWidth="159.0" style="-fx-border-color: #58972e; -fx-background-color: #58972e;" text="Usprawiedliw" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>
