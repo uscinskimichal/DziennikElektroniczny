@@ -118,12 +118,12 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="968.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" style="-fx-background-color: #998e8e;" text="Sprawdź wystawione oceny" textFill="WHITE">
+      <Button layoutX="1038.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="31.0" prefWidth="130.0" style="-fx-background-color: #998e8e;" text="Oceny uczniów" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="967.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="32.0" prefWidth="201.0" style="-fx-background-color: #998e8e;" text="Wystaw ocenę" textFill="WHITE">
+      <Button layoutX="1038.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="32.0" prefWidth="130.0" style="-fx-background-color: #998e8e;" text="Dodaj ocenę" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>

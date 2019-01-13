@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="button3" prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.CheckNotesIPutWindowController">
+<AnchorPane fx:id="button3" prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.CheckNotesIPutWindowController">
    <children>
       <ImageView fitHeight="32.0" fitWidth="46.0" layoutX="25.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -94,14 +94,14 @@
             <Image url="file:./resources/images/wiadomości..png" />
          </image>
       </ImageView>
-      <ComboBox fx:id="subjectsBox" layoutX="480.0" layoutY="396.0" onAction="#getMembersOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz przedmiot" style="-fx-background-color: white; -fx-border-color: #58972e;" />
-      <ComboBox fx:id="membersBox" layoutX="480.0" layoutY="460.0" onAction="#showNotesIPut" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e #58972e;" />
-      <TableView fx:id="tableView" layoutX="239.0" layoutY="529.0" onMouseClicked="#tableListener" prefHeight="234.0" prefWidth="712.0">
+      <ComboBox fx:id="subjectsBox" layoutX="84.0" layoutY="396.0" onAction="#getMembersOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz przedmiot" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+      <ComboBox fx:id="membersBox" layoutX="84.0" layoutY="456.0" onAction="#showNotesIPut" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e #58972e;" />
+      <TableView fx:id="tableView" layoutX="87.0" layoutY="528.0" onMouseClicked="#tableListener" prefHeight="234.0" prefWidth="800.0">
          <columns>
-            <TableColumn fx:id="columnData" prefWidth="186.40003967285156" text="Data" />
-            <TableColumn fx:id="columnValue" minWidth="3.20001220703125" prefWidth="69.5999755859375" text="Wartość" />
-            <TableColumn fx:id="columnType" prefWidth="188.7999267578125" text="Typ" />
-            <TableColumn fx:id="columnComment" prefWidth="261.59991455078125" text="Uwagi" />
+            <TableColumn fx:id="columnData" prefWidth="247.19996643066406" text="Data" />
+            <TableColumn fx:id="columnValue" minWidth="3.20001220703125" prefWidth="106.39999389648438" text="Wartość" />
+            <TableColumn fx:id="columnType" prefWidth="182.4000244140625" text="Typ" />
+            <TableColumn fx:id="columnComment" prefWidth="258.4000244140625" text="Uwagi" />
          </columns>
       </TableView>
       <Button fx:id="editNoteButton" disable="true" layoutX="1037.0" layoutY="724.0" mnemonicParsing="false" onAction="#editNote" style="-fx-background-color: #58972e #58972e;" text="Edytuj ocenę" textFill="WHITE">
@@ -109,15 +109,15 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <ComboBox fx:id="classesBox" layoutX="480.0" layoutY="331.0" onAction="#getSubjectsOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz klasę" style="-fx-background-color: white; -fx-border-color: #58972e;" />
-      <Button layoutX="380.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToAddNote" style="-fx-background-color: #58972e;" text="Wystaw ocenę" textFill="WHITE">
+      <ComboBox fx:id="classesBox" layoutX="84.0" layoutY="335.0" onAction="#getSubjectsOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz klasę" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+      <Button layoutX="1043.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="31.0" prefWidth="120.0" style="-fx-background-color: #998e8e #998e8e;" text="Wystaw ocenę" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="532.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #58972e;" text="Podgląd ocen osób z klasy którą prowadzę" textFill="WHITE">
+      <Button layoutX="1043.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #998e8e;" text="Oceny uczniów" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
    </children>

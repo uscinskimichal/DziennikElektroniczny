@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="button3" prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.AddNoteWindowController">
+<AnchorPane fx:id="button3" prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.AddNoteWindowController">
    <children>
       <ImageView fitHeight="32.0" fitWidth="46.0" layoutX="25.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -53,7 +53,7 @@
          </font>
       </Label>
       <BorderPane layoutX="320.0" layoutY="215.0" />
-      <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodaj ocenę">
+      <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dodawanie ocen">
          <font>
             <Font name="System Bold Italic" size="18.0" />
          </font>
@@ -128,14 +128,14 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Button layoutX="380.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToCheckNotes" style="-fx-background-color: #58972e;" text="Sprawdź wystawione oceny" textFill="WHITE">
+      <Button layoutX="820.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="31.0" prefWidth="341.0" style="-fx-background-color: #998e8e #998e8e;" text="Oceny uczniów" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
-      <Button layoutX="632.0" layoutY="260.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #58972e;" text="Podgląd ocen osób z klasy którą prowadzę" textFill="WHITE">
+      <Button layoutX="820.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToNoteHead" style="-fx-background-color: #998e8e #998e8e;" text="Oceny osób z klasy, których jestem wychowawcą" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font size="15.0" />
          </font>
       </Button>
    </children>
