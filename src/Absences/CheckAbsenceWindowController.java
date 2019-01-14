@@ -10,6 +10,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -65,6 +66,9 @@ public class CheckAbsenceWindowController implements Initializable {
 
     @FXML
     private ComboBox<String> classesBox;
+
+    @FXML
+    private Button addAbsenceButton;
 
     @FXML
     private void goToJustifyAbsence() {
@@ -154,11 +158,14 @@ public class CheckAbsenceWindowController implements Initializable {
             public ObservableValue<Boolean> call(String item) {
                 BooleanProperty observable = new SimpleBooleanProperty();
                 observable.addListener((obs, wasSelected, isNowSelected) -> {
-                    if (isNowSelected) {
+                    if (isNowSelected)
                         list.add(item);
-                    } else {
+                    else
                         list.remove(item);
-                    }
+                    if(!list.isEmpty())
+                        addAbsenceButton.setDisable(false);
+                    else
+                        addAbsenceButton.setDisable(true);
                 });
                 return observable;
             }

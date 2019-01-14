@@ -11,11 +11,13 @@ import javafx.scene.image.Image;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.Semaphore;
 
 public class MenuWindowController implements Initializable {
 
@@ -29,14 +31,33 @@ public class MenuWindowController implements Initializable {
         new Thread(() -> {
             try {
                 UserLoggedIn.IP = getIp();
-                UserLoggedIn.City = getData(UserLoggedIn.IP, "city");
-                UserLoggedIn.Country = getData(UserLoggedIn.IP, "country_name");
+
+                Semaphore s1 = new Semaphore(-1);
+
+                new Thread(() -> {
+                    try {
+                        UserLoggedIn.City = getData(UserLoggedIn.IP, "city");
+                        s1.release();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                new Thread(() -> {
+                    try {
+                        UserLoggedIn.Country = getData(UserLoggedIn.IP, "country_name");
+                        s1.release();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                s1.acquire();
+
                 Platform.runLater(() -> {
                     userIp.setText(UserLoggedIn.IP);
                     userCity.setText(UserLoggedIn.City);
                     userCountry.setText(UserLoggedIn.Country);
                 });
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();

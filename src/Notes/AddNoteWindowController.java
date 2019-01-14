@@ -129,6 +129,9 @@ public class AddNoteWindowController implements Initializable {
 
     @FXML
     private void getMembersOfClass() {
+        noteTypeBox.getSelectionModel().clearSelection();
+        noteValueBox.getSelectionModel().clearSelection();
+        noteCommentBox.clear();
         noteTypeBox.setDisable(true);
         noteValueBox.setDisable(true);
         noteCommentBox.setDisable(true);

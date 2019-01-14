@@ -57,7 +57,9 @@ public class MessageWindowController implements Initializable {
     private TabPane tabPane;
 
     @FXML
-    private TableView<Message> tableViewReceived, tableViewSent;
+    public TableView<Message> tableViewReceived;
+    @FXML
+    public TableView<Message> tableViewSent;
 
     @FXML
     private TableColumn<Message, String> senderColumnReceived, senderColumnSent;
@@ -66,7 +68,7 @@ public class MessageWindowController implements Initializable {
     private TableColumn<Message, String> topicColumnReceived, topicColumnSent;
 
     @FXML
-    private TableColumn<Message, String> dateColumnReceived, dateColumnSent;
+    public TableColumn<Message, String> dateColumnReceived, dateColumnSent;
 
     @FXML
     private void newMessage() throws IOException {
@@ -157,6 +159,7 @@ public class MessageWindowController implements Initializable {
                 if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
                     new Thread(() -> Database.deleteReceivedMessage(selectedItem.getId())).start();
                     tableViewReceived.getItems().remove(selectedItem);
+
                 }
             }
 
@@ -169,6 +172,7 @@ public class MessageWindowController implements Initializable {
         messagesSent = Database.getSentMessages();
         tableViewReceived.setItems(messagesReceived);
         tableViewSent.setItems(messagesSent);
+
     }
 
     @FXML
@@ -241,6 +245,10 @@ public class MessageWindowController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
+
+        dateColumnReceived.setSortType(TableColumn.SortType.DESCENDING);
+        dateColumnSent.setSortType(TableColumn.SortType.DESCENDING);
+
         senderColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("sender"));
         topicColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
         dateColumnReceived.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
@@ -250,6 +258,10 @@ public class MessageWindowController implements Initializable {
         topicColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("topic"));
         dateColumnSent.setCellValueFactory(new PropertyValueFactory<Message, String>("data"));
         tableViewSent.setItems(messagesSent);
+
+
+        tableViewReceived.getSortOrder().add(dateColumnReceived);
+        tableViewSent.getSortOrder().add(dateColumnSent);
 
         if (messagesReceived.isEmpty())
             tableViewReceived.setPlaceholder(new Label("Brak wiadomości"));
