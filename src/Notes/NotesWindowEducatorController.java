@@ -124,12 +124,7 @@ public class NotesWindowEducatorController implements Initializable {
         Main.changeScene("/Notes/CheckNotesIPutWindow.fxml","Oceny",Main.getPrimaryStage());
     }
 
-    @FXML
-    private void showNotes() {
-        selectedItem = listSubjects.getSelectionModel().getSelectedItem();
-        if (selectedItem != null)
-            fillTable(selectedItem);
-    }
+
 
     private void fillTable(String subject) {
         notes = Database.getNotes(subject, login);

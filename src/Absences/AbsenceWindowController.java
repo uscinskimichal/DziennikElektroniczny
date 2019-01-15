@@ -110,15 +110,6 @@ public class AbsenceWindowController implements Initializable {
         }
     }
 
-    @FXML
-    private void changePassword() {
-        Stage changePassword = new Stage();
-        changePassword.initModality(Modality.APPLICATION_MODAL);
-        changePassword.getIcons().add(new Image("file:./resources/images/password_icon.png"));
-        Platform.setImplicitExit(false);
-        Main.changeScene("/Menu/ChangePasswordWindow.fxml", "Zmień hasło", changePassword);
-        changePassword.show();
-    }
 
     @FXML
     private void backToMenu() {

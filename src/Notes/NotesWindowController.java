@@ -131,41 +131,6 @@ public class NotesWindowController implements Initializable {
         }
     }
 
-    @FXML
-    private void changePassword() {
-        Stage changePassword = new Stage();
-        changePassword.initModality(Modality.APPLICATION_MODAL);
-        changePassword.getIcons().add(new Image("file:./resources/images/password_icon.png"));
-        Platform.setImplicitExit(false);
-        Main.changeScene("/Menu/ChangePasswordWindow.fxml", "Zmień hasło", changePassword);
-        changePassword.show();
-    }
-
-    @FXML
-    private void showMyNotes() {
-        if (UserLoggedIn.Permission.equals("Uczen"))
-            Main.changeScene("/Notes/NotesWindow.fxml", "Twoje oceny", Main.getPrimaryStage());
-        else
-            Main.changeScene("/Notes/NotesWindowParent.fxml", "Oceny", Main.getPrimaryStage());
-    }
-
-    @FXML
-    private void showAbsences() {
-        if (UserLoggedIn.Permission.equals("Uczen"))
-            Main.changeScene("/Absences/AbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
-        else
-            Main.changeScene("/Absences/AbsenceWindowParent.fxml", "Nieobecności", Main.getPrimaryStage());
-    }
-
-
-
-
-    @FXML
-    private void showNotes() {
-        selectedItem = listSubjects.getSelectionModel().getSelectedItem();
-        if (selectedItem != null)
-            fillTable(selectedItem);
-    }
 
     private void fillTable(String subject) {
         notes = Database.getNotes(subject, UserLoggedIn.Login);

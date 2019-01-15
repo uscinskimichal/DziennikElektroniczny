@@ -138,10 +138,6 @@ public class CheckAbsenceWindowController implements Initializable {
         }
     }
 
-    @FXML
-    private void goToMenu() {
-        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
-    }
 
     @FXML
     private void getMembers() {
