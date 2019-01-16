@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Schedule.ScheduleWindowController">
+<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Schedule.ScheduleWindowController">
    <children>
       <AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;">
          <children>
@@ -103,7 +103,7 @@
                   <TableColumn fx:id="tuesdayCol" minWidth="0.0" prefWidth="157.0" style="-fx-background-color: #white;" text="Wtorek" />
                   <TableColumn fx:id="wednesdayCol" prefWidth="138.0" style="-fx-background-color: #white;" text="Środa" />
                   <TableColumn fx:id="thursdayCol" prefWidth="169.0" style="-fx-background-color: #white;" text="Czwartek" />
-                  <TableColumn fx:id="fridayCol" prefWidth="141.0" style="-fx-background-color: #white;" text="Piątek" />
+                  <TableColumn fx:id="fridayCol" prefWidth="132.79986572265625" style="-fx-background-color: #white;" text="Piątek" />
                </columns>
             </TableView>
          </children>
