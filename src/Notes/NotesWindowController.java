@@ -108,6 +108,9 @@ public class NotesWindowController implements Initializable {
             Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
     }
 
+
+
+
     @FXML
     private void goToSchedule() {
         if (UserLoggedIn.Permission.equals("Rodzic"))
@@ -131,6 +134,13 @@ public class NotesWindowController implements Initializable {
         }
     }
 
+
+    @FXML
+    private void showNotes() {
+        selectedItem = listSubjects.getSelectionModel().getSelectedItem();
+        if (selectedItem != null)
+            fillTable(selectedItem);
+    }
 
     private void fillTable(String subject) {
         notes = Database.getNotes(subject, UserLoggedIn.Login);

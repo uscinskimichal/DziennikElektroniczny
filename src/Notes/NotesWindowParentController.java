@@ -171,6 +171,13 @@ public class NotesWindowParentController implements Initializable {
         listSubjects.setItems(subjects);
     }
 
+    @FXML
+    private void showNotes() {
+        selectedItem = listSubjects.getSelectionModel().getSelectedItem();
+        if (selectedItem != null)
+            fillTable(selectedItem);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
