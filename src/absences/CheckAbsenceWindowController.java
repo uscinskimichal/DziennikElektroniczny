@@ -3,8 +3,8 @@ package absences;
 import alerts.PopUpAlerts;
 import database.Database;
 import main.Main;
-import navigator.Navigator;
 import userInformations.UserLoggedIn;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
@@ -15,7 +15,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.CheckBoxListCell;
+import javafx.scene.image.Image;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 import java.net.URL;
@@ -23,7 +26,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-public class CheckAbsenceWindowController extends Navigator implements Initializable {
+public class CheckAbsenceWindowController implements Initializable {
 
     private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
     private ArrayList<ArrayList<String>> members;
@@ -38,6 +41,7 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
         }
         return -1;
     }
+
 
     private void printUser() {
         if (UserLoggedIn.Permission.equals("Uczen")) {
@@ -68,8 +72,72 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
 
     @FXML
     private void goToJustifyAbsence() {
-        Main.changeScene("/absences/JustifyAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
     }
+
+    @FXML
+    private void backToMenu() {
+        Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToAbsences() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Absences/AbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+        else if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Absences/AbsenceWindowParent.fxml", "Nieobecności", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Absences/CheckAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToChangePassword() {
+        Stage changePassword = new Stage();
+        changePassword.initModality(Modality.APPLICATION_MODAL);
+        changePassword.getIcons().add(new Image("file:./resources/images/password_icon.png"));
+        Platform.setImplicitExit(false);
+        Main.changeScene("/Menu/ChangePasswordWindow.fxml", "Zmień hasło", changePassword);
+        changePassword.show();
+    }
+
+    @FXML
+    private void goToMessages() {
+        Main.changeScene("/Message/MessageWindow.fxml", "Wiadomości", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToNotes() {
+        if (UserLoggedIn.Permission.equals("Uczen"))
+            Main.changeScene("/Notes/NotesWindow.fxml", "Twoje oceny", Main.getPrimaryStage());
+        else if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Notes/NotesWindowParent.fxml", "Oceny", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void goToSchedule() {
+        if (UserLoggedIn.Permission.equals("Rodzic"))
+            Main.changeScene("/Schedule/ScheduleWindowParent.fxml", "Plan zajęć", Main.getPrimaryStage());
+        else
+            Main.changeScene("/Schedule/ScheduleWindow.fxml", "Plan zajęć", Main.getPrimaryStage());
+    }
+
+    @FXML
+    private void exitApplication() {
+        if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz wyjść?", "Wyjście"))
+            System.exit(0);
+    }
+
+    @FXML
+    private void logout() {
+
+        if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz się wylogować?", "Wyloguj")) {
+            Main.changeScene("/Login/LoginWindowController.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+            UserLoggedIn.eraseData();
+        }
+    }
+
 
     @FXML
     private void getMembers() {
@@ -81,19 +149,22 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
         }
 
 
-        listView.setCellFactory(CheckBoxListCell.forListView(item -> {
-            BooleanProperty observable = new SimpleBooleanProperty();
-            observable.addListener((obs, wasSelected, isNowSelected) -> {
-                if (isNowSelected)
-                    list.add(item);
-                else
-                    list.remove(item);
-                if(!list.isEmpty())
-                    addAbsenceButton.setDisable(false);
-                else
-                    addAbsenceButton.setDisable(true);
-            });
-            return observable;
+        listView.setCellFactory(CheckBoxListCell.forListView(new Callback<String, ObservableValue<Boolean>>() {
+            @Override
+            public ObservableValue<Boolean> call(String item) {
+                BooleanProperty observable = new SimpleBooleanProperty();
+                observable.addListener((obs, wasSelected, isNowSelected) -> {
+                    if (isNowSelected)
+                        list.add(item);
+                    else
+                        list.remove(item);
+                    if(!list.isEmpty())
+                        addAbsenceButton.setDisable(false);
+                    else
+                        addAbsenceButton.setDisable(true);
+                });
+                return observable;
+            }
         }));
 
     }
