@@ -55,8 +55,6 @@ public class NewMessageWindowController {
         if (Database.checkIfLoginExist(receiver)) {
             Database.addMessage(receiver, title, messageInterior);
             controller.refreshMessages();
-            controller.tableViewReceived.getSortOrder().add(controller.dateColumnReceived);
-            controller.tableViewSent.getSortOrder().add(controller.dateColumnSent);
             PopUpAlerts.popAlertInformation("Sukces!", "Twoja wiadomość została pomyślnie wysłana!", "Wyślij wiadomość");
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();

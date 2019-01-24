@@ -159,7 +159,7 @@
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Label fx:id="userIp" layoutX="125.0" layoutY="38.0" prefHeight="17.0" prefWidth="195.0" textFill="#58972e">
+                  <Label fx:id="userIp" layoutX="129.0" layoutY="38.0" prefHeight="17.0" prefWidth="195.0" textFill="#58972e">
                      <font>
                         <Font size="15.0" />
                      </font>

@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.NotesWindowEducatorController">
+<AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Notes.NotesWindowEducatorController">
    <children>
       <ImageView fitHeight="32.0" fitWidth="46.0" layoutX="25.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -118,7 +118,7 @@
             <Font name="System Bold" size="40.0" />
          </font>
       </Label>
-      <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e;" text="Edycja oceny" textFill="WHITE">
+      <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToCheckNotes" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e;" text="Oceny uczniów" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
