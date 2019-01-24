@@ -1,9 +1,9 @@
 package Login;
 
-import Alerts.PopUpAlerts;
-import Database.Database;
-import Main.Main;
-import UserInformations.UserLoggedIn;
+import alerts.PopUpAlerts;
+import database.Database;
+import main.Main;
+import userInformations.UserLoggedIn;
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -29,7 +29,7 @@ public class LoginController {
         pleaseWaitWindow.initModality(Modality.APPLICATION_MODAL);
         pleaseWaitWindow.setOnCloseRequest(Event::consume);
         Platform.setImplicitExit(false);
-        Main.changeScene("/Alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
+        Main.changeScene("/alerts/PleaseWait.fxml", "Please wait...", pleaseWaitWindow);
         pleaseWaitWindow.showAndWait();
     }
 
@@ -64,7 +64,7 @@ public class LoginController {
                     UserLoggedIn.Class = classInfo.get(0);
                     UserLoggedIn.ID_Klasy = classInfo.get(1);
                 }
-                Main.changeScene("/Menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+                Main.changeScene("/menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
                 System.out.println("Success");
             } else if (LoginField.getText().equals(userInfo.get(0)))
                 PopUpAlerts.popAlertError("Błąd!", "Login lub hasło jest niepoprawne!", "Błąd logowania");
