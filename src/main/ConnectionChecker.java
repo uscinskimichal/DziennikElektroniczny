@@ -11,6 +11,7 @@ import userInformations.UserLoggedIn;
 public class ConnectionChecker implements Runnable {
     public static boolean isInternetConnected;
     private Stage noInternet = null;
+    private boolean isPopped=false;
 
     ConnectionChecker() {
         new Thread(this).start();
@@ -27,22 +28,21 @@ public class ConnectionChecker implements Runnable {
                     System.out.println("Connection Successful, "
                             + "Output was " + x);
 
-                    if (noInternet != null) {
+                    if (isPopped) {
+                        isPopped=false;
                         Platform.runLater(
-                                () -> {
-                                    Database.reconnectingThread(noInternet);
-                                    noInternet=null;
-                                }
+                                () -> Database.reconnectingThread(noInternet)
                         );
                     }
                 } else {
                     isInternetConnected = false;
                     System.out.println("Internet Not Connected, "
                             + "Output was " + x);
-                    if (UserLoggedIn.Login != null && this.noInternet == null) {
+                    if (UserLoggedIn.Login != null && !isPopped) {
+                        isPopped=true;
                         Platform.runLater(
                                 () -> {
-                                    this.noInternet = new Stage();
+                                    noInternet = new Stage();
                                     noInternet.initStyle(StageStyle.UNDECORATED);
                                     noInternet.initModality(Modality.APPLICATION_MODAL);
                                     noInternet.setOnCloseRequest(Event::consume);
