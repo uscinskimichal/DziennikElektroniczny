@@ -3,6 +3,10 @@ package notes;
 import database.Database;
 import main.Main;
 import navigator.Navigator;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import userInformations.UserLoggedIn;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -68,6 +72,8 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
     @FXML
     private Button editNoteButton;
 
+
+
     @FXML
     private void goToAddNote() {
         Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
@@ -100,6 +106,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
     private void getSubjectsOfClass() {
         subjectsBox.getItems().clear();
         membersBox.getItems().clear();
+
         int i = 0;
         subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.Login);
         for (Map.Entry<Integer, String> map : subjects.entrySet()) {

@@ -1,6 +1,7 @@
 package menu;
 
 import alerts.PopUpAlerts;
+import javafx.scene.control.Button;
 import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -65,7 +67,7 @@ public class MenuWindowController extends Navigator implements Initializable {
     }
 
     private void printUser() {
-        if (UserLoggedIn.Permission.equals("Uczen")) {
+        if (UserLoggedIn.Permission==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
             classLabel.setText(UserLoggedIn.Class);
@@ -109,10 +111,6 @@ public class MenuWindowController extends Navigator implements Initializable {
 
     @FXML
     private Text clsLabel;
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

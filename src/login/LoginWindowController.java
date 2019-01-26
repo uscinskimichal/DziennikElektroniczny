@@ -2,6 +2,7 @@ package login;
 
 import alerts.PopUpAlerts;
 import database.Database;
+import main.ConnectionChecker;
 import main.Main;
 import userInformations.UserLoggedIn;
 import javafx.application.Platform;
@@ -11,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.util.ArrayList;
 
 public class LoginWindowController {
@@ -40,13 +42,23 @@ public class LoginWindowController {
 
     @FXML
     void logIn() {
+
+
         if (LoginField.getText().isEmpty()) {
             PopUpAlerts.popAlertError("Błąd!", "Pole login nie może być puste!", "Błąd logowania");
             return;
         }
 
+        if (ConnectionChecker.isInternetConnected)
+            Database.connectingThread();
+        else {
+            PopUpAlerts.popAlertError("Błąd", "Brak połączenia z internetem", "Internet");
+            return;
+        }
+
         if (!Database.isConnected)
             popPleaseWait();
+
 
         ArrayList<String> userInfo = Database.getUserInfo(LoginField.getText());
         if (userInfo.size() != 0) {
@@ -56,7 +68,7 @@ public class LoginWindowController {
                 UserLoggedIn.Name = userInfo.get(2);
                 UserLoggedIn.Surname = userInfo.get(3);
                 UserLoggedIn.Sex = userInfo.get(4);
-                UserLoggedIn.Permission = userInfo.get(5);
+                UserLoggedIn.Permission = Integer.parseInt(userInfo.get(5));
                 UserLoggedIn.Status = userInfo.get(6);
                 ArrayList<String> classInfo = Database.getUserClass();
                 if (!classInfo.isEmpty()) {

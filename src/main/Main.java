@@ -1,6 +1,9 @@
 package main;
 
 import database.Database;
+import javafx.event.Event;
+import javafx.stage.Modality;
+import javafx.stage.StageStyle;
 import login.LoginWindowController;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -9,8 +12,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.engine.design.JRDesignBand;
+import net.sf.jasperreports.engine.design.JRDesignFrame;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.swing.JRViewer;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.invoke.MethodHandles;
 
 public class Main extends Application {
@@ -37,14 +48,6 @@ public class Main extends Application {
         }
     }
 
-    private static void connectingThread() {
-        Database.connectToTheDatabase();
-        if (LoginWindowController.pleaseWaitWindow != null)
-            Platform.runLater(
-                    () -> LoginWindowController.pleaseWaitWindow.close()
-            );
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
@@ -59,7 +62,7 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        new Thread(() -> Main.connectingThread()).start();
+        new ConnectionChecker();
         launch();
     }
 }

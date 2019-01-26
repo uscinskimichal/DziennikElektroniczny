@@ -2,6 +2,7 @@ package schedule;
 
 import alerts.PopUpAlerts;
 import database.Database;
+import login.LoginWindowController;
 import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
@@ -27,7 +28,7 @@ public class ScheduleWindowController extends Navigator implements Initializable
     private ObservableList<Schedule> schedule = FXCollections.observableArrayList();
 
     private void printUser() {
-        if (UserLoggedIn.Permission.equals("Uczen")) {
+        if (UserLoggedIn.Permission == 1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
             classLabel.setText(UserLoggedIn.Class);
@@ -43,8 +44,6 @@ public class ScheduleWindowController extends Navigator implements Initializable
 
     @FXML
     private Text clsLabel;
-
-
 
 
     @FXML
@@ -89,7 +88,7 @@ public class ScheduleWindowController extends Navigator implements Initializable
         printUser();
         tableView.setPlaceholder(new Label("Brak zajęć!"));
 
-        if (UserLoggedIn.Permission.equals("Uczen"))
+        if (UserLoggedIn.Permission == 1)
             schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_Klasy));
         else
             schedule = Database.getTeacherSchedule(UserLoggedIn.Login);
@@ -104,5 +103,7 @@ public class ScheduleWindowController extends Navigator implements Initializable
         tableView.setItems(schedule);
 
         setColumnProperties();
+
+
     }
 }

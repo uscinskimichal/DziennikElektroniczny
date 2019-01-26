@@ -29,7 +29,7 @@ public class MessageWindowController extends Navigator implements Initializable 
     public Message selectedItem = null;
 
     private void printUser() {
-        if (UserLoggedIn.Permission.equals("Uczen")) {
+        if (UserLoggedIn.Permission==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
             classLabel.setText(UserLoggedIn.Class);

@@ -100,6 +100,11 @@
                   <Font size="15.0" />
                </font>
             </Button>
+            <Button fx:id="generateReport" disable="true" layoutX="1000.0" layoutY="635.0" mnemonicParsing="false" onAction="#generateTheReport" prefHeight="66.0" prefWidth="159.0" style="-fx-background-color: #58972e #58972e;" text="Lista osób (raport)" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <Label layoutX="298.0" layoutY="53.0" prefHeight="58.0" prefWidth="649.0" text="Dziennik elektroniczny dla szkół " textFill="WHITE" textOverrun="WORD_ELLIPSIS">

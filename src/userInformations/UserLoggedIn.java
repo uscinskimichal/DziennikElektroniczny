@@ -6,7 +6,7 @@ public class UserLoggedIn {
     public static String Name;
     public static String Surname;
     public static String Sex;
-    public static String Permission;
+    public static int Permission;
     public static String Status;
     public static String Class;
     public static String ID_Klasy;
@@ -21,7 +21,7 @@ public class UserLoggedIn {
         Name=null;
         Surname=null;
         Sex=null;
-        Permission=null;
+        Permission=-1;
         Status=null;
         Class=null;
         ID_Klasy=null;

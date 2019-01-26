@@ -1,6 +1,11 @@
 package database;
 
 import absences.Absence;
+import alerts.PopUpAlerts;
+import javafx.application.Platform;
+import javafx.stage.Stage;
+import login.LoginWindowController;
+import main.ConnectionChecker;
 import notes.Note;
 import message.Message;
 import schedule.Schedule;
@@ -23,6 +28,10 @@ public class Database {
     public static boolean isConnected;
 
 
+    public static Connection getMySQLConnection() {
+        return connection;
+    }
+
     static public void connectToTheDatabase() {
 
         try {
@@ -36,6 +45,24 @@ public class Database {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void connectingThread() {
+        new Thread( () -> {
+            Database.connectToTheDatabase();
+            Platform.runLater(
+                    () -> LoginWindowController.pleaseWaitWindow.close()
+            );
+        }).start();
+    }
+
+    public static void reconnectingThread(Stage noInternet) {
+        new Thread( () -> {
+            Database.connectToTheDatabase();
+            Platform.runLater(
+                    () -> noInternet.close()
+            );
+        }).start();
     }
 
     public static ArrayList<String> getUserInfo(String login) {

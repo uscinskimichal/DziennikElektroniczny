@@ -53,7 +53,7 @@ public class NotesWindowController extends Navigator implements Initializable {
     private TableColumn<Note, Double> columnValue;
 
     private void printUser(){
-        if(UserLoggedIn.Permission.equals("Uczen")){
+        if(UserLoggedIn.Permission==1){
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
             classLabel.setText(UserLoggedIn.Class);

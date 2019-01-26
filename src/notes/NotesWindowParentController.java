@@ -57,7 +57,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
     private TableColumn<Note, Double> columnValue;
 
     private void printUser() {
-        if (UserLoggedIn.Permission.equals("Uczen")) {
+        if (UserLoggedIn.Permission==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
             classLabel.setText(UserLoggedIn.Class);

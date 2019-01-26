@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXSpinner?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="124.0" prefWidth="406.0" style="-fx-background-color: white; -fx-border-color: #58972e;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXSpinner layoutX="314.0" layoutY="28.0" radius="30.0" />
+      <Label layoutX="35.0" layoutY="52.0" prefHeight="57.0" prefWidth="260.0" text="Proszę, poczekaj chwilkę..." textFill="#0000004d">
+         <font>
+            <Font name="Calibri Bold" size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="46.0" layoutY="25.0" prefHeight="27.0" prefWidth="222.0" text="Trwa ładowanie treści" textFill="#00000041">
+         <font>
+            <Font name="Calibri Bold" size="23.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
