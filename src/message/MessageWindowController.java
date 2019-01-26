@@ -2,6 +2,7 @@ package message;
 
 import alerts.PopUpAlerts;
 import database.Database;
+import main.Main;
 import navigator.Navigator;
 import userInformations.*;
 import javafx.collections.ObservableList;
@@ -97,7 +98,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Wiadomość");
+        stage.setTitle("Sukces");
         stage.setResizable(false);
         stage.show();
         return stage;

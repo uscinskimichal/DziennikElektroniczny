@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import login.LoginWindowController;
 import main.ConnectionChecker;
+import main.Main;
 import notes.Note;
 import message.Message;
 import schedule.Schedule;
@@ -91,7 +92,7 @@ public class Database {
         ArrayList<String> message = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from Wiadomosc where Odbiorca='" + UserLoggedIn.Login + "' and " + "StatusOdbiorcy='" + "T'");
+            resultSet = statement.executeQuery(Main.getResourceBundle().getString("DatabaseReciveMessages1") + UserLoggedIn.Login + Main.getResourceBundle().getString("DatabaseReciveMessages2") + Main.getResourceBundle().getString("DatabaseReciveMessages3") + Main.getResourceBundle().getString("DatabaseReciveMessages4"));
             while (resultSet.next()) {
 
                 message.add(resultSet.getString("ID_Wiadomosci"));

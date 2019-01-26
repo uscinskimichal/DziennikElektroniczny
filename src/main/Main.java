@@ -23,6 +23,8 @@ import net.sf.jasperreports.swing.JRViewer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.invoke.MethodHandles;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
 
@@ -40,6 +42,7 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MethodHandles.lookup().lookupClass().getResource(path));
+            fxmlLoader.setResources(getResourceBundle());
             Scene scene = new Scene(fxmlLoader.load());
             stage.setTitle(title);
             stage.setScene(scene);
@@ -52,13 +55,17 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/login/LoginWindowController.fxml"));
-        primaryStage.setTitle("Dziennik Elektroniczny");
+        primaryStage.setTitle(getResourceBundle().getString("Application.title"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("file:./resources/images/icon.png"));
         primaryStage.show();
 
+    }
+    public static ResourceBundle getResourceBundle() {
+        Locale.setDefault(new Locale("pl"));
+        return ResourceBundle.getBundle("boundles.messages");
     }
 
     public static void main(String[] args) {
