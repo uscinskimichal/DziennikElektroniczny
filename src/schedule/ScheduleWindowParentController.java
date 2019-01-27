@@ -99,13 +99,13 @@ public class ScheduleWindowParentController extends Navigator implements Initial
         tableView.setItems(schedule);
 
         if (schedule.isEmpty())
-            tableView.setPlaceholder(new Label("Brak zajęć."));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoLessonsCommunicat")));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
-        tableView.setPlaceholder(new Label("Wybierz osobę z list aby wyświetlić jej plan."));
+        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("ScheduleParentShow")));
 
         for (int i = 0; i < children.size(); i++)
             comboBox.getItems().add(i, children.get(i).get(1) + " " + children.get(i).get(2) + " , " + children.get(i).get(4));

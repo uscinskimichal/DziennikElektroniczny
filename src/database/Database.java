@@ -37,8 +37,8 @@ public class Database {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String user = "databaseuser";
-            String password = "prz_wat1";
+            String user = Main.getResourceBundle().getString("DatabaseUser");
+            String password = Main.getResourceBundle().getString("DatabasePassword");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", user, password);
             System.out.println("Connected!");

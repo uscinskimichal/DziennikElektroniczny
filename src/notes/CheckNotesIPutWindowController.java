@@ -76,12 +76,12 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
     @FXML
     private void goToAddNote() {
-        Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
+        Main.changeScene("/Notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
     }
 
     @FXML
     private void goToNoteHead() {
-        Main.changeScene("/Notes/NotesWindowEducator.fxml", "Przegląd ocen", Main.getPrimaryStage());
+        Main.changeScene("/Notes/NotesWindowEducator.fxml", Main.getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -136,7 +136,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
         editNote.getIcons().add(new Image("file:./resources/images/editnote_icon.png"));
         Scene scene = new Scene(root);
         editNote.setScene(scene);
-        editNote.setTitle("Wiadomość");
+        editNote.setTitle(Main.getResourceBundle().getString("MessageTitleNote"));
         editNote.setResizable(false);
         editNote.show();
     }
@@ -161,7 +161,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
 
 
-        tableView.setPlaceholder(new Label("Brak ocen."));
+        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
         for (Map.Entry<Integer, String> map : classes.entrySet())
             classesBox.getItems().add(map.getValue());
     }

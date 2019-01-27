@@ -80,7 +80,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Nowa Wiadomość");
+        stage.setTitle(Main.getResourceBundle().getString("NewMessage"));
         stage.setResizable(false);
         stage.show();
     }
@@ -98,7 +98,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle("Wiadomość");
+        stage.setTitle(Main.getResourceBundle().getString("NewMessages"));
         stage.setResizable(false);
         stage.show();
         return stage;
@@ -144,7 +144,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         if (SentMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewSent.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
+                if (PopUpAlerts.popAlertConfirmation(Main.getResourceBundle().getString("AreYouSureTitle"), Main.getResourceBundle().getString("AreYouSureDeleteMessage"), Main.getResourceBundle().getString("DelateMessageContent"))) {
                     new Thread(() -> Database.deletesSentMessage(selectedItem.getId())).start();
                     tableViewSent.getItems().remove(selectedItem);
                 }
@@ -154,7 +154,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         } else if (ReceivedMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (PopUpAlerts.popAlertConfirmation("Czy jesteś pewien?", "Czy na pewno chcesz usunąć tę wiadomość?", "Usunięcie wiadomości")) {
+                if (PopUpAlerts.popAlertConfirmation(Main.getResourceBundle().getString("AreYouSureTitle"), Main.getResourceBundle().getString("AreYouSureDeleteMessage"), Main.getResourceBundle().getString("DelateMessageContent"))) {
                     new Thread(() -> Database.deleteReceivedMessage(selectedItem.getId())).start();
                     tableViewReceived.getItems().remove(selectedItem);
                 }
@@ -187,7 +187,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         tableViewSent.setItems(messagesSent);
 
         if (messagesReceived.isEmpty())
-            tableViewReceived.setPlaceholder(new Label("Brak wiadomości"));
-        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label("Brak wiadomości"));
+            tableViewReceived.setPlaceholder(new Label(Main.getResourceBundle().getString("NoMessages")));
+        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label(Main.getResourceBundle().getString("NoMessages")));
     }
 }

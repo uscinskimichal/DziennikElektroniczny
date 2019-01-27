@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.io.IOException;
 
@@ -53,11 +54,11 @@ public class NewMessageWindowController {
         if (Database.checkIfLoginExist(receiver)) {
             Database.addMessage(receiver, title, messageInterior);
             controller.refreshMessages();
-            PopUpAlerts.popAlertInformation("Sukces!", "Twoja wiadomość została pomyślnie wysłana!", "Wyślij wiadomość");
+            PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("MessageSendHeader"), Main.getResourceBundle().getString("MessageSend.content"));
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();
         } else
-            PopUpAlerts.popAlertError("Błąd!", "Nie można wysłać wiadmości - nie ma osoby o określonym loginie!", "Wyślij wiadomość");
+            PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("ErrorMessageHeader"), Main.getResourceBundle().getString("MessageSend.content"));
 
     }
 

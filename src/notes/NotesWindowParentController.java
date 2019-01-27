@@ -80,7 +80,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
         notes = Database.getNotes(subject, login);
         tableView.setItems(notes);
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label("Brak ocen z przedmiotu!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("LabelNoNotesSubject")));
             averageNoteLabel.setText(null);
         } else {
             double averageNote = 0;
@@ -102,9 +102,9 @@ public class NotesWindowParentController extends Navigator implements Initializa
         if (!subjects.isEmpty())
             fillTable(subjects.get(0));
         else {
-            subjects.add("Brak przedmiotów!");
+            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
             tableView.getItems().clear();
-            tableView.setPlaceholder(new Label("Brak ocen!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         }
 
@@ -132,7 +132,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
         tableView.setItems(notes);
 
 
-        tableView.setPlaceholder(new Label("Wybierz osobę dla której chcesz wyświetlic oceny."));
+        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NotesShow")));
 
     }
 }

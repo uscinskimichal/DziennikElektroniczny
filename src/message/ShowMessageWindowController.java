@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import main.Main;
 import navigator.Navigator;
 
 import java.io.IOException;
@@ -64,7 +65,7 @@ public class ShowMessageWindowController extends Navigator implements Initializa
 
         Scene scene = new Scene(root);
         newMessage.setScene(scene);
-        newMessage.setTitle("Nowa wiadomość");
+        newMessage.setTitle(Main.getResourceBundle().getString("NewMessage"));
         newMessage.setResizable(false);
         newMessage.show();
     }

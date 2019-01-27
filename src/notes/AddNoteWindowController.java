@@ -64,12 +64,12 @@ public class AddNoteWindowController extends Navigator implements Initializable 
 
     @FXML
     private void goToCheckNotes(){
-        Main.changeScene("/notes/CheckNotesIPutWindow.fxml","Oceny",Main.getPrimaryStage());
+        Main.changeScene("/notes/CheckNotesIPutWindow.fxml",Main.getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
     }
 
     @FXML
     private void goToNoteHead() {
-        Main.changeScene("/notes/NotesWindowEducator.fxml", "Przegląd ocen", Main.getPrimaryStage());
+        Main.changeScene("/notes/NotesWindowEducator.fxml", Main.getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -95,7 +95,7 @@ public class AddNoteWindowController extends Navigator implements Initializable 
                 noteValueBox.getSelectionModel().getSelectedItem(),
                 noteTypeBox.getSelectionModel().getSelectedItem(),
                 noteCommentBox.getText())).start();
-        PopUpAlerts.popAlertInformation("Suckes!", "Ocena została dodana.", "Dodaj ocenę");
+        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("AddNoteHeader"), Main.getResourceBundle().getString("NotesAdd.content"));
 
     }
 

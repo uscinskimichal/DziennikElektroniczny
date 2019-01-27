@@ -88,7 +88,7 @@ public class NotesWindowController extends Navigator implements Initializable {
 
     private void ifEmptyNotes(double averageNote) {
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label("Brak ocen!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         } else {
             for (int i = 0; i < notes.size(); i++)
@@ -108,7 +108,7 @@ public class NotesWindowController extends Navigator implements Initializable {
         if (!subjects.isEmpty())
             notes = Database.getNotes(subjects.get(0), UserLoggedIn.Login);
         else
-            subjects.add("Brak przedmiotów!");
+            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
 
 
         listSubjects.setItems(subjects);

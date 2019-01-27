@@ -86,7 +86,7 @@ public class ScheduleWindowController extends Navigator implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
-        tableView.setPlaceholder(new Label("Brak zajęć!"));
+        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoLessonsCommunicat.label")));
 
         if (UserLoggedIn.Permission == 1)
             schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_Klasy));

@@ -61,19 +61,19 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
 
     @FXML
     private void goToAddNote() {
-        Main.changeScene("/Notes/AddNoteWindow.fxml", "Oceny", Main.getPrimaryStage());
+        Main.changeScene("/Notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
     }
 
     @FXML
     private void goToCheckNotes(){
-        Main.changeScene("/Notes/CheckNotesIPutWindow.fxml","Oceny",Main.getPrimaryStage());
+        Main.changeScene("/Notes/CheckNotesIPutWindow.fxml",Main.getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
     }
 
     private void fillTable(String subject) {
         notes = Database.getNotes(subject, login);
         tableView.setItems(notes);
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label("Brak ocen z przedmiotu!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("LabelNoNoteSubject")));
             averageNoteLabel.setText(null);
         } else {
             double averageNote = 0;
@@ -95,9 +95,9 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
         if (!subjects.isEmpty())
             fillTable(subjects.get(0));
         else {
-            subjects.add("Brak przedmiotów!");
+            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
             tableView.getItems().clear();
-            tableView.setPlaceholder(new Label("Brak ocen!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         }
 
@@ -126,12 +126,12 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
             columnComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
             tableView.setItems(notes);
 
-            tableView.setPlaceholder(new Label("Wybierz osobę dla której chcesz wyświetlic oceny."));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NotesShow")));
 
             if (children.isEmpty()) {
-                comboBox.setPromptText("Nie jesteś wychowawcą żadnej klasy!");
-                PopUpAlerts.popAlertInformation("Uwaga!", "Nie jesteś wychowawcą żadnej klasy!", "Podgląd ocen");
-                Main.changeScene("/notes/AddNoteWindow.fxml", "Dziennik elektroniczny", Main.getPrimaryStage());
+                comboBox.setPromptText(Main.getResourceBundle().getString("NotesWindowEducator.header"));
+                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("NotesWindowEducator.header"), Main.getResourceBundle().getString("ToNoteHead"));
+                Main.changeScene("/notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("Application.title"), Main.getPrimaryStage());
             }
         });
 

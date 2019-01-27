@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import main.Main;
 import navigator.Navigator;
 
 import java.net.URL;
@@ -48,7 +49,7 @@ public class EditNoteWindowController extends Navigator implements Initializable
         controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setValue(valueBox.getSelectionModel().getSelectedItem());
         controller.notes.set(controller.tableView.getSelectionModel().getSelectedIndex(),controller.tableView.getSelectionModel().getSelectedItem());
         controller.refreshNotes();
-        PopUpAlerts.popAlertInformation("Sukces!","Ocena została edytowana.","Edycja oceny");
+        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"),Main.getResourceBundle().getString("EditNoteHeader"),Main.getResourceBundle().getString("EditNoteContent"));
         returnToMenu();
     }
 
