@@ -47,7 +47,7 @@ public class ConnectionChecker implements Runnable {
                                     noInternet.initModality(Modality.APPLICATION_MODAL);
                                     noInternet.setOnCloseRequest(Event::consume);
                                     Platform.setImplicitExit(false);
-                                    Main.changeScene("/alerts/NoInternet.fxml", "Please wait...", noInternet);
+                                    Main.changeScene("/alerts/NoInternet.fxml", Main.getResourceBundle().getString("PleaseWaitTitle"), noInternet);
                                     noInternet.showAndWait();
                                 }
                         );

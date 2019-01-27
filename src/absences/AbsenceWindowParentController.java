@@ -69,7 +69,7 @@ public class AbsenceWindowParentController extends Navigator implements Initiali
         absences = Database.getAbsences(login);
         tableView.setItems(absences);
         if (absences.isEmpty())
-            tableView.setPlaceholder(new Label("Brak nieobecności, tak trzymać!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("AbsenceParent.Label")));
 
     }
 
@@ -83,6 +83,6 @@ public class AbsenceWindowParentController extends Navigator implements Initiali
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("absenceStatus"));
         tableView.setItems(absences);
 
-        tableView.setPlaceholder(new Label("Wybierz osobę z list aby wyświetlić jej nieobecności."));
+        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("AbsenceParentController.Label")));
     }
 }

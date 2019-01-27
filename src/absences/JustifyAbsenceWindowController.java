@@ -98,7 +98,7 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
     @FXML
     private void justify() {
         if (tableView.getSelectionModel().getSelectedItem().getAbsenceStatus().equals("Tak"))
-            PopUpAlerts.popAlertError("Błąd!", "Ta nieobecność jest już usprawiedliwiona!", "Usprawiedliwienie nieobecności");
+            PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("JustifyAbsence.header"), Main.getResourceBundle().getString("JustifyAbsence.content"));
         else {
             int absenceId = tableView.getSelectionModel().getSelectedItem().getAbsenceId();
             new Thread(() -> Database.justifyAbsence(absenceId)).start();
@@ -116,13 +116,13 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
         Platform.runLater(() -> {
-            tableView.setPlaceholder(new Label("Brak danych"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoData.Text")));
             for (Map.Entry<Integer, String> map : classes.entrySet())
                 classesBox.getItems().add(map.getValue());
 
             if (classes.isEmpty()) {
-                PopUpAlerts.popAlertInformation("Uwaga!", "Nie jesteś wychowawcą żadnej klasy!", "Podgląd ocen");
-                Main.changeScene("/absences/CheckAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("Absence.InitializeHeader"), "Podgląd ocen");
+                Main.changeScene("/absences/CheckAbsenceWindow.fxml", Main.getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
             }
         });
     }

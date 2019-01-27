@@ -63,6 +63,6 @@ public class AbsenceWindowController extends Navigator implements Initializable 
 
 
         if (absences.isEmpty())
-            tableView.setPlaceholder(new Label("Brak nieobecności, oby tak dalej!"));
+            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("AbsenceNo.Label")));
     }
 }

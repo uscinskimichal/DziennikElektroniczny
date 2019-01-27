@@ -19,7 +19,7 @@ public class GenerateReport implements Runnable {
     @Override
     public void run() {
         try {
-            Platform.runLater( () -> PopUpAlerts.popAlertInformation("Suckes", "Raport wygenerowany pomyślnie", "Generowanie raportu"));
+            Platform.runLater( () -> PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("RaportGenerated"), Main.getResourceBundle().getString("RaportGeneratedContent")));
             JasperDesign jasperDesign = JRXmlLoader.load("resources\\reports\\Report.jrxml");
             String query = "select O.Imie, O.Nazwisko, K.Skrot from Osoba O inner join Osoba_Klasa OK on O.Login=OK.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy where K.ID_Klasy=" + idClass;
             JRDesignQuery designQuery = new JRDesignQuery();
@@ -29,7 +29,7 @@ public class GenerateReport implements Runnable {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, Database.getMySQLConnection());
             JasperExportManager.exportReportToPdfFile(jasperPrint, "resources\\reports\\RaportUczniowieKlasy.pdf");
         } catch (JRException e) {
-            Platform.runLater( () -> PopUpAlerts.popAlertError("Błąd", "Wystąpił błąd podczas generowania raportu", "Generowanie raportu"));
+            Platform.runLater( () -> PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("RaportError"), Main.getResourceBundle().getString("RaportGeneratedContent")));
             e.printStackTrace();
         }
     }

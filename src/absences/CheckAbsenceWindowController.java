@@ -77,7 +77,7 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
 
     @FXML
     private void goToJustifyAbsence() {
-        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml", "Nieobecności", Main.getPrimaryStage());
+        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml", Main.getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -118,7 +118,7 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
                     new Thread(() -> Database.addAbsence(members.get(index).get(0), UserLoggedIn.Login)).start();
                 }
         }
-        PopUpAlerts.popAlertInformation("Sukces!", "Nieobecności zostały wstawione.", "Nieobecności");
+        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("CheckAbsence.headerText"), Main.getResourceBundle().getString("Absence.Title"));
     }
 
     @Override
