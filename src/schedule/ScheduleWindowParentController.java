@@ -1,11 +1,8 @@
 package schedule;
 
-import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,10 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,7 +21,7 @@ import java.util.ResourceBundle;
 public class ScheduleWindowParentController extends Navigator implements Initializable {
 
     private ObservableList<Schedule> schedule = FXCollections.observableArrayList();
-    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.Login);
+    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.LOGIN);
     private String idClass;
 
     @FXML
@@ -56,12 +50,12 @@ public class ScheduleWindowParentController extends Navigator implements Initial
 
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -99,13 +93,13 @@ public class ScheduleWindowParentController extends Navigator implements Initial
         tableView.setItems(schedule);
 
         if (schedule.isEmpty())
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoLessonsCommunicat")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NoLessonsCommunicat")));
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
-        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("ScheduleParentShow")));
+        tableView.setPlaceholder(new Label(getResourceBundle().getString("ScheduleParentShow")));
 
         for (int i = 0; i < children.size(); i++)
             comboBox.getItems().add(i, children.get(i).get(1) + " " + children.get(i).get(2) + " , " + children.get(i).get(4));

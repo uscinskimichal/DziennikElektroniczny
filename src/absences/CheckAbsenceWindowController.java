@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 public class CheckAbsenceWindowController extends Navigator implements Initializable {
 
-    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
+    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.LOGIN);
     private ArrayList<ArrayList<String>> members;
     private ArrayList<String> list = new ArrayList<>();
 
@@ -41,12 +41,12 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
     }
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -77,7 +77,7 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
 
     @FXML
     private void goToJustifyAbsence() {
-        Main.changeScene("/Absences/JustifyAbsenceWindow.fxml", Main.getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
+        changeScene("/Absences/JustifyAbsenceWindow.fxml", getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -115,10 +115,10 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
             for (int j = 0; j < members.size(); j++)
                 if (((members.get(j).get(1) + " " + members.get(j).get(2)).equals(list.get(i)))) {
                     int index = j;
-                    new Thread(() -> Database.addAbsence(members.get(index).get(0), UserLoggedIn.Login)).start();
+                    new Thread(() -> Database.addAbsence(members.get(index).get(0), UserLoggedIn.LOGIN)).start();
                 }
         }
-        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("CheckAbsence.headerText"), Main.getResourceBundle().getString("Absence.Title"));
+        PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("CheckAbsence.headerText"), getResourceBundle().getString("Absence.Title"));
     }
 
     @Override

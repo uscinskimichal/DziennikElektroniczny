@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 import main.Main;
 
 import java.util.Optional;
+import java.util.ResourceBundle;
 
 public class PopUpAlerts {
 
@@ -15,8 +16,8 @@ public class PopUpAlerts {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("file:./resources/images/confirm_icon.png"));
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(Main.getResourceBundle().getString("SetNo"));
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText(Main.getResourceBundle().getString("SetYes"));
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(ResourceBundle.getBundle("boundles.messages").getString("SetNo"));
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText(ResourceBundle.getBundle("boundles.messages").getString("SetYes"));
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);

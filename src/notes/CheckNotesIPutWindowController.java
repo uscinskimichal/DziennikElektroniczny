@@ -3,10 +3,6 @@ package notes;
 import database.Database;
 import main.Main;
 import navigator.Navigator;
-import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import userInformations.UserLoggedIn;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -29,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class CheckNotesIPutWindowController extends Navigator implements Initializable {
 
-    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
+    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.LOGIN);
     private Map<Integer, String> subjects;
     private ArrayList<ArrayList<String>> members;
     public ObservableList<Note> notes;
@@ -76,12 +72,12 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
     @FXML
     private void goToAddNote() {
-        Main.changeScene("/Notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
+        changeScene("/Notes/AddNoteWindow.fxml", getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
     }
 
     @FXML
     private void goToNoteHead() {
-        Main.changeScene("/Notes/NotesWindowEducator.fxml", Main.getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
+        changeScene("/Notes/NotesWindowEducator.fxml", getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -89,7 +85,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
         tableView.getItems().clear();
         editNoteButton.setDisable(true);
         if (membersBox.getItems().size() > 0) {
-            notes = Database.getNotesIPut(members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0), UserLoggedIn.Login);
+            notes = Database.getNotesIPut(members.get(membersBox.getSelectionModel().getSelectedIndex()).get(0), UserLoggedIn.LOGIN);
 
 
             tableView.setItems(notes);
@@ -108,7 +104,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
         membersBox.getItems().clear();
 
         int i = 0;
-        subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.Login);
+        subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.LOGIN);
         for (Map.Entry<Integer, String> map : subjects.entrySet()) {
             subjectsBox.getItems().add(i, map.getValue());
             i++;
@@ -136,7 +132,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
         editNote.getIcons().add(new Image("file:./resources/images/editnote_icon.png"));
         Scene scene = new Scene(root);
         editNote.setScene(scene);
-        editNote.setTitle(Main.getResourceBundle().getString("MessageTitleNote"));
+        editNote.setTitle(getResourceBundle().getString("MessageTitleNote"));
         editNote.setResizable(false);
         editNote.show();
     }
@@ -153,7 +149,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
         columnData.setCellValueFactory(new PropertyValueFactory<>("date"));
         columnValue.setCellValueFactory(new PropertyValueFactory<>("value"));
         columnType.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -161,7 +157,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
 
 
-        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
+        tableView.setPlaceholder(new Label(getResourceBundle().getString("NoNote")));
         for (Map.Entry<Integer, String> map : classes.entrySet())
             classesBox.getItems().add(map.getValue());
     }

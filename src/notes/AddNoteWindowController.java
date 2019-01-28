@@ -5,16 +5,12 @@ import database.Database;
 import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 
 import java.net.URL;
@@ -24,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class AddNoteWindowController extends Navigator implements Initializable {
 
-    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.Login);
+    private Map<Integer, String> classes = Database.getTeacherClasses(UserLoggedIn.LOGIN);
     private Map<Integer, String> subjects;
     private ArrayList<ArrayList<String>> members;
 
@@ -64,12 +60,12 @@ public class AddNoteWindowController extends Navigator implements Initializable 
 
     @FXML
     private void goToCheckNotes(){
-        Main.changeScene("/notes/CheckNotesIPutWindow.fxml",Main.getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
+        changeScene("/notes/CheckNotesIPutWindow.fxml",getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
     }
 
     @FXML
     private void goToNoteHead() {
-        Main.changeScene("/notes/NotesWindowEducator.fxml", Main.getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
+        changeScene("/notes/NotesWindowEducator.fxml", getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -95,7 +91,7 @@ public class AddNoteWindowController extends Navigator implements Initializable 
                 noteValueBox.getSelectionModel().getSelectedItem(),
                 noteTypeBox.getSelectionModel().getSelectedItem(),
                 noteCommentBox.getText())).start();
-        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("AddNoteHeader"), Main.getResourceBundle().getString("NotesAdd.content"));
+        PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("AddNoteHeader"), getResourceBundle().getString("NotesAdd.content"));
 
     }
 
@@ -123,15 +119,15 @@ public class AddNoteWindowController extends Navigator implements Initializable 
     @FXML
     private void getSubjectsOfClass() {
         subjectsBox.getItems().clear();
-        subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.Login);
+        subjects = Database.getTeachesSubjects(getKeyFromValue(classes, classesBox.getSelectionModel().getSelectedItem()), UserLoggedIn.LOGIN);
         for (Map.Entry<Integer, String> map : subjects.entrySet())
             subjectsBox.getItems().add(map.getValue());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
-        noteTypeBox.getItems().addAll(Main.getResourceBundle().getString("QuizLabel"), Main.getResourceBundle().getString("TestLabel"), Main.getResourceBundle().getString("AnswerLabel"), Main.getResourceBundle().getString("Homework"), Main.getResourceBundle().getString("AnotherAnswerLabel"));
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
+        noteTypeBox.getItems().addAll(getResourceBundle().getString("QuizLabel"), getResourceBundle().getString("TestLabel"), getResourceBundle().getString("AnswerLabel"), getResourceBundle().getString("Homework"), getResourceBundle().getString("AnotherAnswerLabel"));
         for (double note = 1.0; note <= 6.0; note = note + 0.5)
             noteValueBox.getItems().add(note);
 

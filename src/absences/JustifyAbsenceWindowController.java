@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 
 public class JustifyAbsenceWindowController extends Navigator implements Initializable {
 
-    private Map<Integer, String> classes = Database.getTeacherClassesILead(UserLoggedIn.Login);
+    private Map<Integer, String> classes = Database.getTeacherClassesILead(UserLoggedIn.LOGIN);
     private ArrayList<ArrayList<String>> members;
     private ObservableList<Absence> absences;
 
@@ -34,12 +34,12 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
     }
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -97,13 +97,13 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
 
     @FXML
     private void justify() {
-        if (tableView.getSelectionModel().getSelectedItem().getAbsenceStatus().equals(Main.getResourceBundle().getString("SetYes")))
-            PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("JustifyAbsence.header"), Main.getResourceBundle().getString("JustifyAbsence.content"));
+        if (tableView.getSelectionModel().getSelectedItem().getAbsenceStatus().equals(getResourceBundle().getString("SetYes")))
+            PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("JustifyAbsence.header"), getResourceBundle().getString("JustifyAbsence.content"));
         else {
             int absenceId = tableView.getSelectionModel().getSelectedItem().getAbsenceId();
             new Thread(() -> Database.justifyAbsence(absenceId)).start();
 
-            tableView.getSelectionModel().getSelectedItem().setAbsenceStatus(Main.getResourceBundle().getString("SetYes"));
+            tableView.getSelectionModel().getSelectedItem().setAbsenceStatus(getResourceBundle().getString("SetYes"));
             absences.set(tableView.getSelectionModel().getSelectedIndex(), tableView.getSelectionModel().getSelectedItem());
 
             dataColumn.setCellValueFactory(new PropertyValueFactory<>("absenceDate"));
@@ -116,13 +116,13 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
         Platform.runLater(() -> {
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoData.Text")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NoData.Text")));
             for (Map.Entry<Integer, String> map : classes.entrySet())
                 classesBox.getItems().add(map.getValue());
 
             if (classes.isEmpty()) {
-                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("Absence.InitializeHeader"), Main.getResourceBundle().getString("ShowNoteContent"));
-                Main.changeScene("/absences/CheckAbsenceWindow.fxml", Main.getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
+                PopUpAlerts.popAlertInformation(getResourceBundle().getString("AttentionMessage"), getResourceBundle().getString("Absence.InitializeHeader"), getResourceBundle().getString("ShowNoteContent"));
+                changeScene("/absences/CheckAbsenceWindow.fxml", getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
             }
         });
     }

@@ -1,12 +1,8 @@
 package schedule;
 
-import alerts.PopUpAlerts;
 import database.Database;
-import login.LoginWindowController;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,12 +21,12 @@ public class ScheduleWindowController extends Navigator implements Initializable
     private ObservableList<Schedule> schedule = FXCollections.observableArrayList();
 
     private void printUser() {
-        if (UserLoggedIn.Permission == 1) {
+        if (UserLoggedIn.PERMISSION == 1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -86,12 +79,12 @@ public class ScheduleWindowController extends Navigator implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         printUser();
-        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoLessonsCommunicat.label")));
+        tableView.setPlaceholder(new Label(getResourceBundle().getString("NoLessonsCommunicat.label")));
 
-        if (UserLoggedIn.Permission == 1)
-            schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_Klasy));
+        if (UserLoggedIn.PERMISSION == 1)
+            schedule = Database.getSchedule(Integer.parseInt(UserLoggedIn.ID_KLASY));
         else
-            schedule = Database.getTeacherSchedule(UserLoggedIn.Login);
+            schedule = Database.getTeacherSchedule(UserLoggedIn.LOGIN);
 
 
         mondayCol.setCellValueFactory(new PropertyValueFactory<>("day1"));

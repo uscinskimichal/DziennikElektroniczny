@@ -1,11 +1,8 @@
 package absences;
 
-import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -27,17 +21,17 @@ public class AbsenceWindowParentController extends Navigator implements Initiali
 
     String login;
     String idClass;
-    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.Login);
+    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.LOGIN);
     private ObservableList<Absence> absences;
 
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -69,7 +63,7 @@ public class AbsenceWindowParentController extends Navigator implements Initiali
         absences = Database.getAbsences(login);
         tableView.setItems(absences);
         if (absences.isEmpty())
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("AbsenceParent.Label")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("AbsenceParent.Label")));
 
     }
 
@@ -83,6 +77,6 @@ public class AbsenceWindowParentController extends Navigator implements Initiali
         statusColumn.setCellValueFactory(new PropertyValueFactory<>("absenceStatus"));
         tableView.setItems(absences);
 
-        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("AbsenceParentController.Label")));
+        tableView.setPlaceholder(new Label(getResourceBundle().getString("AbsenceParentController.Label")));
     }
 }

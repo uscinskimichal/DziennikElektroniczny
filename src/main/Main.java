@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import navigator.Navigator;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JRDesignBand;
 import net.sf.jasperreports.engine.design.JRDesignFrame;
@@ -38,34 +39,17 @@ public class Main extends Application {
         return Main.primaryStage;
     }
 
-    public static void changeScene(String path, String title, Stage stage) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader();
-            fxmlLoader.setLocation(MethodHandles.lookup().lookupClass().getResource(path));
-            fxmlLoader.setResources(getResourceBundle());
-            Scene scene = new Scene(fxmlLoader.load());
-            stage.setTitle(title);
-            stage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void start(Stage primaryStage) throws Exception {
         setPrimaryStage(primaryStage);
         Parent root = FXMLLoader.load(getClass().getResource("/login/LoginWindowController.fxml"));
-        primaryStage.setTitle(getResourceBundle().getString("Application.title"));
+        primaryStage.setTitle(ResourceBundle.getBundle("boundles.messages").getString("Application.title"));
         primaryStage.setScene(new Scene(root));
         primaryStage.setOnCloseRequest(event -> System.exit(0));
         primaryStage.setResizable(false);
         primaryStage.getIcons().add(new Image("file:./resources/images/icon.png"));
         primaryStage.show();
 
-    }
-    public static ResourceBundle getResourceBundle() {
-        Locale.setDefault(new Locale("pl"));
-        return ResourceBundle.getBundle("boundles.messages");
     }
 
     public static void main(String[] args) {

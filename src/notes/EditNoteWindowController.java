@@ -45,11 +45,11 @@ public class EditNoteWindowController extends Navigator implements Initializable
     @FXML
     void editNote() {
         new Thread(() -> Database.editNote(valueBox.getSelectionModel().getSelectedItem(), commentText.getText(), note.getNoteId())).start();
-        controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setComment(commentText.getText() + Main.getResourceBundle().getString("Edited"));
+        controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setComment(commentText.getText() + getResourceBundle().getString("Edited"));
         controller.notes.get(controller.tableView.getSelectionModel().getSelectedIndex()).setValue(valueBox.getSelectionModel().getSelectedItem());
         controller.notes.set(controller.tableView.getSelectionModel().getSelectedIndex(),controller.tableView.getSelectionModel().getSelectedItem());
         controller.refreshNotes();
-        PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"),Main.getResourceBundle().getString("EditNoteHeader"),Main.getResourceBundle().getString("EditNoteContent"));
+        PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"),getResourceBundle().getString("EditNoteHeader"),getResourceBundle().getString("EditNoteContent"));
         returnToMenu();
     }
 

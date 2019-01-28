@@ -3,12 +3,13 @@ package main;
 import alerts.PopUpAlerts;
 import database.Database;
 import javafx.application.Platform;
+import navigator.Navigator;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 
-public class GenerateReport implements Runnable {
+public class GenerateReport extends Navigator implements Runnable {
     int idClass;
 
     public GenerateReport(int idClass){
@@ -19,9 +20,9 @@ public class GenerateReport implements Runnable {
     @Override
     public void run() {
         try {
-            Platform.runLater( () -> PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("RaportGenerated"), Main.getResourceBundle().getString("RaportGeneratedContent")));
+            Platform.runLater( () -> PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("RaportGenerated"), getResourceBundle().getString("RaportGeneratedContent")));
             JasperDesign jasperDesign = JRXmlLoader.load("resources\\reports\\Report.jrxml");
-            String query = "select O.Imie, O.Nazwisko, K.Skrot from Osoba O inner join Osoba_Klasa OK on O.Login=OK.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy where K.ID_Klasy=" + idClass;
+            String query = "select O.Imie, O.Nazwisko, K.Skrot from Osoba O inner join Osoba_Klasa OK on O.LOGIN=OK.LOGIN inner join Klasa K on K.ID_KLASY=OK.ID_KLASY where K.ID_KLASY=" + idClass;
             JRDesignQuery designQuery = new JRDesignQuery();
             designQuery.setText(query);
             jasperDesign.setQuery(designQuery);
@@ -29,7 +30,7 @@ public class GenerateReport implements Runnable {
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, Database.getMySQLConnection());
             JasperExportManager.exportReportToPdfFile(jasperPrint, "resources\\reports\\RaportUczniowieKlasy.pdf");
         } catch (JRException e) {
-            Platform.runLater( () -> PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("RaportError"), Main.getResourceBundle().getString("RaportGeneratedContent")));
+            Platform.runLater( () -> PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("RaportError"), getResourceBundle().getString("RaportGeneratedContent")));
             e.printStackTrace();
         }
     }

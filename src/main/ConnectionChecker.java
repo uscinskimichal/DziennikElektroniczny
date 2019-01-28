@@ -6,9 +6,10 @@ import javafx.event.Event;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import navigator.Navigator;
 import userInformations.UserLoggedIn;
 
-public class ConnectionChecker implements Runnable {
+public class ConnectionChecker extends Navigator implements Runnable {
     public static boolean isInternetConnected;
     private Stage noInternet = null;
     private boolean isPopped=false;
@@ -38,7 +39,7 @@ public class ConnectionChecker implements Runnable {
                     isInternetConnected = false;
                     System.out.println("Internet Not Connected, "
                             + "Output was " + x);
-                    if (UserLoggedIn.Login != null && !isPopped) {
+                    if (UserLoggedIn.LOGIN != null && !isPopped) {
                         isPopped=true;
                         Platform.runLater(
                                 () -> {
@@ -47,7 +48,7 @@ public class ConnectionChecker implements Runnable {
                                     noInternet.initModality(Modality.APPLICATION_MODAL);
                                     noInternet.setOnCloseRequest(Event::consume);
                                     Platform.setImplicitExit(false);
-                                    Main.changeScene("/alerts/NoInternet.fxml", Main.getResourceBundle().getString("PleaseWaitTitle"), noInternet);
+                                    changeScene("/alerts/NoInternet.fxml", getResourceBundle().getString("PleaseWaitTitle"), noInternet);
                                     noInternet.showAndWait();
                                 }
                         );

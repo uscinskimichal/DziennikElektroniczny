@@ -12,9 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -26,7 +23,7 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
     private String selectedItem;
     private ObservableList<String> subjects = FXCollections.observableArrayList();
     private ObservableList<Note> notes = FXCollections.observableArrayList();
-    private ArrayList<ArrayList<String>> children = Database.getChildrenILead(UserLoggedIn.Login);
+    private ArrayList<ArrayList<String>> children = Database.getChildrenILead(UserLoggedIn.LOGIN);
     private String login;
     private String idClass;
 
@@ -61,19 +58,19 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
 
     @FXML
     private void goToAddNote() {
-        Main.changeScene("/Notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
+        changeScene("/Notes/AddNoteWindow.fxml", getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
     }
 
     @FXML
     private void goToCheckNotes(){
-        Main.changeScene("/Notes/CheckNotesIPutWindow.fxml",Main.getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
+        changeScene("/Notes/CheckNotesIPutWindow.fxml",getResourceBundle().getString("NotesTitle"),Main.getPrimaryStage());
     }
 
     private void fillTable(String subject) {
         notes = Database.getNotes(subject, login);
         tableView.setItems(notes);
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("LabelNoNoteSubject")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("LabelNoNoteSubject")));
             averageNoteLabel.setText(null);
         } else {
             double averageNote = 0;
@@ -95,9 +92,9 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
         if (!subjects.isEmpty())
             fillTable(subjects.get(0));
         else {
-            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
+            subjects.add(getResourceBundle().getString("NoSubjects"));
             tableView.getItems().clear();
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         }
 
@@ -116,7 +113,7 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
     public void initialize(URL location, ResourceBundle resources) {
 
         Platform.runLater(() -> {
-            userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+            userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
             for (int i = 0; i < children.size(); i++)
                 comboBox.getItems().add(i, children.get(i).get(1) + " " + children.get(i).get(2) + " , " + children.get(i).get(4));
 
@@ -126,12 +123,12 @@ public class NotesWindowEducatorController extends Navigator implements Initiali
             columnComment.setCellValueFactory(new PropertyValueFactory<>("comment"));
             tableView.setItems(notes);
 
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NotesShow")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NotesShow")));
 
             if (children.isEmpty()) {
-                comboBox.setPromptText(Main.getResourceBundle().getString("NotesWindowEducator.header"));
-                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("NotesWindowEducator.header"), Main.getResourceBundle().getString("ToNoteHead"));
-                Main.changeScene("/notes/AddNoteWindow.fxml", Main.getResourceBundle().getString("Application.title"), Main.getPrimaryStage());
+                comboBox.setPromptText(getResourceBundle().getString("NotesWindowEducator.header"));
+                PopUpAlerts.popAlertInformation(getResourceBundle().getString("AttentionMessage"), getResourceBundle().getString("NotesWindowEducator.header"), getResourceBundle().getString("ToNoteHead"));
+                changeScene("/notes/AddNoteWindow.fxml", getResourceBundle().getString("Application.title"), Main.getPrimaryStage());
             }
         });
 

@@ -1,12 +1,9 @@
 package database;
 
 import absences.Absence;
-import alerts.PopUpAlerts;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import login.LoginWindowController;
-import main.ConnectionChecker;
-import main.Main;
 import notes.Note;
 import message.Message;
 import schedule.Schedule;
@@ -15,10 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 
 public class Database {
@@ -37,8 +31,8 @@ public class Database {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String user = Main.getResourceBundle().getString("DatabaseUser");
-            String password = Main.getResourceBundle().getString("DatabasePassword");
+            String user = ResourceBundle.getBundle("boundles.messages").getString("DatabaseUser");
+            String password = ResourceBundle.getBundle("boundles.messages").getString("DatabasePassword");
             connection = DriverManager.getConnection(
                     "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", user, password);
             System.out.println("Connected!");
@@ -78,7 +72,7 @@ public class Database {
                 userInfo.add(resultSet.getString("Nazwisko"));
                 userInfo.add(resultSet.getString("Plec"));
                 userInfo.add(resultSet.getString("Uprawnienia"));
-                userInfo.add(resultSet.getString("Status"));
+                userInfo.add(resultSet.getString("STATUS"));
             }
 
         } catch (Exception ex) {
@@ -92,7 +86,7 @@ public class Database {
         ArrayList<String> message = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from Wiadomosc where Odbiorca='" + UserLoggedIn.Login + "' and " + "StatusOdbiorcy='" + "T'");
+            resultSet = statement.executeQuery("select * from Wiadomosc where Odbiorca='" + UserLoggedIn.LOGIN + "' and " + "StatusOdbiorcy='" + "T'");
             while (resultSet.next()) {
 
                 message.add(resultSet.getString("ID_Wiadomosci"));
@@ -119,7 +113,7 @@ public class Database {
         ArrayList<String> message = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select * from Wiadomosc where Nadawca='" + UserLoggedIn.Login + "' and " + "StatusNadawcy='" + "T'");
+            resultSet = statement.executeQuery("select * from Wiadomosc where Nadawca='" + UserLoggedIn.LOGIN + "' and " + "StatusNadawcy='" + "T'");
             while (resultSet.next()) {
 
                 message.add(resultSet.getString("ID_Wiadomosci"));
@@ -179,10 +173,10 @@ public class Database {
         ArrayList userClass = new ArrayList();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery("select k.Skrot, k.ID_Klasy from Klasa k inner join Osoba_Klasa ok on k.ID_Klasy=ok.ID_Klasy where ok.Login='" + UserLoggedIn.Login + "'");
+            resultSet = statement.executeQuery("select k.Skrot, k.ID_Klasy from Klasa k inner join Osoba_Klasa ok on k.ID_Klasy=ok.ID_Klasy where ok.Login='" + UserLoggedIn.LOGIN + "'");
             if (resultSet.next()) {
                 userClass.add(resultSet.getString("Skrot"));
-                userClass.add(resultSet.getString("ID_Klasy"));
+                userClass.add(resultSet.getString("ID_KLASY"));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -213,7 +207,7 @@ public class Database {
 
     public static void addMessage(String receiver, String topic, String message) {
         try {
-            statement.executeUpdate("INSERT INTO Wiadomosc VALUES (" + null + ",'" + UserLoggedIn.Login + "','" + receiver + "','" + topic + "','" + message + "','T','T'" + ",(select CURRENT_TIMESTAMP)  )");
+            statement.executeUpdate("INSERT INTO Wiadomosc VALUES (" + null + ",'" + UserLoggedIn.LOGIN + "','" + receiver + "','" + topic + "','" + message + "','T','T'" + ",(select CURRENT_TIMESTAMP)  )");
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -369,7 +363,7 @@ public class Database {
                 child.add(resultSet.getString("login"));
                 child.add(resultSet.getString("Imie"));
                 child.add(resultSet.getString("Nazwisko"));
-                child.add(resultSet.getString("ID_Klasy"));
+                child.add(resultSet.getString("ID_KLASY"));
                 child.add(resultSet.getString("Skrot"));
                 children.add(child);
             }
@@ -387,7 +381,7 @@ public class Database {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("Select K.ID_Klasy, K.Skrot from Klasa K inner join Przedmiot_Klasy PK on PK.ID_Klasy=K.ID_Klasy where PK.ID_Nauczyciela='" + login + "' group by K.ID_Klasy, K.Skrot");
             while (resultSet.next()) {
-                classes.put(resultSet.getInt("ID_Klasy"), resultSet.getString("Skrot"));
+                classes.put(resultSet.getInt("ID_KLASY"), resultSet.getString("Skrot"));
             }
 
         } catch (Exception ex) {
@@ -457,7 +451,7 @@ public class Database {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("Select ID_Klasy, Skrot from Klasa  where ID_Wychowawcy='" + login + "' group by ID_Klasy, Skrot");
             while (resultSet.next()) {
-                classes.put(resultSet.getInt("ID_Klasy"), resultSet.getString("Skrot"));
+                classes.put(resultSet.getInt("ID_KLASY"), resultSet.getString("Skrot"));
             }
 
         } catch (Exception ex) {
@@ -520,7 +514,7 @@ public class Database {
                 child.add(resultSet.getString("login"));
                 child.add(resultSet.getString("Imie"));
                 child.add(resultSet.getString("Nazwisko"));
-                child.add(resultSet.getString("ID_Klasy"));
+                child.add(resultSet.getString("ID_KLASY"));
                 child.add(resultSet.getString("Skrot"));
                 children.add(child);
             }

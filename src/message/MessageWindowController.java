@@ -2,7 +2,6 @@ package message;
 
 import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
 import navigator.Navigator;
 import userInformations.*;
 import javafx.collections.ObservableList;
@@ -30,12 +29,12 @@ public class MessageWindowController extends Navigator implements Initializable 
     public Message selectedItem = null;
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -80,7 +79,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle(Main.getResourceBundle().getString("NewMessage"));
+        stage.setTitle(getResourceBundle().getString("NewMessage"));
         stage.setResizable(false);
         stage.show();
     }
@@ -98,7 +97,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle(Main.getResourceBundle().getString("NewMessage"));
+        stage.setTitle(getResourceBundle().getString("NewMessage"));
         stage.setResizable(false);
         stage.show();
         return stage;
@@ -144,7 +143,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         if (SentMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewSent.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (PopUpAlerts.popAlertConfirmation(Main.getResourceBundle().getString("AreYouSureTitle"), Main.getResourceBundle().getString("AreYouSureDeleteMessage"), Main.getResourceBundle().getString("DelateMessageContent"))) {
+                if (PopUpAlerts.popAlertConfirmation(getResourceBundle().getString("AreYouSureTitle"), getResourceBundle().getString("AreYouSureDeleteMessage"), getResourceBundle().getString("DelateMessageContent"))) {
                     new Thread(() -> Database.deletesSentMessage(selectedItem.getId())).start();
                     tableViewSent.getItems().remove(selectedItem);
                 }
@@ -154,7 +153,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         } else if (ReceivedMessages == tabPane.getSelectionModel().getSelectedItem()) {
             selectedItem = tableViewReceived.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                if (PopUpAlerts.popAlertConfirmation(Main.getResourceBundle().getString("AreYouSureTitle"), Main.getResourceBundle().getString("AreYouSureDeleteMessage"), Main.getResourceBundle().getString("DelateMessageContent"))) {
+                if (PopUpAlerts.popAlertConfirmation(getResourceBundle().getString("AreYouSureTitle"), getResourceBundle().getString("AreYouSureDeleteMessage"), getResourceBundle().getString("DelateMessageContent"))) {
                     new Thread(() -> Database.deleteReceivedMessage(selectedItem.getId())).start();
                     tableViewReceived.getItems().remove(selectedItem);
                 }
@@ -187,7 +186,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         tableViewSent.setItems(messagesSent);
 
         if (messagesReceived.isEmpty())
-            tableViewReceived.setPlaceholder(new Label(Main.getResourceBundle().getString("NoMessages")));
-        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label(Main.getResourceBundle().getString("NoMessages")));
+            tableViewReceived.setPlaceholder(new Label(getResourceBundle().getString("NoMessages")));
+        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label(getResourceBundle().getString("NoMessages")));
     }
 }

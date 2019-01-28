@@ -8,11 +8,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import main.Main;
+import navigator.Navigator;
 
 import java.io.IOException;
 
 
-public class NewMessageWindowController {
+public class NewMessageWindowController extends Navigator {
 
     MessageWindowController controller;
 
@@ -54,11 +55,11 @@ public class NewMessageWindowController {
         if (Database.checkIfLoginExist(receiver)) {
             Database.addMessage(receiver, title, messageInterior);
             controller.refreshMessages();
-            PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("MessageSendHeader"), Main.getResourceBundle().getString("MessageSend.content"));
+            PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("MessageSendHeader"), getResourceBundle().getString("MessageSend.content"));
             Stage stage = (Stage) anchorPane.getScene().getWindow();
             stage.close();
         } else
-            PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("ErrorMessageHeader"), Main.getResourceBundle().getString("MessageSend.content"));
+            PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("ErrorMessageHeader"), getResourceBundle().getString("MessageSend.content"));
 
     }
 

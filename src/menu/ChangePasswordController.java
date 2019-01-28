@@ -3,14 +3,14 @@ package menu;
 
 import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
+import navigator.Navigator;
 import userInformations.UserLoggedIn;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class ChangePasswordController {
+public class ChangePasswordController extends Navigator {
 
     @FXML
     private PasswordField newPasswordConfirm;
@@ -34,17 +34,17 @@ public class ChangePasswordController {
     private void proceed() {
         if (!oldPassword.getText().isEmpty() && !newPassword.getText().isEmpty() && !newPasswordConfirm.getText().isEmpty()) {
             if (oldPassword.getText().equals(newPassword.getText()) && oldPassword.getText().equals(newPasswordConfirm.getText()))
-                PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("SamePasswordErrorHeader"), Main.getResourceBundle().getString("ChangePasswordContent"));
+                PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("SamePasswordErrorHeader"), getResourceBundle().getString("ChangePasswordContent"));
 
-            else if (oldPassword.getText().equals(UserLoggedIn.Password) && newPassword.getText().equals(newPasswordConfirm.getText())) {
-                Database.changePassword(UserLoggedIn.Login, newPasswordConfirm.getText());
-                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("Sucseed"), Main.getResourceBundle().getString("ChangePasswordHeader"), Main.getResourceBundle().getString("ChangePasswordContent"));
-                UserLoggedIn.Password = newPasswordConfirm.getText();
+            else if (oldPassword.getText().equals(UserLoggedIn.PASSWORD) && newPassword.getText().equals(newPasswordConfirm.getText())) {
+                Database.changePassword(UserLoggedIn.LOGIN, newPasswordConfirm.getText());
+                PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("ChangePasswordHeader"), getResourceBundle().getString("ChangePasswordContent"));
+                UserLoggedIn.PASSWORD = newPasswordConfirm.getText();
                 Stage stage = (Stage) anchorPane.getScene().getWindow();
                 stage.close();
             } else
-                PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("BadPasswordErrorHeader"), Main.getResourceBundle().getString("ChangePasswordContent"));
+                PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("BadPasswordErrorHeader"), getResourceBundle().getString("ChangePasswordContent"));
         } else
-            PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("ChangePasswordErrorHeader"), Main.getResourceBundle().getString("ChangePasswordContent"));
+            PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("ChangePasswordErrorHeader"), getResourceBundle().getString("ChangePasswordContent"));
     }
 }

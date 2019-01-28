@@ -1,32 +1,32 @@
 package userInformations;
 
 public class UserLoggedIn {
-    public static String Login;
-    public static String Password;
-    public static String Name;
-    public static String Surname;
-    public static String Sex;
-    public static int Permission;
-    public static String Status;
-    public static String Class;
-    public static String ID_Klasy;
+    public static String LOGIN;
+    public static String PASSWORD;
+    public static String NAME;
+    public static String SURNAME;
+    public static String SEX;
+    public static int PERMISSION;
+    public static String STATUS;
+    public static String CLASS;
+    public static String ID_KLASY;
     public static String IP;
-    public static String City;
-    public static String Country;
+    public static String CITY;
+    public static String COUNTRY;
 
 
     public static void eraseData(){
-        Login=null;
-        Password=null;
-        Name=null;
-        Surname=null;
-        Sex=null;
-        Permission=-1;
-        Status=null;
-        Class=null;
-        ID_Klasy=null;
+        LOGIN =null;
+        PASSWORD =null;
+        NAME =null;
+        SURNAME =null;
+        SEX =null;
+        PERMISSION =-1;
+        STATUS =null;
+        CLASS =null;
+        ID_KLASY =null;
         IP=null;
-        City=null;
-        Country=null;
+        CITY =null;
+        COUNTRY =null;
     }
 }

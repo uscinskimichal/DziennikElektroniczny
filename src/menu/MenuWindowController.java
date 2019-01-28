@@ -1,20 +1,13 @@
 package menu;
 
-import alerts.PopUpAlerts;
-import javafx.scene.control.Button;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -26,8 +19,8 @@ public class MenuWindowController extends Navigator implements Initializable {
 
     private void printNetwork() {
         userIp.setText(UserLoggedIn.IP);
-        userCity.setText(UserLoggedIn.City);
-        userCountry.setText(UserLoggedIn.Country);
+        userCity.setText(UserLoggedIn.CITY);
+        userCountry.setText(UserLoggedIn.COUNTRY);
     }
 
     private void threadsAPI() {
@@ -39,7 +32,7 @@ public class MenuWindowController extends Navigator implements Initializable {
 
                 new Thread(() -> {
                     try {
-                        UserLoggedIn.City = getData(UserLoggedIn.IP, "city");
+                        UserLoggedIn.CITY = getData(UserLoggedIn.IP, "city");
                         semaphore.release();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -47,7 +40,7 @@ public class MenuWindowController extends Navigator implements Initializable {
                 }).start();
                 new Thread(() -> {
                     try {
-                        UserLoggedIn.Country = getData(UserLoggedIn.IP, "country_name");
+                        UserLoggedIn.COUNTRY = getData(UserLoggedIn.IP, "country_name");
                         semaphore.release();
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -57,8 +50,8 @@ public class MenuWindowController extends Navigator implements Initializable {
 
                 Platform.runLater(() -> {
                     userIp.setText(UserLoggedIn.IP);
-                    userCity.setText(UserLoggedIn.City);
-                    userCountry.setText(UserLoggedIn.Country);
+                    userCity.setText(UserLoggedIn.CITY);
+                    userCountry.setText(UserLoggedIn.COUNTRY);
                 });
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -67,12 +60,12 @@ public class MenuWindowController extends Navigator implements Initializable {
     }
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     private String getData(String myIp, String data) throws IOException {
@@ -86,7 +79,7 @@ public class MenuWindowController extends Navigator implements Initializable {
     }
 
     private String getIp() throws IOException {
-        String myIp = null;
+        String myIp;
         URL url = new URL("https://ipapi.co/ip");
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
         myIp = br.readLine();

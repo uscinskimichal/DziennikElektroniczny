@@ -1,11 +1,8 @@
 package notes;
 
-import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,10 +12,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -53,12 +47,12 @@ public class NotesWindowController extends Navigator implements Initializable {
     private TableColumn<Note, Double> columnValue;
 
     private void printUser(){
-        if(UserLoggedIn.Permission==1){
+        if(UserLoggedIn.PERMISSION ==1){
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -79,7 +73,7 @@ public class NotesWindowController extends Navigator implements Initializable {
     }
 
     private void fillTable(String subject) {
-        notes = Database.getNotes(subject, UserLoggedIn.Login);
+        notes = Database.getNotes(subject, UserLoggedIn.LOGIN);
         tableView.setItems(notes);
         double averageNote = 0;
         ifEmptyNotes(averageNote);
@@ -88,7 +82,7 @@ public class NotesWindowController extends Navigator implements Initializable {
 
     private void ifEmptyNotes(double averageNote) {
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         } else {
             for (int i = 0; i < notes.size(); i++)
@@ -103,12 +97,12 @@ public class NotesWindowController extends Navigator implements Initializable {
         printUser();
         double averageNote = 0;
 
-        if (UserLoggedIn.ID_Klasy != null)
-            subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_Klasy));
+        if (UserLoggedIn.ID_KLASY != null)
+            subjects = Database.getSubjects(Integer.parseInt(UserLoggedIn.ID_KLASY));
         if (!subjects.isEmpty())
-            notes = Database.getNotes(subjects.get(0), UserLoggedIn.Login);
+            notes = Database.getNotes(subjects.get(0), UserLoggedIn.LOGIN);
         else
-            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
+            subjects.add(getResourceBundle().getString("NoSubjects"));
 
 
         listSubjects.setItems(subjects);

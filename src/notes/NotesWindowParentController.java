@@ -1,21 +1,15 @@
 package notes;
 
-import alerts.PopUpAlerts;
 import database.Database;
-import main.Main;
 import navigator.Navigator;
 import userInformations.UserLoggedIn;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.text.DecimalFormat;
@@ -27,7 +21,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
     private String selectedItem;
     private ObservableList<String> subjects = FXCollections.observableArrayList();
     private ObservableList<Note> notes = FXCollections.observableArrayList();
-    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.Login);
+    private ArrayList<ArrayList<String>> children = Database.getChildren(UserLoggedIn.LOGIN);
     private String login;
     private String idClass;
 
@@ -57,12 +51,12 @@ public class NotesWindowParentController extends Navigator implements Initializa
     private TableColumn<Note, Double> columnValue;
 
     private void printUser() {
-        if (UserLoggedIn.Permission==1) {
+        if (UserLoggedIn.PERMISSION ==1) {
             clsLabel.setVisible(true);
             classLabel.setVisible(true);
-            classLabel.setText(UserLoggedIn.Class);
+            classLabel.setText(UserLoggedIn.CLASS);
         }
-        userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
+        userLabel.setText(UserLoggedIn.NAME + " " + UserLoggedIn.SURNAME);
     }
 
     @FXML
@@ -80,7 +74,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
         notes = Database.getNotes(subject, login);
         tableView.setItems(notes);
         if (notes.isEmpty()) {
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("LabelNoNotesSubject")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("LabelNoNotesSubject")));
             averageNoteLabel.setText(null);
         } else {
             double averageNote = 0;
@@ -102,9 +96,9 @@ public class NotesWindowParentController extends Navigator implements Initializa
         if (!subjects.isEmpty())
             fillTable(subjects.get(0));
         else {
-            subjects.add(Main.getResourceBundle().getString("NoSubjects"));
+            subjects.add(getResourceBundle().getString("NoSubjects"));
             tableView.getItems().clear();
-            tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NoNote")));
+            tableView.setPlaceholder(new Label(getResourceBundle().getString("NoNote")));
             averageNoteLabel.setText(null);
         }
 
@@ -132,7 +126,7 @@ public class NotesWindowParentController extends Navigator implements Initializa
         tableView.setItems(notes);
 
 
-        tableView.setPlaceholder(new Label(Main.getResourceBundle().getString("NotesShow")));
+        tableView.setPlaceholder(new Label(getResourceBundle().getString("NotesShow")));
 
     }
 }

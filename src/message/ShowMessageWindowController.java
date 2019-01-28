@@ -65,14 +65,13 @@ public class ShowMessageWindowController extends Navigator implements Initializa
 
         Scene scene = new Scene(root);
         newMessage.setScene(scene);
-        newMessage.setTitle(Main.getResourceBundle().getString("NewMessage"));
+        newMessage.setTitle(getResourceBundle().getString("NewMessage"));
         newMessage.setResizable(false);
         newMessage.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         Platform.runLater(() -> {
             ArrayList<String> nameAndSurnameSender = Database.getNameAndSurname(message.getSender());
             topic.setText(message.getTopic());
