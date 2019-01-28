@@ -98,7 +98,7 @@ public class MessageWindowController extends Navigator implements Initializable 
         stage.getIcons().add(new Image("file:./resources/images/message_icon.png"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.setTitle(Main.getResourceBundle().getString("NewMessages"));
+        stage.setTitle(Main.getResourceBundle().getString("NewMessage"));
         stage.setResizable(false);
         stage.show();
         return stage;
