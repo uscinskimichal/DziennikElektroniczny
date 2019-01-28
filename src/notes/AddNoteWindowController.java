@@ -131,7 +131,7 @@ public class AddNoteWindowController extends Navigator implements Initializable 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         userLabel.setText(UserLoggedIn.Name + " " + UserLoggedIn.Surname);
-        noteTypeBox.getItems().addAll("Kartkówka", "Sprawdzian", "Odpowiedź ustna", "Praca domowa", "Inne");
+        noteTypeBox.getItems().addAll(Main.getResourceBundle().getString("QuizLabel"), Main.getResourceBundle().getString("TestLabel"), Main.getResourceBundle().getString("AnswerLabel"), Main.getResourceBundle().getString("Homework"), Main.getResourceBundle().getString("AnotherAnswerLabel"));
         for (double note = 1.0; note <= 6.0; note = note + 0.5)
             noteValueBox.getItems().add(note);
 

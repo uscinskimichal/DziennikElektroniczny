@@ -97,13 +97,13 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
 
     @FXML
     private void justify() {
-        if (tableView.getSelectionModel().getSelectedItem().getAbsenceStatus().equals("Tak"))
+        if (tableView.getSelectionModel().getSelectedItem().getAbsenceStatus().equals(Main.getResourceBundle().getString("SetYes")))
             PopUpAlerts.popAlertError(Main.getResourceBundle().getString("ErrorCommunicat"), Main.getResourceBundle().getString("JustifyAbsence.header"), Main.getResourceBundle().getString("JustifyAbsence.content"));
         else {
             int absenceId = tableView.getSelectionModel().getSelectedItem().getAbsenceId();
             new Thread(() -> Database.justifyAbsence(absenceId)).start();
 
-            tableView.getSelectionModel().getSelectedItem().setAbsenceStatus("Tak");
+            tableView.getSelectionModel().getSelectedItem().setAbsenceStatus(Main.getResourceBundle().getString("SetYes"));
             absences.set(tableView.getSelectionModel().getSelectedIndex(), tableView.getSelectionModel().getSelectedItem());
 
             dataColumn.setCellValueFactory(new PropertyValueFactory<>("absenceDate"));
@@ -121,7 +121,7 @@ public class JustifyAbsenceWindowController extends Navigator implements Initial
                 classesBox.getItems().add(map.getValue());
 
             if (classes.isEmpty()) {
-                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("Absence.InitializeHeader"), "Podgląd ocen");
+                PopUpAlerts.popAlertInformation(Main.getResourceBundle().getString("AttentionMessage"), Main.getResourceBundle().getString("Absence.InitializeHeader"), Main.getResourceBundle().getString("ShowNoteContent"));
                 Main.changeScene("/absences/CheckAbsenceWindow.fxml", Main.getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
             }
         });

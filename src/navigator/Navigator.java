@@ -76,7 +76,7 @@ public abstract class Navigator {
 
     @FXML
     private void backToMenu() {
-        Main.changeScene("/menu/MenuWindow.fxml", "Dziennik Elektroniczny", Main.getPrimaryStage());
+        Main.changeScene("/menu/MenuWindow.fxml", Main.getResourceBundle().getString("Application.title"), Main.getPrimaryStage());
     }
 
 
