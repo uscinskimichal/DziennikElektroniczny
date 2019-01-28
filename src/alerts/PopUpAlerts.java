@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import main.Main;
 
 import java.util.Optional;
 
@@ -14,8 +15,8 @@ public class PopUpAlerts {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image("file:./resources/images/confirm_icon.png"));
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText("Nie");
-        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText("Tak");
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.CANCEL)).setText(Main.getResourceBundle().getString("SetNo"));
+        ((Button) alert.getDialogPane().lookupButton(ButtonType.OK)).setText(Main.getResourceBundle().getString("SetYes"));
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
