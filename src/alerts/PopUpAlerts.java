@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import main.Main;
 
 import java.util.Optional;
 import java.util.ResourceBundle;

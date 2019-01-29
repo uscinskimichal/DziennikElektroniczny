@@ -31,10 +31,9 @@ public class Database {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            String user = ResourceBundle.getBundle("boundles.messages").getString("DatabaseUser");
-            String password = ResourceBundle.getBundle("boundles.messages").getString("DatabasePassword");
-            connection = DriverManager.getConnection(
-                    "jdbc:mysql://db4free.net:3306/dziennik_elektr?verifyServerCertificate=false&useSSL=false", user, password);
+            String user = ResourceBundle.getBundle("boundles.database").getString("DatabaseUser");
+            String password = ResourceBundle.getBundle("boundles.database").getString("DatabasePassword");
+            connection = DriverManager.getConnection(ResourceBundle.getBundle("boundles.database").getString("DatabaseAddress"), user, password);
             System.out.println("Connected!");
             Database.isConnected = true;
         } catch (Exception ex) {

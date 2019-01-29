@@ -7,10 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import main.Main;
 import navigator.Navigator;
-
-import java.io.IOException;
 
 
 public class NewMessageWindowController extends Navigator {

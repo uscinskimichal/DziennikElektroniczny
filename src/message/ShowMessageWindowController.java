@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import main.Main;
 import navigator.Navigator;
 
 import java.io.IOException;
