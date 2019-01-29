@@ -50,9 +50,9 @@ public class LoginWindowController extends Navigator {
             return;
         }
 
-        if (ConnectionChecker.isInternetConnected)
+        if (ConnectionChecker.isInternetConnected && !Database.isConnected)
             Database.connectingThread();
-        else {
+        else if(!ConnectionChecker.isInternetConnected){
             PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("InternetErrorHeader"), getResourceBundle().getString("InternetContent"));
             return;
         }

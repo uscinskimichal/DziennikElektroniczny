@@ -160,6 +160,9 @@ public class MessageWindowController extends Navigator implements Initializable 
             }
 
         }
+        if (messagesReceived.isEmpty())
+            tableViewReceived.setPlaceholder(new Label(getResourceBundle().getString("NoMessages")));
+        if (messagesSent.isEmpty()) tableViewSent.setPlaceholder(new Label(getResourceBundle().getString("NoMessages")));
 
     }
 

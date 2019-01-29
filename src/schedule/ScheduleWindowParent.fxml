@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schedule.ScheduleWindowParentController">
+<AnchorPane prefHeight="792.0" prefWidth="1175.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="schedule.ScheduleWindowParentController">
    <children>
       <AnchorPane prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;">
          <children>
@@ -102,7 +102,7 @@
                   <TableColumn fx:id="fridayCol" prefWidth="167.99993896484375" style="-fx-background-color: #white;" text="Piątek" />
                </columns>
             </TableView>
-            <ComboBox fx:id="comboBox" layoutX="262.0" layoutY="261.0" onAction="#setDataToDisplay" prefHeight="36.0" prefWidth="240.0" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+            <ComboBox fx:id="comboBox" layoutX="262.0" layoutY="261.0" onAction="#setDataToDisplay" prefHeight="36.0" prefWidth="240.0" promptText="Wybierz dziecko" style="-fx-background-color: white; -fx-border-color: #58972e;" />
             <Text fill="#58972e" layoutX="87.0" layoutY="285.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Plan zajęć  dziecka">
                <font>
                   <Font name="System Bold Italic" size="18.0" />
