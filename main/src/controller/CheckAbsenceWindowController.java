@@ -77,7 +77,7 @@ public class CheckAbsenceWindowController extends Navigator implements Initializ
 
     @FXML
     private void goToJustifyAbsence() {
-        changeScene("/Absences/JustifyAbsenceWindow.fxml", getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
+        changeScene("/resources/fxml/JustifyAbsenceWindow.fxml", getResourceBundle().getString("Absence.Title"), Main.getPrimaryStage());
     }
 
     @FXML
