@@ -21,14 +21,14 @@ public class GenerateReport extends Navigator implements Runnable {
     public void run() {
         try {
             Platform.runLater( () -> PopUpAlerts.popAlertInformation(getResourceBundle().getString("Sucseed"), getResourceBundle().getString("RaportGenerated"), getResourceBundle().getString("RaportGeneratedContent")));
-            JasperDesign jasperDesign = JRXmlLoader.load("main\\resources\\reports\\Report.jrxml");
+            JasperDesign jasperDesign = JRXmlLoader.load("src\\resources\\reports\\Report.jrxml");
             String query = "select O.Imie, O.Nazwisko, K.Skrot from Osoba O inner join Osoba_Klasa OK on O.LOGIN=OK.LOGIN inner join Klasa K on K.ID_KLASY=OK.ID_KLASY where K.ID_KLASY=" + idClass;
             JRDesignQuery designQuery = new JRDesignQuery();
             designQuery.setText(query);
             jasperDesign.setQuery(designQuery);
             JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, null, Database.getMySQLConnection());
-            JasperExportManager.exportReportToPdfFile(jasperPrint, "main\\resources\\reports\\RaportUczniowieKlasy.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, "src\\resources\\reports\\RaportUczniowieKlasy.pdf");
         } catch (JRException e) {
             Platform.runLater( () -> PopUpAlerts.popAlertError(getResourceBundle().getString("ErrorCommunicat"), getResourceBundle().getString("RaportError"), getResourceBundle().getString("RaportGeneratedContent")));
             e.printStackTrace();
