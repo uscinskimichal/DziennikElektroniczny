@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="button3" prefHeight="792.0" prefWidth="1175.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.controller.CheckNotesIPutWindowController">
+   <children>
+      <ImageView fitHeight="32.0" fitWidth="46.0" layoutX="25.0" layoutY="164.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/student.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="85.0" layoutY="185.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Użytkownik:">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Text>
+      <Label fx:id="userLabel" layoutX="192.0" layoutY="171.0" text="main.login" textFill="#58972e" />
+      <Separator layoutY="310.0" prefHeight="3.0" prefWidth="1175.0" />
+      <Separator layoutY="243.0" prefHeight="3.0" prefWidth="1175.0" />
+      <Pane layoutX="-1.0" opacity="0.15" prefHeight="143.0" prefWidth="1178.0" style="-fx-background-color: grey;">
+         <children>
+            <Label layoutX="298.0" layoutY="53.0" prefHeight="58.0" prefWidth="649.0" text="Dziennik elektroniczny dla szkół " textFill="WHITE" textOverrun="WORD_ELLIPSIS">
+               <font>
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="150.0" fitWidth="69.0" layoutX="27.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="/resources/images/48367581_401835800556209_6895892107685265408_n.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Button layoutX="1052.0" layoutY="40.0" mnemonicParsing="false" onAction="#logout" prefWidth="97.0" style="-fx-background-color: #58972e;" text="Wyloguj" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Label layoutX="94.0" layoutY="48.0" prefHeight="32.0" prefWidth="97.0" text="Sinusoida" textAlignment="CENTER" textFill="#58972e">
+         <font>
+            <Font name="System Bold Italic" size="20.0" />
+         </font>
+      </Label>
+      <BorderPane layoutX="320.0" layoutY="215.0" />
+      <Text fill="#58972e" layoutX="87.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Edycja oceny">
+         <font>
+            <Font name="System Bold Italic" size="18.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="button1" accessibleRole="BUTTON" fitHeight="77.0" fitWidth="46.0" layoutX="1101.0" layoutY="153.0" onMouseClicked="#backToMenu" onScrollStarted="#backToMenu" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/główna.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="button4" fitHeight="43.0" fitWidth="50.0" layoutX="862.0" layoutY="157.0" onMouseClicked="#goToSchedule" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/planZajęć.png" />
+         </image>
+      </ImageView>
+      <Separator layoutX="1090.0" layoutY="137.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="10.0" />
+      <Separator layoutX="1007.0" layoutY="137.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="10.0" />
+      <Separator layoutX="921.0" layoutY="138.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="10.0" />
+      <Separator layoutX="837.0" layoutY="139.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="10.0" />
+      <Separator layoutX="753.0" layoutY="139.0" orientation="VERTICAL" prefHeight="62.0" prefWidth="10.0" />
+      <ImageView fx:id="button2" fitHeight="50.0" fitWidth="58.0" layoutX="1023.0" layoutY="155.0" onMouseClicked="#goToChangePassword" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/png.JPG" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="58.0" fitWidth="65.0" layoutX="936.0" layoutY="147.0" onMouseClicked="#goToNotes" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/nieobecności.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="button5" fitHeight="46.0" fitWidth="50.0" layoutX="776.0" layoutY="156.0" onMouseClicked="#goToAbsences" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/kalendarz.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="43.0" fitWidth="50.0" layoutX="690.0" layoutY="157.0" onMouseClicked="#goToMessages" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/resources/images/wiadomości..png" />
+         </image>
+      </ImageView>
+      <ComboBox fx:id="subjectsBox" layoutX="84.0" layoutY="396.0" onAction="#getMembersOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz przedmiot" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+      <ComboBox fx:id="membersBox" layoutX="84.0" layoutY="456.0" onAction="#showNotesIPut" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz ucznia" style="-fx-background-color: white; -fx-border-color: #58972e #58972e;" />
+      <TableView fx:id="tableView" layoutX="87.0" layoutY="528.0" onMouseClicked="#tableListener" prefHeight="234.0" prefWidth="800.0">
+         <columns>
+            <TableColumn fx:id="columnData" prefWidth="247.19996643066406" text="Data" />
+            <TableColumn fx:id="columnValue" minWidth="3.20001220703125" prefWidth="106.39999389648438" text="Wartość" />
+            <TableColumn fx:id="columnType" prefWidth="182.4000244140625" text="Typ" />
+            <TableColumn fx:id="columnComment" prefWidth="258.4000244140625" text="Uwagi" />
+         </columns>
+      </TableView>
+      <Button fx:id="editNoteButton" disable="true" layoutX="1037.0" layoutY="724.0" mnemonicParsing="false" onAction="#editNote" style="-fx-background-color: #58972e #58972e;" text="Edytuj ocenę" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="classesBox" layoutX="84.0" layoutY="335.0" onAction="#getSubjectsOfClass" prefHeight="43.0" prefWidth="215.0" promptText="Wybierz klasę" style="-fx-background-color: white; -fx-border-color: #58972e;" />
+      <Button layoutX="946.0" layoutY="313.0" mnemonicParsing="false" onAction="#goToAddNote" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e #998e8e;" text="Dodawanie ocen" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button layoutX="946.0" layoutY="357.0" mnemonicParsing="false" onAction="#goToNoteHead" prefHeight="34.0" prefWidth="230.0" style="-fx-background-color: #998e8e;" text="Oceny mojej klasy" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
