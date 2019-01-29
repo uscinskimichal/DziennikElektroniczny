@@ -73,12 +73,12 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
 
     @FXML
     private void goToAddNote() {
-        changeScene("/Notes/AddNoteWindow.fxml", getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
+        changeScene("/resources/fxml/AddNoteWindow.fxml", getResourceBundle().getString("NotesTitle"), Main.getPrimaryStage());
     }
 
     @FXML
     private void goToNoteHead() {
-        changeScene("/Notes/NotesWindowEducator.fxml", getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
+        changeScene("/resources/fxml/NotesWindowEducator.fxml", getResourceBundle().getString("ToNoteHead"), Main.getPrimaryStage());
     }
 
     @FXML
@@ -130,7 +130,7 @@ public class CheckNotesIPutWindowController extends Navigator implements Initial
         controller.setNote(tableView.getSelectionModel().getSelectedItem());
         controller.setController(this);
 
-        editNote.getIcons().add(new Image("file:./resources/images/editnote_icon.png"));
+        editNote.getIcons().add(new Image("resources/images/editnote_icon.png"));
         Scene scene = new Scene(root);
         editNote.setScene(scene);
         editNote.setTitle(getResourceBundle().getString("MessageTitleNote"));

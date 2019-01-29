@@ -197,7 +197,7 @@ public class Database {
             statement = connection.createStatement();
             resultSet = statement.executeQuery("select Login from Osoba where Login='" + login + "'");
             if (resultSet.next())
-                return login.equals(resultSet.getString("src/login"));
+                return login.equals(resultSet.getString("login"));
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -238,7 +238,7 @@ public class Database {
 
                 note.add(resultSet.getString("ID_Oceny"));
                 note.add(resultSet.getString("ID_Przedmiotu"));
-                note.add(resultSet.getString("src/login"));
+                note.add(resultSet.getString("login"));
                 note.add(resultSet.getString("Wartosc"));
                 note.add(resultSet.getString("Typ"));
                 note.add(resultSet.getString("Data"));
@@ -359,7 +359,7 @@ public class Database {
             resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko, OK.ID_Klasy, K.Skrot from Osoba O inner join RodzicOsoby RO on O.Login=RO.Oso_Login inner join Osoba_Klasa OK on O.Login=OK.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy where RO.Login='" + login + "'");
             while (resultSet.next()) {
                 ArrayList<String> child = new ArrayList<>();
-                child.add(resultSet.getString("src/login"));
+                child.add(resultSet.getString("login"));
                 child.add(resultSet.getString("Imie"));
                 child.add(resultSet.getString("Nazwisko"));
                 child.add(resultSet.getString("ID_KLASY"));
@@ -415,7 +415,7 @@ public class Database {
             resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login where OK.ID_Klasy='" + classId + "'");
             while (resultSet.next()) {
                 ArrayList<String> member = new ArrayList<>();
-                member.add(resultSet.getString("src/login"));
+                member.add(resultSet.getString("login"));
                 member.add(resultSet.getString("Imie"));
                 member.add(resultSet.getString("Nazwisko"));
                 members.add(member);
@@ -478,7 +478,7 @@ public class Database {
             while (resultSet.next()) {
                 note.add(resultSet.getString("ID_Oceny"));
                 note.add(resultSet.getString("ID_Przedmiotu"));
-                note.add(resultSet.getString("src/login"));
+                note.add(resultSet.getString("login"));
                 note.add(resultSet.getString("Wartosc"));
                 note.add(resultSet.getString("Typ"));
                 note.add(resultSet.getString("Data"));
@@ -510,7 +510,7 @@ public class Database {
             resultSet = statement.executeQuery("select O.Login, O.Imie, O.Nazwisko, K.ID_Klasy, K.Skrot from Osoba O inner join Osoba_Klasa OK on OK.Login=O.Login inner join Klasa K on K.ID_Klasy=OK.ID_Klasy WHERE K.ID_Wychowawcy='" + login + "'");
             while (resultSet.next()) {
                 ArrayList<String> child = new ArrayList<>();
-                child.add(resultSet.getString("src/login"));
+                child.add(resultSet.getString("login"));
                 child.add(resultSet.getString("Imie"));
                 child.add(resultSet.getString("Nazwisko"));
                 child.add(resultSet.getString("ID_KLASY"));
